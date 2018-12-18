@@ -7,7 +7,6 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  console.log(process.env.NODE_ENV)
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
   const winUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : `file://${__dirname}/build/index.html`
