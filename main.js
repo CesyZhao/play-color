@@ -7,7 +7,13 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  const windowConfig = {
+    frame: false,
+    resizable: false,
+    width: 700,
+    height: 450
+  }
+  mainWindow = new BrowserWindow(windowConfig)
 
   const winUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : `file://${__dirname}/build/index.html`
   // and load the index.html of the app.
