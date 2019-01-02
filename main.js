@@ -8,8 +8,11 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   const windowConfig = {
-    frame: false,
+    titleBarStyle: 'hidden',
+    backgroundColor: 'none',
     resizable: false,
+    maximizable: false,
+    fullscreenable: false,
     width: 700,
     height: 450
   }
