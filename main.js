@@ -13,8 +13,8 @@ function createWindow () {
     resizable: false,
     maximizable: false,
     fullscreenable: false,
-    width: 700,
-    height: 450
+    width: 964,
+    height: 608
   }
   mainWindow = new BrowserWindow(windowConfig)
 
