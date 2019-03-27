@@ -4,7 +4,7 @@ import './LeftBar.less'
 class LeftBar extends Component {
   render () {
     return (
-      <div className='leftBar'></div>
+      <div className='pl-leftBar'></div>
     )
   }
 }
