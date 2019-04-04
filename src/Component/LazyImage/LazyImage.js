@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import logo from '../../../logo.png'
 
 class LazyImage extends Component{
   static propTypes = {
@@ -8,7 +9,12 @@ class LazyImage extends Component{
     imgUrl: PropTypes.string.isRequired
   }
   static defaultProps = {
-    shape: 'squared'
+    shape: 'squared',
+    width: 100,
+    height: 100
+  }
+  state = {
+    imageReady: false
   }
 
   render() {
@@ -18,7 +24,11 @@ class LazyImage extends Component{
     }
     return (
       <div className={`pl-lazy-image-wrapper ${this.props.shape}`} style={ style }>
-
+        {
+          this.state.imageReady ? 
+            <img src={this.props.imgUrl} className="pl-lazy-image" /> :
+            <img src={logo}  className="pl-lazy-image" />
+        }
       </div>
     )
   }
