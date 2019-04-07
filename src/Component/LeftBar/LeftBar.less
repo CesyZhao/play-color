@@ -1,6 +1,34 @@
 .pl-leftBar {
   height: calc(100vh - 104px);
   width: 180px;
-  padding-top: 48px;
+  padding: 48px 16px 0;
   border-right: .5px solid #222;
+  .pl-leftBar-user{
+    height: 64px;
+    display: flex;
+    align-items: center;
+    .pl-leftBar-user-nickname{
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-left: 18px;
+      font-size: 16px;
+      color: #fff;
+      img{
+        width: 22px;
+        height: 22px;
+        position: relative;
+        left: -12px;
+        animation: more-animation 1s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+@keyframes more-animation {
+  100%{
+    left: 8px;
+    opacity: 0;
+  }
 }
