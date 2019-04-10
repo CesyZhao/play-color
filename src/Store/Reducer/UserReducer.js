@@ -8,5 +8,7 @@ export default function UserReducer (state = initState, action) {
   switch (action.type) {
     case GET_USER_INFO:
       return state
+    default:
+      return state
   }
 }

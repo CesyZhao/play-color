@@ -5,16 +5,25 @@ import more from '../../Asset/more.png'
 import {connect} from 'react-redux'
 
 @connect(
-  state => state
+  state => {
+    return {
+      user: state.user
+    }
+  }
 )
 class LeftBar extends Component {
   render () {
+    const { userInfo } = this.props.user
     return (
       <div className='pl-leftBar'>
         <div className='pl-leftBar-user'>
           <LazyImage  width={64} height={64}/>
           <div className='pl-leftBar-user-nickname'>
-            <span>未登录</span>
+            <span>
+              {
+                userInfo.nickname ? userInfo.nickname : '未登录'
+              }
+            </span>
             <img src={more} alt=""/>
           </div>
         </div>
