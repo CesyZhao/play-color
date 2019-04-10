@@ -2,7 +2,11 @@ import React, {Component} from 'react'
 import './LeftBar.less'
 import LazyImage from '../LazyImage/LazyImage'
 import more from '../../Asset/more.png'
+import {connect} from 'react-redux'
 
+@connect(
+  state => state
+)
 class LeftBar extends Component {
   render () {
     return (
