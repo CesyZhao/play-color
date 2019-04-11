@@ -1,7 +1,7 @@
 import { GET_USER_INFO } from '../Action/actions'
 
 const initState = {
-  userInfo: {}
+  userInfo: null
 }
 
 export default function UserReducer (state = initState, action) {

@@ -7,7 +7,7 @@ import './Controller.less'
 class Controller extends Component{
   render() {
     return (
-      <div className='pl-controller'>
+      <div className='pc-controller'>
 
       </div>
     )

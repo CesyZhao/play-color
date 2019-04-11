@@ -28,11 +28,11 @@ class LazyImage extends Component{
       height: `${this.props.height}px`
     }
     return (
-      <div className={`pl-lazy-image-wrapper ${this.props.shape}`} style={ style }>
+      <div className={`pc-lazy-image-wrapper ${this.props.shape}`} style={ style }>
         {
           this.state.imageReady ? 
-            <img src={this.props.imgUrl} className="pl-lazy-image" alt=""/> :
-            <img src={logo}  className="pl-lazy-image" alt=""/>
+            <img src={this.props.imgUrl} className="pc-lazy-image" alt=""/> :
+            <img src={logo}  className="pc-lazy-image" alt=""/>
         }
       </div>
     )

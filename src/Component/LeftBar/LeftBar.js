@@ -15,13 +15,13 @@ class LeftBar extends Component {
   render () {
     const { userInfo } = this.props.user
     return (
-      <div className='pl-leftBar'>
-        <div className='pl-leftBar-user'>
+      <div className='pc-leftBar'>
+        <div className='pc-leftBar-user'>
           <LazyImage  width={64} height={64}/>
-          <div className='pl-leftBar-user-nickname'>
+          <div className='pc-leftBar-user-nickname'>
             <span>
               {
-                userInfo.nickname ? userInfo.nickname : '未登录'
+                userInfo ? userInfo.nickname : '未登录'
               }
             </span>
             <img src={more} alt=""/>
