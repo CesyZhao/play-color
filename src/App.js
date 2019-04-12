@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.less';
 import LeftBar from './Component/LeftBar/LeftBar.js';
 import Controller from './Component/Controller/Controller'
+import Login from './Component/Login/Login'
 
 class App extends Component {
   render() {
@@ -10,6 +11,7 @@ class App extends Component {
         <header className="pc-header" />
         <LeftBar />
         <Controller />
+        <Login />
       </div>
     );
   }
