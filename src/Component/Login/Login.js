@@ -69,6 +69,8 @@ class Login extends Component {
 
     ctx.strokeStyle = "#ff0000"
 
+    ctx.shadowColor = '#ff0000'
+
     ctx.stroke()
 
 
@@ -93,7 +95,11 @@ class Login extends Component {
 
     )
 
-    ctx.strokeStyle = "#0000ff"
+    ctx.strokeStyle = "#35c8e6"
+
+    ctx.shadowBlur = 20
+
+    ctx.shadowColor = '#35c8e6'
 
     ctx.stroke()
 
