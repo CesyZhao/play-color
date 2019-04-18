@@ -131,6 +131,13 @@ class Login extends Component {
     return (
       <div className='pc-login'>
         <canvas className='pc-login-canvas' ref='canvas'></canvas>
+        <div className='pc-login-form-wrapper'>
+          <form>
+            <input type="text"/>
+            <input type="password"/>
+            <button>Login</button>
+          </form>
+        </div>
       </div>
     )
   }
