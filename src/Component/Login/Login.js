@@ -92,11 +92,11 @@ class Login extends Component {
   render() {
     return (
       <div className='pc-login'>
-        <canvas className='pc-login-canvas' ref='canvas'></canvas>
+        <canvas className='pc-login-canvas' ref='canvas' />
         <div className='pc-login-form-wrapper'>
           <form>
-            <input type="text"/>
-            <input type="password"/>
+            <input type="text" placeholder="请输入手机号"/>
+            <input type="password" placeholder="请输入密码"/>
             <button>Login</button>
           </form>
         </div>
