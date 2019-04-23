@@ -14,7 +14,7 @@ class Login extends Component {
   initCanvas = () => {
     const c = this.refs.canvas
     console.log(c.style)
-    const width = 240
+    const width = 260
     const height = 200
     const ctx = c.getContext("2d")
     c.width = width
