@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import './Login.less'
+import propTypes from 'prop-types'
 
 let WAVE_HEIGHT = 40 //波浪变化高度
 
@@ -10,6 +11,14 @@ let CYCLE = 360 / SCALE
 let TIME = 0
 
 class Login extends Component {
+
+  static propTypes = {
+    show: propTypes.bool.isRequired
+  }
+
+  static defaultProps = {
+    show: false
+  }
 
   initCanvas = () => {
     const c = this.refs.canvas
@@ -43,7 +52,7 @@ class Login extends Component {
       height * 0.5 + distance(WAVE_HEIGHT, angle, 3 * dAngle)
     )
     ctx.strokeStyle = "#57E1E7"
-    ctx.shadowColor = '#7BA3FF'
+    ctx.shadowColor = '#57E1E7'
     ctx.stroke()
 
     ctx.beginPath()
@@ -58,7 +67,7 @@ class Login extends Component {
     )
     ctx.strokeStyle = "#7BA3FF"
     ctx.shadowBlur = 20
-    ctx.shadowColor = '#57E1E7'
+    ctx.shadowColor = '#7BA3FF'
     ctx.stroke()
 
     ctx.beginPath()
@@ -73,7 +82,7 @@ class Login extends Component {
     )
     ctx.strokeStyle = "#9B30FF"
     ctx.shadowBlur = 20
-    ctx.shadowColor = '#57E1E7'
+    ctx.shadowColor = '#9B30FF'
     ctx.stroke()
 
     function distance(height, currAngle, diffAngle) {
@@ -86,11 +95,12 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    this.initCanvas()
+    this.props.show && this.initCanvas()
   }
 
   render() {
     return (
+      this.props.show &&
       <div className='pc-login'>
         <canvas className='pc-login-canvas' ref='canvas' />
         <div className='pc-login-form-wrapper'>
