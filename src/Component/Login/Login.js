@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import './Login.less'
-import propTypes from 'prop-types'
+import EventBus from '../../events'
 
 let WAVE_HEIGHT = 40 //波浪变化高度
 
@@ -12,12 +12,14 @@ let TIME = 0
 
 class Login extends Component {
 
-  static propTypes = {
-    show: propTypes.bool.isRequired
+  state = {
+    show: false
   }
 
-  static defaultProps = {
-    show: false
+  setStateAsync = (state) => {
+    return new Promise((resolve) => {
+      this.setState(state, resolve)
+    });
   }
 
   initCanvas = () => {
@@ -95,12 +97,17 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    this.props.show && this.initCanvas()
+    EventBus.on('toggleLogin', async () => {
+      await this.setStateAsync({
+        show: !this.state.show
+      })
+      this.state.show && this.initCanvas()
+    })
   }
 
   render() {
     return (
-      this.props.show &&
+      this.state.show &&
       <div className='pc-login'>
         <canvas className='pc-login-canvas' ref='canvas' />
         <div className='pc-login-form-wrapper'>

@@ -3,6 +3,7 @@ import './LeftBar.less'
 import LazyImage from '../LazyImage/LazyImage'
 import more from '../../Asset/more.png'
 import {connect} from 'react-redux'
+import EventBus from '../../events'
 
 @connect(
   state => {
@@ -12,6 +13,11 @@ import {connect} from 'react-redux'
   }
 )
 class LeftBar extends Component {
+
+  handleNickNameClick = () => {
+    EventBus.emit('toggleLogin')
+  }
+
   render () {
     const { userInfo } = this.props.user
     return (
@@ -19,7 +25,7 @@ class LeftBar extends Component {
         <div className='pc-leftBar-user'>
           <LazyImage  width={64} height={64}/>
           <div className='pc-leftBar-user-nickname'>
-            <span>
+            <span onClick={this.handleNickNameClick}>
               {
                 userInfo ? userInfo.nickname : '未登录'
               }
