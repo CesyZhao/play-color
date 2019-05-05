@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import logo from '../../Asset/logo_no_des.png'
+import logo from '../../asset/logo_no_des.png'
 import './LazyImage.less'
 
 /**
@@ -30,7 +30,7 @@ class LazyImage extends Component{
     return (
       <div className={`pc-lazy-image-wrapper ${this.props.shape}`} style={ style }>
         {
-          this.state.imageReady ? 
+          this.state.imageReady ?
             <img src={this.props.imgUrl} className="pc-lazy-image" alt=""/> :
             <img src={logo}  className="pc-lazy-image" alt=""/>
         }

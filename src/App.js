@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.less';
-import LeftBar from './Component/LeftBar/LeftBar.js';
-import Controller from './Component/Controller/Controller'
-import Login from './Component/Login/Login'
+import LeftBar from './component/LeftBar/LeftBar.js';
+import Controller from './component/Controller/Controller'
+import Login from './component/Login/Login'
 
 class App extends Component {
   render() {

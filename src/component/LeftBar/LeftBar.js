@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import './LeftBar.less'
 import LazyImage from '../LazyImage/LazyImage'
-import more from '../../Asset/more.png'
+import more from '../../asset/more.png'
 import {connect} from 'react-redux'
 import EventBus from '../../events'
 
