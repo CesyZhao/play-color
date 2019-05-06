@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.less';
+import './theme/theme-default.less'
 import LeftBar from './component/LeftBar/LeftBar.js';
 import Controller from './component/Controller/Controller'
 import Login from './component/Login/Login'
@@ -14,7 +15,7 @@ class App extends Component {
         <LeftBar />
         <Controller />
         <Login />
-        <ToastContainer />
+        <ToastContainer hideProgressBar/>
       </div>
     );
   }
