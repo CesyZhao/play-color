@@ -13,18 +13,18 @@ instance.interceptors.response.use((resp) => {
     switch(error.response.status){
       case 401:
 
-        break
+        break;
       case 403:
 
-        break
+        break;
       case 404:
 
-        break
+        break;
       case 500:
 
-        break
+        break;
     }
   }
-  return Promise.reject(error)
+  return Promise.reject(error);
 })
-export default instance
+export default instance;

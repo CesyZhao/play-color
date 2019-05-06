@@ -3,6 +3,8 @@ import './App.less';
 import LeftBar from './component/LeftBar/LeftBar.js';
 import Controller from './component/Controller/Controller'
 import Login from './component/Login/Login'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 
 class App extends Component {
   render() {
@@ -12,6 +14,7 @@ class App extends Component {
         <LeftBar />
         <Controller />
         <Login />
+        <ToastContainer />
       </div>
     );
   }
