@@ -1,8 +1,21 @@
 .pc-route-container{
   width: calc(100vw - 180px);
   height: calc(100vh - 56px);
-  background-color: #fff;
   .pc-tool-bar{
     height: 48px;
+    padding: 0 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    -webkit-app-region: drag;
+    position: relative;
+    z-index: 2;
+    .pc-tool-bar-tools{
+      color: #fff;
+      i{ margin-right: 8px; cursor: pointer !important; -webkit-app-region: no-drag;}
+      &:nth-last-child(1){
+        i{font-size: 18px;}
+      }
+    }
   }
 }

@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import './LeftBar.less'
 import LazyImage from '../LazyImage/LazyImage'
-import more from '../../asset/more.png'
 import {connect} from 'react-redux'
 import EventBus from '../../events'
 
@@ -30,7 +29,7 @@ class LeftBar extends Component {
                 userInfo ? userInfo.nickname : '未登录'
               }
             </span>
-            <img src={more} alt=""/>
+            <i className='iconfont icon-iconmore' />
           </div>
         </div>
       </div>
