@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <div className="play-color">
-        {/*<header className="pc-header" />*/}
+        <header className="pc-header" />
         <LeftBar />
         <RouteContainer />
         <Controller />
