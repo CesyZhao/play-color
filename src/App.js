@@ -8,18 +8,21 @@ import Login from './component/Login/Login'
 import RouteContainer from './component/RouteContainer/RouteContainer'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
+import {BrowserRouter} from 'react-router-dom'
 
 class App extends Component {
   render() {
     return (
-      <div className="play-color">
-        <header className="pc-header" />
-        <LeftBar />
-        <RouteContainer />
-        <Controller />
-        <Login />
-        <ToastContainer hideProgressBar/>
-      </div>
+      <BrowserRouter>
+        <div className="play-color">
+          <header className="pc-header" />
+          <LeftBar />
+          <RouteContainer />
+          <Controller />
+          <Login />
+          <ToastContainer hideProgressBar/>
+        </div>
+      </BrowserRouter>
     );
   }
 }

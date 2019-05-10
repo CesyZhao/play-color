@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {toast} from 'react-toastify'
+import {BASE_URL} from './index'
 
 const errorToast = (message) => {
   return toast(message, {
@@ -11,6 +12,7 @@ const instance = axios.create({
   xhrFields: {
     withCredentials: true
   },
+  baseURL: BASE_URL,
   timeout:50000
 })
 instance.interceptors.response.use((resp) => {
