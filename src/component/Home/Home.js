@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './Home.less'
 import http from '../../config/http'
+import {toast} from 'react-toastify'
 
 class Home extends Component {
 
@@ -8,8 +9,9 @@ class Home extends Component {
     albumList : []
   }
 
-  componentWillMount() {
-
+  async componentWillMount () {
+    let albumList = await http.get('/personalized')
+    console.log(albumList)
   }
 
   render() {
