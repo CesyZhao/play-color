@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './Login.less'
 import EventBus from '../../events'
+import {CSSTransition} from 'react-transition-group'
 
 let WAVE_HEIGHT = 40 //波浪变化高度
 
@@ -101,23 +102,35 @@ class Login extends Component {
       await this.setStateAsync({
         show: !this.state.show
       })
+      console.log(WAVE_HEIGHT)
+      console.log(SCALE)
+      console.log(CYCLE)
+      console.log(TIME)
       this.state.show && this.initCanvas()
     })
   }
 
+  resetConfig = () => {
+    WAVE_HEIGHT = 40 //波浪变化高度
+    SCALE = 0.5 // 绘制速率
+    CYCLE = 360 // SCALE
+    TIME = 0
+  }
+
   render() {
     return (
-      this.state.show &&
-      <div className='pc-login'>
-        <canvas className='pc-login-canvas' ref='canvas' />
-        <div className='pc-login-form-wrapper'>
-          <form>
-            <input type="text" placeholder="请输入手机号"/>
-            <input type="password" placeholder="请输入密码"/>
-            <button>Login</button>
-          </form>
+      <CSSTransition in={this.state.show} timeout={100} unmountOnExit classNames="pc-login" onExited={this.resetConfig}>
+        <div className='pc-login'>
+          <canvas className='pc-login-canvas' ref='canvas' />
+          <div className='pc-login-form-wrapper'>
+            <form>
+              <input type="text" placeholder="请输入手机号"/>
+              <input type="password" placeholder="请输入密码"/>
+              <button>Login</button>
+            </form>
+          </div>
         </div>
-      </div>
+      </CSSTransition>
     )
   }
 }
