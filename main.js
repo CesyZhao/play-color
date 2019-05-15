@@ -8,7 +8,7 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   const windowConfig = {
-    titleBarStyle: 'hiddenInset',
+    titleBarStyle: 'hidden',
     backgroundColor: 'none',
     resizable: false,
     maximizable: false,
