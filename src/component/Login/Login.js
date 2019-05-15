@@ -7,9 +7,7 @@ let WAVE_HEIGHT = 40 //波浪变化高度
 
 let SCALE = 0.5 // 绘制速率
 
-let CYCLE = 360 / SCALE
-
-let TIME = 0
+let CYCLE = 360 // SCALE
 
 class Login extends Component {
 
@@ -20,23 +18,24 @@ class Login extends Component {
   setStateAsync = (state) => {
     return new Promise((resolve) => {
       this.setState(state, resolve)
-    });
+    })
   }
 
   initCanvas = () => {
     const c = this.refs.canvas
-    console.log(c.style)
+
+    let TIME = 0
     const width = 260
     const height = 200
     const ctx = c.getContext("2d")
     c.width = width
     c.height = height
     window.requestAnimationFrame(() => {
-      this.draw(ctx, width, height)
+      this.draw(ctx, width, height, TIME)
     })
   }
 
-  draw = (ctx, width, height) => {
+  draw = (ctx, width, height, TIME) => {
 
     ctx.clearRect(0, 0, width, height)
 
@@ -93,7 +92,7 @@ class Login extends Component {
     }
 
     window.requestAnimationFrame(() => {
-      this.draw(ctx, width, height)
+      this.draw(ctx, width, height, TIME)
     })
   }
 
@@ -102,19 +101,8 @@ class Login extends Component {
       await this.setStateAsync({
         show: !this.state.show
       })
-      console.log(WAVE_HEIGHT)
-      console.log(SCALE)
-      console.log(CYCLE)
-      console.log(TIME)
       this.state.show && this.initCanvas()
     })
-  }
-
-  resetConfig = () => {
-    WAVE_HEIGHT = 40 //波浪变化高度
-    SCALE = 0.5 // 绘制速率
-    CYCLE = 360 // SCALE
-    TIME = 0
   }
 
   render() {
