@@ -7,7 +7,7 @@ let WAVE_HEIGHT = 40 //波浪变化高度
 
 let SCALE = 0.5 // 绘制速率
 
-let CYCLE = 360 // SCALE
+let CYCLE = 360 / SCALE
 
 class Login extends Component {
 
@@ -22,9 +22,8 @@ class Login extends Component {
   }
 
   initCanvas = () => {
-    const c = this.refs.canvas
-
     let TIME = 0
+    const c = this.refs.canvas
     const width = 260
     const height = 200
     const ctx = c.getContext("2d")
@@ -107,7 +106,7 @@ class Login extends Component {
 
   render() {
     return (
-      <CSSTransition in={this.state.show} timeout={100} unmountOnExit classNames="pc-login" onExited={this.resetConfig}>
+      <CSSTransition in={this.state.show} timeout={600} unmountOnExit classNames="pc-login" >
         <div className='pc-login'>
           <canvas className='pc-login-canvas' ref='canvas' />
           <div className='pc-login-form-wrapper'>
