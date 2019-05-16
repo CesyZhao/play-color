@@ -12,7 +12,8 @@ let CYCLE = 360 / SCALE
 class Login extends Component {
 
   state = {
-    show: false
+    show: false,
+    login: false
   }
 
   setStateAsync = (state) => {
@@ -95,6 +96,14 @@ class Login extends Component {
     })
   }
 
+  login = (e) => {
+    e.preventDefault()
+    this.setState({login: true})
+    setTimeout(() => {
+      this.setState({login: false})
+    }, 5000)
+  }
+
   componentDidMount() {
     EventBus.on('toggleLogin', async () => {
       await this.setStateAsync({
@@ -113,7 +122,13 @@ class Login extends Component {
             <form>
               <input type="text" placeholder="请输入手机号"/>
               <input type="password" placeholder="请输入密码"/>
-              <button>Login</button>
+              <button  onClick={this.login} className={this.state.login ? 'pc-login-button-loading' : ''}>
+                {
+                  !this.state.login ?
+                    'Login'
+                    : <div className='pc-login-spin'></div>
+                }
+              </button>
             </form>
           </div>
         </div>

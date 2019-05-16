@@ -19,7 +19,7 @@
       width: 100%;
       box-sizing: border-box;
       margin-top: 24px;
-      height: 32px;
+      height: 36px;
       font-size: 14px;
       border: none;
       border-bottom: 1px solid #7BA3FF;
@@ -34,13 +34,15 @@
     button{
       margin-top: 48px;
       width: 100%;
-      height: 32px;
-      line-height: 32px;
+      height: 36px;
+      line-height: 36px;
       border: none;
       border-radius: 2px;
       color: #fff;
       font-size: 14px;
+      outline: none;
       background: linear-gradient(to top right,#7BA3FF, #57E1E7);
+      transition: all .1s;
     }
   }
 }
@@ -57,4 +59,25 @@
 .pc-login-exit-active {
   right: -260px;
   transition: all .6s;
+}
+.pc-login-button-loading{
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+.pc-login-spin{
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
