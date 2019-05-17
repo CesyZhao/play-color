@@ -5,13 +5,9 @@ import './RouteContainer.less'
 import {connect} from "react-redux"
 import EventBus from '../../events'
 
-@connect(
-  state => {
-    return {
-      user: state.user
-    }
-  }
-)
+@connect(({user}) => ({
+  user
+}))
 class RouteContainer extends Component{
 
   toggleLogin = () => {

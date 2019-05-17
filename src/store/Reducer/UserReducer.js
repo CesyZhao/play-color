@@ -1,13 +1,13 @@
-import { GET_USER_INFO } from '../Action/actions'
+import { SAVE_USER_PROFILE } from '../action/actions'
 
 const initState = {
-  userInfo: null
+  userProfile: null
 }
 
 export default function UserReducer (state = initState, action) {
   switch (action.type) {
-    case GET_USER_INFO:
-      return state
+    case SAVE_USER_PROFILE:
+      return Object.assign(state, action.user)
     default:
       return state
   }

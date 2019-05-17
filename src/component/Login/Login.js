@@ -2,6 +2,10 @@ import React, {Component} from 'react'
 import './Login.less'
 import EventBus from '../../events'
 import {CSSTransition} from 'react-transition-group'
+import http from '../../config/http'
+import toaster from '../../util/toast'
+import { connect } from 'react-redux'
+import { SAVE_USER_PROFILE } from '../../store/action/actions'
 
 let WAVE_HEIGHT = 40 //波浪变化高度
 
@@ -9,11 +13,14 @@ let SCALE = 0.5 // 绘制速率
 
 let CYCLE = 360 / SCALE
 
+@connect()
 class Login extends Component {
 
   state = {
     show: false,
-    login: false
+    login: false,
+    username: '',
+    password: ''
   }
 
   setStateAsync = (state) => {
@@ -96,15 +103,28 @@ class Login extends Component {
     })
   }
 
-  login = (e) => {
+  login = async (e) => {
     e.preventDefault()
-    this.setState({login: true})
-    setTimeout(() => {
-      this.setState({login: false})
-    }, 5000)
+    const phone = this.refs.phone.value
+    const password = this.refs.password.value
+    try {
+      this.setState({login: true})
+      let res = await http.get('/login/cellphone', {params: {phone, password}} )
+      let { profile } = res.data
+      const {dispatch} = this.props
+      dispatch({
+        type: SAVE_USER_PROFILE,
+        payload: {user: }
+      })
+
+    } catch (error) {
+      toaster.error('Failed to login')
+    }
+    this.setState({login: false})
   }
 
   componentDidMount() {
+    console.log(this.props.dispatch)
     EventBus.on('toggleLogin', async () => {
       await this.setStateAsync({
         show: !this.state.show
@@ -120,8 +140,8 @@ class Login extends Component {
           <canvas className='pc-login-canvas' ref='canvas' />
           <div className='pc-login-form-wrapper'>
             <form>
-              <input type="text" placeholder="请输入手机号"/>
-              <input type="password" placeholder="请输入密码"/>
+              <input type="text" placeholder="请输入手机号" ref="phone" />
+              <input type="password" placeholder="请输入密码" ref="password"/>
               <button  onClick={this.login} className={this.state.login ? 'pc-login-button-loading' : ''}>
                 {
                   !this.state.login ?
