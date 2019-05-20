@@ -1,11 +1,16 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
+const path = require('path')
+const os = require('os')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
 function createWindow () {
+  process.env.NODE_ENV === 'development' && BrowserWindow.addDevToolsExtension(
+    path.join(os.homedir(), '/Documents/ChrisZhao/software/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0')
+  )
   // Create the browser window.
   const windowConfig = {
     titleBarStyle: 'hidden',

@@ -114,7 +114,7 @@ class Login extends Component {
       const {dispatch} = this.props
       dispatch({
         type: SAVE_USER_PROFILE,
-        payload: {user: }
+        user: {profile}
       })
 
     } catch (error) {

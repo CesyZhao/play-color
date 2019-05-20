@@ -11,12 +11,14 @@ import EventBus from '../../events'
 class RouteContainer extends Component{
 
   toggleLogin = () => {
-    const { userInfo } = this.props.user
-    !userInfo && EventBus.emit('toggleLogin')
+    const {profile} = this.props.user
+    console.log(profile)
+    !profile && EventBus.emit('toggleLogin')
   }
 
   render() {
-    const { userInfo } = this.props.user
+    const {profile}  = this.props.user
+    console.log(profile)
     return(
       <div className="pc-route-container">
         <div className="pc-tool-bar">
@@ -27,7 +29,7 @@ class RouteContainer extends Component{
           <div className="pc-tool-bar-tools" onClick={this.toggleLogin}>
             {/*<i className="iconfont icon-shezhi"/>*/}
             {
-              userInfo ? <img src={userInfo.picUrl} alt="用户头像" className="pc-user-avatar"/> : <i className="iconfont icon-user11 pc-user-avatar" />
+              profile ? <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar"/> : <i className="iconfont icon-user11 pc-user-avatar" />
             }
           </div>
         </div>

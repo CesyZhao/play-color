@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './Home.less'
 import http from '../../config/http'
+// eslint-disable-next-line no-unused-vars
 import LazyImage  from '../LazyImage/LazyImage'
 
 class Home extends Component {
@@ -11,7 +12,6 @@ class Home extends Component {
 
   async componentWillMount () {
     let res = await http.get('/personalized')
-    console.log(res)
     this.setState({albumList: res.data.result})
   }
 
