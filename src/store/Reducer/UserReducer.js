@@ -5,8 +5,7 @@ const initState = {}
 export default function UserReducer (state = initState, action) {
   switch (action.type) {
     case SAVE_USER_PROFILE:
-      console.log(action.user, Object.assign(state, action.user))
-      return Object.assign(state, action.user)
+      return Object.assign({}, state, action.user)
     default:
       return state
   }

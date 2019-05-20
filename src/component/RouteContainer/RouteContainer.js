@@ -12,13 +12,11 @@ class RouteContainer extends Component{
 
   toggleLogin = () => {
     const {profile} = this.props.user
-    console.log(profile)
     !profile && EventBus.emit('toggleLogin')
   }
 
   render() {
     const {profile}  = this.props.user
-    console.log(profile)
     return(
       <div className="pc-route-container">
         <div className="pc-tool-bar">
@@ -27,7 +25,6 @@ class RouteContainer extends Component{
             <i className="iconfont icon-gengduo"/>
           </div>
           <div className="pc-tool-bar-tools" onClick={this.toggleLogin}>
-            {/*<i className="iconfont icon-shezhi"/>*/}
             {
               profile ? <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar"/> : <i className="iconfont icon-user11 pc-user-avatar" />
             }
