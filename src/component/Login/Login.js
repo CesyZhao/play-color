@@ -120,11 +120,10 @@ class Login extends Component {
     } catch (error) {
       toaster.error('Failed to login')
     }
-    this.setState({login: false})
+    this.setState({login: false, show: false})
   }
 
   componentDidMount() {
-    console.log(this.props.dispatch)
     EventBus.on('toggleLogin', async () => {
       await this.setStateAsync({
         show: !this.state.show
