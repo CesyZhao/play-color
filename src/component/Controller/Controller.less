@@ -5,5 +5,68 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  border-top: .5px solid #222;
+  border-top: .5px solid #444;
+  .pc-controller-progress-bar{
+    height: 1px;
+    background:linear-gradient(left, #7BA3FF, #57E1E7);
+    box-shadow: 0 0 3px 0 #9B30FF;
+    position: relative;
+    top: -1px;
+  }
+  .pc-controller-contents{
+    display: flex;
+    .pc-controller-cover{
+      width: 56px;
+      height: 56px;
+    }
+    .pc-controller-info{
+      width: 180px;
+      padding-left: 24px;
+      text-align: left;
+      div:nth-child(1){
+        line-height: 36px;
+      }
+      div:nth-child(2){
+        font-size: 11px;
+      }
+    }
+    .pc-controller-controls,.pc-controller-ops{
+      width: 250px;
+      display: flex;
+      align-items: center;
+      i{margin-left: 12px; cursor: pointer;}
+      .icon-bofangqi-bofang{
+        padding: 6px;
+        border-radius: 50%;
+        border: 1px solid rgba(222, 222, 222, .5);
+      }
+      .pc-controller-volune{
+        margin-left: 40px;
+        width: 80px;
+        height: 2px;
+        background: rgba(170, 170, 170, .4);
+        border-radius: 2px;
+        .pc-controller-volune-inner{
+          width: 80%;
+          height: 2px;
+          border-radius: 2px;
+          background: #aaa;
+        }
+      }
+    }
+    .pc-controller-ops{
+      flex: 1;
+      padding-right: 24px;
+      justify-content: flex-end;
+      i:nth-child(1){
+        font-size: 18px;
+      }
+    }
+    .pc-controller-VF{
+      margin-left: 36px;
+      width: 220px;
+      height: 54px;
+      opacity: .5;
+    }
+  }
 }
