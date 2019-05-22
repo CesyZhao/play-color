@@ -9,9 +9,45 @@
     align-items: center;
     position: relative;
     z-index: 2;
+    .pc-tool-bar-search{
+      display: flex;
+      align-items: center;
+      width: 300px;
+      border: 1px solid rgba(170, 170, 170, .2);
+      height: 28px;
+      padding: 0 12px;
+      border-radius: 20px;
+      input{
+        width: 285px;
+        height: 100%;
+        line-height: 28px;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #eee;
+        &::placeholder{
+          color: #eee;
+        }
+      }
+    }
     .pc-tool-bar-tools{
-      font-size: 0;
-      i{ margin-right: 8px; cursor: pointer; -webkit-app-region: no-drag;}
+      display: flex;
+      align-items: center;
+      i{ 
+        margin-right: 8px;
+         cursor: pointer; 
+         -webkit-app-region: no-drag;
+         padding: 2px 4px;
+         border: 1px solid rgba(170, 170, 170, .2);
+      }
+      i:nth-child(1){
+        border-top-left-radius: 45%;
+        border-bottom-left-radius: 45%;
+      }
+      i:nth-child(2){
+        border-top-right-radius: 45%;
+        border-bottom-right-radius: 45%;
+      }
       &:nth-last-child(1){
         i{font-size: 18px;}
         .pc-user-avatar{
@@ -21,6 +57,7 @@
           width: 28px;
           height: 28px;
           border-radius: 50%;
+          margin-left: 8px;
         }
       }
     }
