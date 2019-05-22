@@ -18,6 +18,9 @@ class Home extends Component {
   render() {
     return (
       <div className="pc-home">
+        <div className='pc-home-banner'>
+
+        </div>
         {
           this.state.albumList.map(album => {
             return (
