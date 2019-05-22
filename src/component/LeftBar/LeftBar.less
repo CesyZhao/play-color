@@ -1,42 +1,39 @@
-.pc-leftBar {
+.pc-leftbar {
   height: calc(100vh - 84px);
-  width: 180px;
-  padding: 28px 16px 0;
+  width: 140px;
+  padding-top: 28px;
   border-right: .5px solid #222;
-  .pc-leftBar-logo{
-    color: #fff;
+  div{
+    padding: 0 24px;
+  }
+  .pc-leftbar-logo{
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin-left: -8px;
+    box-shadow: 0 0 8px 0 #222;
     img{
       width: 36px;
-      margin-right: 12px;
     }
   }
-  .pc-leftBar-user{
-    height: 64px;
-    display: flex;
-    align-items: center;
-    .pc-leftBar-user-nickname{
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-left: 24px;
-      font-size: 16px;
-      color: #fff;
+  .pc-leftbar-category{
+    margin-top: 18px;
+    font-size: 13px;
+    div {
+      height: 36px;
+      line-height: 36px;
+      text-align: left;
       cursor: pointer;
       i{
-        position: relative;
-        left: -12px;
-        animation: more-animation 1s ease-in-out infinite;
+        margin-right: 8px;
       }
     }
   }
-}
-
-@keyframes more-animation {
-  100%{
-    left: 8px;
-    opacity: 0;
+  .pc-leftbar-category-label{
+    position: relative;
+    height: 24px;
+    line-height: 24px;
+    color: #999 !important;
+    font-size: 12px;
   }
 }

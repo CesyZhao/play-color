@@ -22,6 +22,8 @@ function createWindow () {
     height: 608
   }
   mainWindow = new BrowserWindow(windowConfig)
+  mainWindow.setVibrancy('ultra-dark')
+  mainWindow.setOpacity(0.98)
 
   const winUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : `file://${__dirname}/build/index.html`
   // and load the index.html of the app.
