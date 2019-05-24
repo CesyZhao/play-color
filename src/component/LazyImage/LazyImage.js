@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import logo from '../../asset/logo_no_des.png'
 import './LazyImage.less'
 
 /**
@@ -15,26 +14,22 @@ class LazyImage extends Component{
   }
   static defaultProps = {
     shape: 'squared',
-    width: 100,
-    height: 100
+    width: 150,
+    height: 150
   }
+  // componentWillMount () {
+  //   this.setState({preImageUrl: this.props.imgUrl.replace(/\?.*$/, `?param=${this.props.width}y${this.props.height}`)})
+  // }
   state = {
-    imageReady: false
+    preImageUrl: `${this.props.imgUrl}?param=${this.props.width}y${this.props.height}`
+  }
+  imageLoaded = () => {
+    this.state.preImageUrl.includes('?param') && this.setState({ preImageUrl: this.props.imgUrl })
   }
 
   render() {
-    const style = {
-      width: `${this.props.width}px`,
-      height: `${this.props.height}px`
-    }
     return (
-      <div className={`pc-lazy-image-wrapper ${this.props.shape}`} style={ style }>
-        {
-          this.state.imageReady ?
-            <img src={this.props.imgUrl} className="pc-lazy-image" alt=""/> :
-            <img src={logo}  className="pc-lazy-image" alt=""/>
-        }
-      </div>
+      <img src={this.state.preImageUrl} alt="lazyImage" onLoad={ this.imageLoaded }/>
     )
   }
 }

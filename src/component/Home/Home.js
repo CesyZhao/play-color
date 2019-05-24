@@ -14,7 +14,8 @@ class Home extends Component {
   state = {
     albumList: [],
     banners: [],
-    newest: []
+    newest: [],
+    loading: true
   }
 
   async componentWillMount () {
@@ -22,12 +23,24 @@ class Home extends Component {
     let bannerRes = await http.get('/banner')
     let topRes = await http.get('/top/song?type=0')
     console.log(_.take(topRes.data.data, 10))
-    this.setState({albumList: _.take(albumRes.data.result, 8), banners: bannerRes.data.banners, newest: _.take(topRes.data.data, 10)})
+    this.setState({
+      albumList: _.take(albumRes.data.result, 8),
+      banners: bannerRes.data.banners,
+      newest: _.take(topRes.data.data, 10)})
+      setTimeout(() => {
+        this.setState({loading: false})
+      }, 2000)
   }
 
   render() {
     return (
-      <div className="pc-home">
+      this.state.loading
+        ? <div className="pc-home">
+            <svg viewBox="25 25 50 50">
+              <circle cx="50" cy="50" r="20"></circle>
+            </svg>
+        </div>
+        : <div className="pc-home">
         <div className='pc-home-category-left'>
           <div>
             <div className='pc-home-category-title'>Today's Topic</div>
@@ -46,7 +59,8 @@ class Home extends Component {
                 this.state.albumList.map(album => {
                   return (
                     <div className='pc-personalized-album' key={album.id} data-name={album.name}>
-                      <img src={album.picUrl} alt='albumPic'/>
+                      {/* <img src={album.picUrl} alt='albumPic'/> */}
+                      <LazyImage imgUrl={album.picUrl} />
                     </div>
                   )
                 })
@@ -61,7 +75,8 @@ class Home extends Component {
                 this.state.newest.map((song,index) => {
                   return (
                     <div key={song.id} className='pc-home-newest-song'>
-                      <img src={song.album.picUrl} alt='songCover'/>
+                      {/* <img src={song.album.picUrl} alt='songCover'/> */}
+                      <LazyImage imgUrl={song.album.picUrl} />
                       <span>{index + 1}</span>
                       <span>{song.name}</span>
                     </div>
