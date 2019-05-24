@@ -26,12 +26,18 @@ class Home extends Component {
   render() {
     return (
       <div className="pc-home">
-        <div className='pc-home-banner'>
-          <AutoPlaySwipeableViews>
-            {
-              this.state.banners.map(banner => <img src={banner.imageUrl} alt='banner'></img>)
-            }
-          </AutoPlaySwipeableViews>
+        <div className='pc-home-category-left'>
+          <div className='pc-home-category-title'>Today's Topic</div>
+          <div className='pc-home-banner'>
+            <AutoPlaySwipeableViews>
+              {
+                this.state.banners.map(banner => <img src={banner.imageUrl} alt='banner'></img>)
+              }
+            </AutoPlaySwipeableViews>
+          </div>
+        </div>
+        <div className='pc-home-category-right'>
+          <div className='pc-home-category-title'>Newest</div>
         </div>
         {
           this.state.albumList.map(album => {

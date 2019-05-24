@@ -1,17 +1,30 @@
 .pc-home{
   flex: 1;
-  padding: 20px;
+  padding: 10px 20px;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  .pc-home-banner{
+  .pc-home-category-left,.pc-home-category-right{
+    flex-shrink: 0;
+  }
+  .pc-home-category-left{
     width: 70%;
-    height: 192px;
+    margin-right: 24px;
+  }
+  .pc-home-category-right{
+    width: calc(30% - 24px);
+  }
+  .pc-home-category-title{
+    text-align: left;
+    line-height: 24px;
+  }
+  .pc-home-banner{
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
+    font-size: 0;
     img{
-      width: 100%;
+      max-width: 100%;
     }
   }
 }
