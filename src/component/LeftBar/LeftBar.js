@@ -13,10 +13,10 @@ class Leftbar extends Component {
           <span>PLAY COLOR</span> 
         </div>
         {
-          menu.map(category => {
-            const item = category.list.map(item => <div className='pc-leftbar-category-item'> <i className={`iconfont ${item.icon}`} /> {item.name} </div> )
+          menu.map((category,index) => {
+            const item = category.list.map(item => <div className='pc-leftbar-category-item' key={item.name}> <i className={`iconfont ${item.icon}`} /> {item.name} </div> )
             return (
-              <div className='pc-leftbar-category'>
+              <div className='pc-leftbar-category' key={index}>
                 {category.name && <div className='pc-leftbar-category-label'>{ category.name }</div>} 
                 { item }
               </div>

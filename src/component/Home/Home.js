@@ -5,6 +5,7 @@ import http from '../../config/http'
 import LazyImage  from '../LazyImage/LazyImage'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils'
+import _ from 'lodash'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
@@ -12,42 +13,63 @@ class Home extends Component {
 
   state = {
     albumList: [],
-    banners: []
+    banners: [],
+    newest: []
   }
 
   async componentWillMount () {
-    let res = await http.get('/personalized')
-    this.setState({albumList: res.data.result})
+    let albumRes = await http.get('/personalized')
     let bannerRes = await http.get('/banner')
-    this.setState({banners: bannerRes.data.banners})
-    console.log(bannerRes)
+    let topRes = await http.get('/top/song?type=0')
+    console.log(_.take(topRes.data.data, 10))
+    this.setState({albumList: _.take(albumRes.data.result, 8), banners: bannerRes.data.banners, newest: _.take(topRes.data.data, 10)})
   }
 
   render() {
     return (
       <div className="pc-home">
         <div className='pc-home-category-left'>
-          <div className='pc-home-category-title'>Today's Topic</div>
-          <div className='pc-home-banner'>
-            <AutoPlaySwipeableViews>
+          <div>
+            <div className='pc-home-category-title'>Today's Topic</div>
+            <div className='pc-home-banner'>
+              <AutoPlaySwipeableViews>
+                {
+                  this.state.banners.map(banner => <img src={banner.imageUrl} alt='banner' key={banner.encodeId}></img>)
+                }
+              </AutoPlaySwipeableViews>
+            </div>
+          </div>
+          <div>
+            <div className='pc-home-category-title'>Recommand Albums</div>
+            <div className='pc-home-recommand'>
               {
-                this.state.banners.map(banner => <img src={banner.imageUrl} alt='banner'></img>)
+                this.state.albumList.map(album => {
+                  return (
+                    <div className='pc-personalized-album' key={album.id} data-name={album.name}>
+                      <img src={album.picUrl} alt='albumPic'/>
+                    </div>
+                  )
+                })
               }
-            </AutoPlaySwipeableViews>
+            </div>
           </div>
         </div>
         <div className='pc-home-category-right'>
           <div className='pc-home-category-title'>Newest</div>
+          <div className='pc-home-newest'>
+              {
+                this.state.newest.map((song,index) => {
+                  return (
+                    <div key={song.id} className='pc-home-newest-song'>
+                      <img src={song.album.picUrl} alt='songCover'/>
+                      <span>{index + 1}</span>
+                      <span>{song.name}</span>
+                    </div>
+                  )
+                })
+              }
+          </div>
         </div>
-        {
-          this.state.albumList.map(album => {
-            return (
-              <div className='pc-personalized-album' key={album.id}>
-
-              </div>
-            )
-          })
-        }
       </div>
     )
   }
