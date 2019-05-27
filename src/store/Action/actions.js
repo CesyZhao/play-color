@@ -1,1 +1,4 @@
 export const SAVE_USER_PROFILE = 'SAVE_USER_PROFILE'
+
+
+export const UPDATE_PLAYING = 'UPDATE_PLAYING'

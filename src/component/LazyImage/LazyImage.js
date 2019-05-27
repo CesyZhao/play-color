@@ -17,9 +17,6 @@ class LazyImage extends Component{
     width: 150,
     height: 150
   }
-  // componentWillMount () {
-  //   this.setState({preImageUrl: this.props.imgUrl.replace(/\?.*$/, `?param=${this.props.width}y${this.props.height}`)})
-  // }
   state = {
     preImageUrl: `${this.props.imgUrl}?param=${this.props.width}y${this.props.height}`
   }
