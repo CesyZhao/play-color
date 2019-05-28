@@ -6,9 +6,12 @@ import LazyImage  from '../LazyImage/LazyImage'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils'
 import _ from 'lodash'
+import {UPDATE_PLAYING_SONG} from '../../store/action/actions'
+import {connect} from 'react-redux'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
+@connect()
 class Home extends Component {
 
   state = {
@@ -22,14 +25,20 @@ class Home extends Component {
     let albumRes = await http.get('/personalized')
     let bannerRes = await http.get('/banner')
     let topRes = await http.get('/top/song?type=0')
-    console.log(_.take(topRes.data.data, 10))
     this.setState({
       albumList: _.take(albumRes.data.result, 8),
       banners: bannerRes.data.banners,
       newest: _.take(topRes.data.data, 10)})
-      setTimeout(() => {
-        this.setState({loading: false})
-      }, 2000)
+    setTimeout(() => {
+      this.setState({loading: false})
+    }, 2000)
+  }
+
+  handleSongClick = (song) => {
+    this.props.dispatch({
+      type: UPDATE_PLAYING_SONG,
+      song
+    })
   }
 
   render() {
@@ -47,7 +56,7 @@ class Home extends Component {
             <div className='pc-home-banner'>
               <AutoPlaySwipeableViews>
                 {
-                  this.state.banners.map(banner => <img src={banner.imageUrl} alt='banner' key={banner.encodeId}></img>)
+                  this.state.banners.map((banner,index) => <img src={banner.imageUrl} alt='banner' key={banner.encodeId + index}></img>)
                 }
               </AutoPlaySwipeableViews>
             </div>
@@ -74,7 +83,7 @@ class Home extends Component {
               {
                 this.state.newest.map((song,index) => {
                   return (
-                    <div key={song.id} className='pc-home-newest-song'>
+                    <div key={song.id} className='pc-home-newest-song' onClick={() => this.handleSongClick(song)}>
                       {/* <img src={song.album.picUrl} alt='songCover'/> */}
                       <LazyImage imgUrl={song.album.picUrl} />
                       <span>{index + 1}</span>
