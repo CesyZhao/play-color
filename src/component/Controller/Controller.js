@@ -1,20 +1,33 @@
 import React, { Component } from 'react'
 import './Controller.less'
 import VF from '../../asset/VF.png'
+import {connect} from 'react-redux'
 
 /**
  * 下方控制器，包括当前播放信息、音量等信息
  * */
+@connect(({controller}) => ({
+  controller
+}))
 class Controller extends Component{
   render() {
+    const song = this.props.controller
     return (
       <div className='pc-controller'>
         <div className='pc-controller-progress-bar'></div>
         <div className='pc-controller-contents'>
-          <div className='pc-controller-cover'></div>
+          <div className='pc-controller-cover'>
+            {
+              song && <img src={song.album.picUrl} alt='playing-cover'></img>
+            }
+          </div>
           <div className='pc-controller-info'>
-            <div>See You Again</div>
-            <div> Charile Puth </div>
+            {
+              song && <div>{song.name}</div>
+            }
+            {
+              song && <div> { song.artists.map(artist => artist.name).join('/') } </div>
+            }
           </div>
           <div className='pc-controller-controls'>
             <i className='iconfont icon-bofangqi-xiayiji-copy'></i>
