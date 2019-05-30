@@ -12,10 +12,12 @@ import {connect} from 'react-redux'
 class Controller extends Component{
   render() {
     const song = this.props.controller
+    console.log(song)
     return (
       <div className='pc-controller'>
         <div className='pc-controller-progress-bar'></div>
         <div className='pc-controller-contents'>
+          <audio src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} autoPlay></audio>
           <div className='pc-controller-cover'>
             {
               song && <img src={song.album.picUrl} alt='playing-cover'></img>
