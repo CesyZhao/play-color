@@ -10,14 +10,28 @@ import {connect} from 'react-redux'
   controller
 }))
 class Controller extends Component{
+
+  state = {
+    progress: 0
+  }
+
+  handlePlaying = (e) => {
+    const audio = e.target
+    setInterval(() => {
+      this.setState({
+        progress: audio.currentTime / audio.duration 
+      })
+    }, 1000)
+  }
+
   render() {
     const song = this.props.controller
     console.log(song)
     return (
       <div className='pc-controller'>
-        <div className='pc-controller-progress-bar'></div>
+        <div className='pc-controller-progress-bar' style={{width: `${this.state.progress * 100}%`}}></div>
         <div className='pc-controller-contents'>
-          <audio src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} autoPlay></audio>
+          <audio src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onPlaying={this.handlePlaying} autoPlay></audio>
           <div className='pc-controller-cover'>
             {
               song && <img src={song.album.picUrl} alt='playing-cover'></img>

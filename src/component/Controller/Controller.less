@@ -10,9 +10,10 @@
   .pc-controller-progress-bar{
     height: 1px;
     background: linear-gradient(to right, #7BA3FF, #57E1E7);
-    box-shadow: 0 0 3px 0 #9B30FF;
+    box-shadow: 0 0 12px 0 #9B30FF;
     position: relative;
     top: -1px;
+    transition: 1s ease;
   }
   .pc-controller-contents{
     display: flex;
@@ -30,6 +31,9 @@
       text-align: left;
       div:nth-child(1){
         line-height: 32px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
       div:nth-child(2){
         font-size: 11px;
