@@ -6,7 +6,7 @@ import LazyImage  from '../LazyImage/LazyImage'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils'
 import _ from 'lodash'
-import {UPDATE_PLAYING_SONG} from '../../store/action/actions'
+import {UPDATE_PLAYING_SONG} from '../../store/Action/actions'
 import {connect} from 'react-redux'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)

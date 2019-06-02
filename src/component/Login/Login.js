@@ -5,7 +5,7 @@ import {CSSTransition} from 'react-transition-group'
 import http from '../../config/http'
 import toaster from '../../util/toast'
 import { connect } from 'react-redux'
-import { SAVE_USER_PROFILE } from '../../store/action/actions'
+import { SAVE_USER_PROFILE } from '../../store/Action/actions'
 
 let WAVE_HEIGHT = 40 //波浪变化高度
 
