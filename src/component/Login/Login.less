@@ -1,15 +1,17 @@
 @import "../../theme/vars";
 .pc-login{
-  width: 260px;
+  width: 320px;
+  height: 360px;
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background-color: @primary-color;
+  top: 50%;
+  left: 50%;
+  background-color: rgba(4, 4, 4, .9);
   box-shadow: 0 0 8px 0 #000;
+  z-index: 10;
+  transform: translate(-50%, -50%);
   .pc-login-canvas{
-    height: 200px;
-    margin-bottom: 36px;
+    height: 100px;
+    margin-bottom: 8px;
     // background-color: #fff;
   }
   .pc-login-form-wrapper{
@@ -47,18 +49,18 @@
   }
 }
 .pc-login-enter {
-  right: -260px;
+  top: -360px;
 }
 .pc-login-enter-active {
-  right: 0;
-  transition: all .6s;
+  top: 50%;
+  transition: all .3s ease-in-out;
 }
 .pc-login-exit {
-  right: 0;
+  top: 50%;
 }
 .pc-login-exit-active {
-  right: -260px;
-  transition: all .6s;
+  top: -360px;
+  transition: all .3s ease-in-out;
 }
 .pc-login-button-loading{
   width: 36px !important;

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Controller.less'
 import VF from '../../asset/VF.png'
 import {connect} from 'react-redux'
+import _ from 'lodash'
 
 /**
  * 下方控制器，包括当前播放信息、音量等信息
@@ -26,7 +27,7 @@ class Controller extends Component{
 
   render() {
     const song = this.props.controller
-    console.log(song)
+    const hasSong = !_.isEmpty(song)
     return (
       <div className='pc-controller'>
         <div className='pc-controller-progress-bar' style={{width: `${this.state.progress * 100}%`}}></div>
@@ -34,15 +35,15 @@ class Controller extends Component{
           <audio src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onPlaying={this.handlePlaying} autoPlay></audio>
           <div className='pc-controller-cover'>
             {
-              song && <img src={song.album.picUrl} alt='playing-cover'></img>
+              hasSong && <img src={song.album.picUrl} alt='playing-cover'></img>
             }
           </div>
           <div className='pc-controller-info'>
             {
-              song && <div>{song.name}</div>
+              hasSong && <div>{song.name}</div>
             }
             {
-              song && <div> { song.artists.map(artist => artist.name).join('/') } </div>
+              hasSong && <div> { song.artists.map(artist => artist.name).join('/') } </div>
             }
           </div>
           <div className='pc-controller-controls'>

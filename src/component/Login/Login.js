@@ -32,8 +32,8 @@ class Login extends Component {
   initCanvas = () => {
     let TIME = 0
     const c = this.refs.canvas
-    const width = 260
-    const height = 200
+    const width = 320
+    const height = 100
     const ctx = c.getContext("2d")
     c.width = width
     c.height = height
