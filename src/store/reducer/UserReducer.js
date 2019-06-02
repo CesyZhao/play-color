@@ -1,4 +1,4 @@
-import { SAVE_USER_PROFILE } from '../Action/actions'
+import { SAVE_USER_PROFILE } from '../action/actions'
 
 const initState = {}
 

@@ -1,8 +1,8 @@
 import { createStore, combineReducers } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import userReducer from './Reducer/UserReducer'
-import controllerReducer from './Reducer/ControllerReducer'
+import userReducer from './reducer/UserReducer'
+import controllerReducer from './reducer/ControllerReducer'
 
 const reducers = {
   user: userReducer,

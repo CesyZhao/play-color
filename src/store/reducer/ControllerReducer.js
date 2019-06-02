@@ -1,5 +1,5 @@
 
-import {UPDATE_PLAYING_SONG} from '../Action/actions'
+import {UPDATE_PLAYING_SONG} from '../action/actions'
 const initState = {}
 
 export default function ControllerReducer (state = initState, action) {
