@@ -26,7 +26,7 @@ class Controller extends Component{
   }
 
   render() {
-    const song = this.props.controller
+    const { song } = this.props.controller
     const hasSong = !_.isEmpty(song)
     return (
       <div className='pc-controller'>
