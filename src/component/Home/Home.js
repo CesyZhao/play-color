@@ -6,7 +6,7 @@ import LazyImage  from '../LazyImage/LazyImage'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils'
 import _ from 'lodash'
-import {UPDATE_PLAYING_SONG} from '../../store/action/actions'
+import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST} from '../../store/action/actions'
 import {connect} from 'react-redux'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
@@ -38,6 +38,10 @@ class Home extends Component {
     this.props.dispatch({
       type: UPDATE_PLAYING_SONG,
       song
+    })
+    this.props.dispatch({
+      type: UPDATE_PLAYING_LIST,
+      list: this.state.newest
     })
   }
 
