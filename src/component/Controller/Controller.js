@@ -13,7 +13,13 @@ import _ from 'lodash'
 class Controller extends Component{
 
   state = {
-    progress: 0
+    progress: 0,
+    playing: false
+  }
+
+  handleMusicReady = (e) => {
+    e.target.autoPlay = true
+    this.setState({playing: true})
   }
 
   handlePlaying = (e) => {
@@ -32,7 +38,7 @@ class Controller extends Component{
       <div className='pc-controller'>
         <div className='pc-controller-progress-bar' style={{width: `${this.state.progress * 100}%`}}></div>
         <div className='pc-controller-contents'>
-          <audio src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onPlaying={this.handlePlaying} autoPlay></audio>
+          <audio src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying}></audio>
           <div className='pc-controller-cover'>
             {
               hasSong && <img src={song.album.picUrl} alt='playing-cover'></img>
@@ -48,7 +54,7 @@ class Controller extends Component{
           </div>
           <div className='pc-controller-controls'>
             <i className='iconfont icon-bofangqi-xiayiji-copy'></i>
-            <i className='iconfont icon-bofangqi-bofang'></i>
+            <i className={`iconfont ${this.state.playing ? 'icon-bofangqi-zanting' : 'icon-bofangqi-bofang'}`}></i>
             <i className='iconfont icon-bofangqi-xiayiji'></i>
             <div className='pc-controller-volune'>
               <div className='pc-controller-volune-inner'></div>  
