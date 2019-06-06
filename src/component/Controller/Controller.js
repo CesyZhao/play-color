@@ -18,7 +18,6 @@ class Controller extends Component{
   }
 
   handleMusicReady = (e) => {
-    e.target.autoPlay = true
     this.setState({playing: true})
   }
 
@@ -38,7 +37,7 @@ class Controller extends Component{
       <div className='pc-controller'>
         <div className='pc-controller-progress-bar' style={{width: `${this.state.progress * 100}%`}}></div>
         <div className='pc-controller-contents'>
-          <audio src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying}></audio>
+          <audio src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} autoPlay></audio>
           <div className='pc-controller-cover'>
             {
               hasSong && <img src={song.album.picUrl} alt='playing-cover'></img>
@@ -53,12 +52,13 @@ class Controller extends Component{
             }
           </div>
           <div className='pc-controller-controls'>
-            <i className='iconfont icon-bofangqi-xiayiji-copy'></i>
-            <i className={`iconfont ${this.state.playing ? 'icon-bofangqi-zanting' : 'icon-bofangqi-bofang'}`}></i>
-            <i className='iconfont icon-bofangqi-xiayiji'></i>
+            <i className='iconfont icon-yinliang'></i>
             <div className='pc-controller-volune'>
               <div className='pc-controller-volune-inner'></div>  
             </div>
+            <i className='iconfont icon-bofangqi-xiayiji-copy'></i>
+            <i className={`iconfont ${this.state.playing ? 'icon-bofangqi-zanting' : 'icon-bofangqi-bofang'}`}></i>
+            <i className='iconfont icon-bofangqi-xiayiji'></i>
           </div>
           <img className='pc-controller-VF' src={VF} alt='VF' />
           <div className='pc-controller-ops'>
