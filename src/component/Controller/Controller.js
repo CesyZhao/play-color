@@ -21,6 +21,22 @@ class Controller extends Component{
     this.setState({playing: true})
   }
 
+  handlePlayEnded = () => {
+    this.setState({playing: false})
+  }
+
+  toggleController = () => {
+    console.log(this.refs.audio.paused)
+    const audio = this.refs.audio
+    if (!audio.paused) {
+      audio.pause()
+      this.setState({playing: false})
+      return 
+    }
+    audio.play()
+    this.setState({playing: true})
+  }
+
   handlePlaying = (e) => {
     const audio = e.target
     setInterval(() => {
@@ -37,7 +53,7 @@ class Controller extends Component{
       <div className='pc-controller'>
         <div className='pc-controller-progress-bar' style={{width: `${this.state.progress * 100}%`}}></div>
         <div className='pc-controller-contents'>
-          <audio src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} autoPlay></audio>
+          <audio ref='audio' src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onEnded={this.handlePlayEnded} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} autoPlay></audio>
           <div className='pc-controller-cover'>
             {
               hasSong && <img src={song.album.picUrl} alt='playing-cover'></img>
@@ -57,7 +73,7 @@ class Controller extends Component{
               <div className='pc-controller-volune-inner'></div>  
             </div>
             <i className='iconfont icon-bofangqi-xiayiji-copy'></i>
-            <i className={`iconfont ${this.state.playing ? 'icon-bofangqi-zanting' : 'icon-bofangqi-bofang'}`}></i>
+            <i onClick={this.toggleController} className={`iconfont ${this.state.playing ? 'icon-bofangqi-zanting' : 'icon-bofangqi-bofang'}`}></i>
             <i className='iconfont icon-bofangqi-xiayiji'></i>
           </div>
           <img className='pc-controller-VF' src={VF} alt='VF' />
