@@ -1,8 +1,9 @@
 
-import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST} from '../action/actions'
+import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST, UPDATE_PLAYING_MODE} from '../action/actions'
 const initState = {
   song: {},
-  list: {}
+  list: {},
+  mode: 'list-circulation'
 }
 
 export default function ControllerReducer (state = initState, action) {
@@ -10,6 +11,8 @@ export default function ControllerReducer (state = initState, action) {
     case UPDATE_PLAYING_SONG:
       return Object.assign({}, state, action)
     case UPDATE_PLAYING_LIST:
+      return Object.assign({}, state, action)
+    case UPDATE_PLAYING_MODE:
       return Object.assign({}, state, action)
     default: 
       return state
