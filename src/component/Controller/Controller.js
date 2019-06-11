@@ -3,6 +3,7 @@ import './Controller.less'
 import VF from '../../asset/VF.png'
 import {connect} from 'react-redux'
 import _ from 'lodash'
+import {UPDATE_PLAYING_MODE} from '../../store/action/actions'
 
 /**
  * 下方控制器，包括当前播放信息、音量等信息
@@ -25,7 +26,7 @@ class Controller extends Component{
     this.setState({playing: false})
   }
 
-  toggleController = () => {
+  togglePlaying = () => {
     console.log(this.refs.audio.paused)
     const audio = this.refs.audio
     if (!audio.paused) {
@@ -35,6 +36,16 @@ class Controller extends Component{
     }
     audio.play()
     this.setState({playing: true})
+  }
+
+  changeMode = () => {
+    const modeList = ['listCirculation', 'singleCirculation', 'shuffle']
+    const { mode } = this.props.controller
+    let modeIndex = modeList.indexOf(mode)
+    console.log(modeIndex)
+    const nextModeIndex = ++modeIndex < modeList.length ? modeIndex : 0
+    const nextMode = modeList[nextModeIndex]
+    this.props.dispatch({type: UPDATE_PLAYING_MODE, mode: nextMode})
   }
 
   handlePlaying = (e) => {
@@ -47,7 +58,7 @@ class Controller extends Component{
   }
 
   render() {
-    const { song } = this.props.controller
+    const { song, mode } = this.props.controller
     const hasSong = !_.isEmpty(song)
     return (
       <div className='pc-controller'>
@@ -73,13 +84,13 @@ class Controller extends Component{
               <div className='pc-controller-volune-inner'></div>  
             </div>
             <i className='iconfont icon-bofangqi-xiayiji-copy'></i>
-            <i onClick={this.toggleController} className={`iconfont ${this.state.playing ? 'icon-bofangqi-zanting' : 'icon-bofangqi-bofang'}`}></i>
+            <i onClick={this.togglePlaying} className={`iconfont ${this.state.playing ? 'icon-bofangqi-zanting' : 'icon-bofangqi-bofang'}`}></i>
             <i className='iconfont icon-bofangqi-xiayiji'></i>
           </div>
           <img className='pc-controller-VF' src={VF} alt='VF' />
           <div className='pc-controller-ops'>
             <i className='iconfont icon-zhuifanshu'></i>
-            <i className='iconfont icon-xunhuanbofang'></i>
+            <i onClick={this.changeMode} className={`iconfont icon-${mode}`}></i>
           </div>
         </div>
       </div>

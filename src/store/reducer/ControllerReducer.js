@@ -3,7 +3,7 @@ import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST, UPDATE_PLAYING_MODE} from '../
 const initState = {
   song: {},
   list: {},
-  mode: 'list-circulation'
+  mode: 'listCirculation'
 }
 
 export default function ControllerReducer (state = initState, action) {
