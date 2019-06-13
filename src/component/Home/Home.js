@@ -41,7 +41,7 @@ class Home extends Component {
     })
     this.props.dispatch({
       type: UPDATE_PLAYING_LIST,
-      list: this.state.newest
+      currentPlaingAlbum: this.state.newest
     })
   }
 

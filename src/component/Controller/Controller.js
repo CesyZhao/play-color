@@ -27,7 +27,6 @@ class Controller extends Component{
   }
 
   togglePlaying = () => {
-    console.log(this.refs.audio.paused)
     const audio = this.refs.audio
     if (!audio.paused) {
       audio.pause()
@@ -42,7 +41,6 @@ class Controller extends Component{
     const modeList = ['listCirculation', 'singleCirculation', 'shuffle']
     const { mode } = this.props.controller
     let modeIndex = modeList.indexOf(mode)
-    console.log(modeIndex)
     const nextModeIndex = ++modeIndex < modeList.length ? modeIndex : 0
     const nextMode = modeList[nextModeIndex]
     this.props.dispatch({type: UPDATE_PLAYING_MODE, mode: nextMode})
