@@ -1,30 +1,34 @@
 
-import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST, UPDATE_PLAYING_MODE} from '../action/actions'
+import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../action/actions'
 import _ from 'lodash'
 
 const initState = {
   song: {},
-  currentPlaingAlbum: {},
-  history: {},
-  currentPlaingHistory: {},
+  currentPlaingAlbum: [],
+  history: [],
+  currentPlaingHistory: [],
   mode: 'listCirculation'
 }
 
 export default function ControllerReducer (state = initState, action) {
   switch (action.type) {
     case UPDATE_PLAYING_SONG:
-      return Object.assign({}, state, action)
+      return Object.assign({}, state, { song: action.song, history: state.history.concat(action.song) })
     case UPDATE_PLAYING_LIST:
       return Object.assign({}, state, action)
     case UPDATE_PLAYING_MODE:
       return Object.assign({}, state, action)
+    case NEXT_SONG:
+      return nextSong(state)
+    case PREV_SONG:
+      return prevSong(state)
     default: 
       return state
   }
 }
 
 function nextSong(state) {
-  const { mode, currentPlaingAlbum, song } = state
+  const { mode, currentPlaingAlbum, song, history } = state
   let nextIndex, nextSong
   if(mode === 'listCirculation' || mode === 'singleCirculation'){
     let index = currentPlaingAlbum.findIndex(e => e.id === song.id)
@@ -33,7 +37,7 @@ function nextSong(state) {
     nextSong = currentPlaingAlbum[nextIndex]
   }else{
     //随机模式下，从当前播放歌单除了当前歌曲的剩余歌曲中取一首 songs 即剩余歌曲
-    let songs = currentPlaingAlbum.filter(e => !this.history.includes(e.id))
+    let songs = currentPlaingAlbum.filter(e => !history.includes(e.id))
     if (songs.length) {
       nextSong = songs[Math.floor(Math.random() * songs.length)]
     } else {

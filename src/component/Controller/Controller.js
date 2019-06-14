@@ -3,7 +3,7 @@ import './Controller.less'
 import VF from '../../asset/VF.png'
 import {connect} from 'react-redux'
 import _ from 'lodash'
-import {UPDATE_PLAYING_MODE} from '../../store/action/actions'
+import {UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../../store/action/actions'
 
 /**
  * 下方控制器，包括当前播放信息、音量等信息
@@ -55,6 +55,14 @@ class Controller extends Component{
     }, 1000)
   }
 
+  next = () => {
+    this.props.dispatch({type: NEXT_SONG})
+  }
+
+  prev = () => {
+    this.props.dispatch({type: PREV_SONG})
+  }
+
   render() {
     const { song, mode } = this.props.controller
     const hasSong = !_.isEmpty(song)
@@ -81,9 +89,9 @@ class Controller extends Component{
             <div className='pc-controller-volune'>
               <div className='pc-controller-volune-inner'></div>  
             </div>
-            <i className='iconfont icon-bofangqi-xiayiji-copy'></i>
+            <i className='iconfont icon-bofangqi-xiayiji-copy' onClick={ this.prev }></i>
             <i onClick={this.togglePlaying} className={`iconfont ${this.state.playing ? 'icon-bofangqi-zanting' : 'icon-bofangqi-bofang'}`}></i>
-            <i className='iconfont icon-bofangqi-xiayiji'></i>
+            <i className='iconfont icon-bofangqi-xiayiji' onClick={ this.next }></i>
           </div>
           <img className='pc-controller-VF' src={VF} alt='VF' />
           <div className='pc-controller-ops'>
