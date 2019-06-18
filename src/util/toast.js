@@ -1,9 +1,10 @@
 import {toast} from 'react-toastify'
 
 const toaster = {
-  error (message) {
+  error (message, onClose) {
     return toast(message, {
-      className: 'play-color-toast error'
+      className: 'play-color-toast error',
+      onClose
     })
   }
 }

@@ -4,7 +4,7 @@ import VF from '../../asset/VF.png'
 import {connect} from 'react-redux'
 import _ from 'lodash'
 import {UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../../store/action/actions'
-
+import toaster from '../../util/toast'
 /**
  * 下方控制器，包括当前播放信息、音量等信息
  * */
@@ -23,7 +23,7 @@ class Controller extends Component{
   }
 
   handlePlayEnded = () => {
-    this.setState({playing: false})
+    this.next()
   }
 
   togglePlaying = () => {
@@ -55,6 +55,11 @@ class Controller extends Component{
     }, 1000)
   }
 
+  handleError = () => {
+    this.setState({playing: false})
+    toaster.error('Bad audio!', this.next)
+  }
+
   next = () => {
     this.props.dispatch({type: NEXT_SONG})
   }
@@ -70,7 +75,7 @@ class Controller extends Component{
       <div className='pc-controller'>
         <div className='pc-controller-progress-bar' style={{width: `${this.state.progress * 100}%`}}></div>
         <div className='pc-controller-contents'>
-          <audio ref='audio' src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onEnded={this.handlePlayEnded} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} autoPlay></audio>
+          <audio ref='audio' src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onError={this.handleError} onEnded={this.handlePlayEnded} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} autoPlay></audio>
           <div className='pc-controller-cover'>
             {
               hasSong && <img src={song.album.picUrl} alt='playing-cover'></img>
