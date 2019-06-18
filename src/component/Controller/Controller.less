@@ -1,6 +1,7 @@
+@controller-height: 48px;
 .pc-controller{
   width: 100vw;
-  height: 56px;
+  height: @controller-height;
   box-sizing: border-box;
   // background: #fff;
   position: absolute;
@@ -18,12 +19,17 @@
   .pc-controller-contents{
     display: flex;
     .pc-controller-cover{
-      width: 56px;
-      height: 56px;
+      width: @controller-height;
+      height: @controller-height;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      cursor: pointer;
       img{width: 85%;}
+      &:hover{
+        img{filter: blur(2px)};
+      }
     }
     .pc-controller-info{
       width: 180px;
@@ -77,7 +83,7 @@
     .pc-controller-VF{
       margin-left: 36px;
       width: 220px;
-      height: 54px;
+      height: 46px;
       opacity: .5;
     }
   }

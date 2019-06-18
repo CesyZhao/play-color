@@ -6,6 +6,7 @@ import Leftbar from './component/Leftbar/Leftbar.js';
 import Controller from './component/Controller/Controller'
 import Login from './component/Login/Login'
 import RouteContainer from './component/RouteContainer/RouteContainer'
+import CurrentSong from './component/CurrentSong/CurrentSong'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import {BrowserRouter} from 'react-router-dom'
@@ -21,6 +22,7 @@ class App extends Component {
           <Controller />
           <Login />
           <ToastContainer hideProgressBar/>
+          <CurrentSong />
         </div>
       </BrowserRouter>
     );
