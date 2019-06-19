@@ -1,0 +1,19 @@
+.pc-current-song-wrapper{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 48px;
+  bottom: 48px;
+  background: rgba(4, 4, 4, .9);
+  overflow: hidden;
+  &:after{
+    content: ' ';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0px;
+    bottom: 0px;
+    background: rgba(11, 11, 11, 1);
+    filter: blur(10px) contrast(.95);
+  }
+}

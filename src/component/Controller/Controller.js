@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import _ from 'lodash'
 import {UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../../store/action/actions'
 import toaster from '../../util/toast'
+import eventBus from '../../events'
 /**
  * 下方控制器，包括当前播放信息、音量等信息
  * */
@@ -68,6 +69,10 @@ class Controller extends Component{
     this.props.dispatch({type: PREV_SONG})
   }
 
+  showCurrentSong = (id) => {
+    eventBus.emit('togglePlayingPanel', id)
+  }
+
   render() {
     const { song, mode } = this.props.controller
     const hasSong = !_.isEmpty(song)
@@ -76,7 +81,7 @@ class Controller extends Component{
         <div className='pc-controller-progress-bar' style={{width: `${this.state.progress * 100}%`}}></div>
         <div className='pc-controller-contents'>
           <audio ref='audio' src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onError={this.handleError} onEnded={this.handlePlayEnded} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} autoPlay></audio>
-          <div className='pc-controller-cover'>
+          <div className='pc-controller-cover' onClick={() => this.showCurrentSong(song.id)}>
             {
               hasSong && <img src={song.album.picUrl} alt='playing-cover'></img>
             }
