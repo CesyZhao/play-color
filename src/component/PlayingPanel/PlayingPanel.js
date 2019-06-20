@@ -7,7 +7,9 @@ class PlayingPanel extends Component{
 
   state = {
     showPlayingPanel: false,
-    currentSongId: null
+    currentSongId: null,
+    source: null,
+    analyser: null
   }
 
   setStateAsync = (state) => {
@@ -20,29 +22,42 @@ class PlayingPanel extends Component{
     eventBus.on('togglePlayingPanel', () => {
       this.setState(prevState => ({
         showPlayingPanel: !prevState.showPlayingPanel
-      }))
+      }), () => {
+        this.state.showPlayingPanel ? this.initVisualizor() : this.destoryVisualizor()
+      })
     })
   }
 
-  componentDidUpdate () {
-    this.state.showPlayingPanel && this.initVisualization()
+  // componentDidUpdate () {
+  //   this.state.showPlayingPanel && this.initVisualizor()
+  // }
+
+  destoryVisualizor = () => {
+    // this.state.source.disconnect()
+    // this.state.analyser.disconnect()
   }
 
-  initVisualization = () => {
+   initVisualizor = async() => {
     let wrap = document.getElementById("wrap")
     let cxt = wrap.getContext("2d")
-    //获取API
+     //获取API
     let AudioContext = window.AudioContext || window.webkitAudioContext
     let context = new AudioContext()
-    //加载媒体
-    // let audio = new Audio('http://music.163.com/song/media/outer/url?id=1367452194.mp3')
-    let audio = document.getElementById('audio')
-    //创建节点
-    let source = context.createMediaElementSource(audio)
-    let analyser = context.createAnalyser()
-    //连接：source → analyser → destination
-    source.connect(analyser)
-    analyser.connect(context.destination)
+    if (!this.state.source) {
+      //加载媒体
+      // let audio = new Audio('http://music.163.com/song/media/outer/url?id=1367452194.mp3')
+      let audio = document.getElementById('audio')
+      //创建节点
+      // let source = context.createMediaElementSource(audio)
+      // let analyser = context.createAnalyser()
+      await this.setStateAsync({
+        source: context.createMediaElementSource(audio),
+        analyser: context.createAnalyser()
+      })
+        //连接：source → analyser → destination
+      this.state.source.connect(this.state.analyser)
+      this.state.analyser.connect(context.destination)
+    }
     // audio.play()
     //创建数据
     let output = new Uint8Array(200) 
@@ -54,9 +69,10 @@ class PlayingPanel extends Component{
     cxt.strokeStyle = '#7BA3FF'
     cxt.shadowBlur = 30
     cxt.shadowColor = '#9B30FF'
+    const self = this
     function drawSpectrum() {
         // console.log(analyser.getByteFrequencyData(output))
-        analyser.getByteFrequencyData(output)//获取频域数据
+        self.state.analyser.getByteFrequencyData(output)//获取频域数据
         cxt.clearRect(0, 0, wrap.width, wrap.height)
         //画线条
         let Rv1, Rv2
