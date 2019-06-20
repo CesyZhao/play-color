@@ -13,6 +13,7 @@ function createWindow () {
   )
   // Create the browser window.
   const windowConfig = {
+    webPreferences: {webSecurity: false}, // 为了解决 audio 获取不到远程的文件作为音频解析，不推荐，待改善
     titleBarStyle: 'hidden',
     backgroundColor: 'none',
     resizable: false,

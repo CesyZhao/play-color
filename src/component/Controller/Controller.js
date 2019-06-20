@@ -29,6 +29,9 @@ class Controller extends Component{
 
   togglePlaying = () => {
     const audio = this.refs.audio
+    fetch("http://music.163.com/song/media/outer/url?id=1367452194.mp3")
+    .then(response => response.blob())
+    .then(blob => {console.log(blob, '----------')})
     if (!audio.paused) {
       audio.pause()
       this.setState({playing: false})
