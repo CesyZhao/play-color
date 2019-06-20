@@ -4,8 +4,13 @@
   right: 0;
   top: 48px;
   bottom: 48px;
-  background: rgba(4, 4, 4, .9);
+  background: rgba(4, 4, 4, 1);
   overflow: hidden;
+  z-index: 3;
+  cavas{
+    position: relative;
+    z-index: 2;
+  }
   &:after{
     content: ' ';
     position: absolute;
@@ -14,6 +19,10 @@
     top: 0px;
     bottom: 0px;
     background: rgba(11, 11, 11, 1);
-    filter: blur(10px) contrast(.95);
+    filter: blur(250px) contrast(.85);
+    z-index: 1;
   }
+}
+.test{
+  color:#fff;
 }
