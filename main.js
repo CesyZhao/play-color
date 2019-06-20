@@ -13,6 +13,7 @@ function createWindow () {
   )
   // Create the browser window.
   const windowConfig = {
+    show: false,
     webPreferences: {webSecurity: false}, // 为了解决 audio 获取不到远程的文件作为音频解析，不推荐，待改善
     titleBarStyle: 'hidden',
     backgroundColor: 'none',
@@ -23,6 +24,9 @@ function createWindow () {
     height: 608
   }
   mainWindow = new BrowserWindow(windowConfig)
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+  })
   mainWindow.setVibrancy('ultra-dark')
   mainWindow.setOpacity(0.98)
 
