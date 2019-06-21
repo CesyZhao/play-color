@@ -7,9 +7,29 @@
   background: rgba(4, 4, 4, 1);
   overflow: hidden;
   z-index: 3;
+  display: flex;
+  .pc-visualizor-wrapper{
+    flex: 1;
+    position: relative;
+  }
   canvas{
     position: relative;
     z-index: 2;
+  }
+  .img{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: #fff;
+    z-index: 3;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    img{
+      width: 100%;
+    }
   }
   &:after{
     content: ' ';

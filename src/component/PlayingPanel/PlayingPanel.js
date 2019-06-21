@@ -2,14 +2,19 @@ import React, {Component} from 'react'
 import './PlayingPanel.less'
 import eventBus from '../../events'
 import _ from 'lodash'
+import { connect } from 'react-redux'
 
+@connect(({controller}) => ({
+  controller
+}))
 class PlayingPanel extends Component{
 
   state = {
     showPlayingPanel: false,
     currentSongId: null,
     source: null,
-    analyser: null
+    analyser: null,
+    animation: null
   }
 
   setStateAsync = (state) => {
@@ -28,13 +33,8 @@ class PlayingPanel extends Component{
     })
   }
 
-  // componentDidUpdate () {
-  //   this.state.showPlayingPanel && this.initVisualizor()
-  // }
-
   destoryVisualizor = () => {
-    // this.state.source.disconnect()
-    // this.state.analyser.disconnect()
+    cancelAnimationFrame(this.state.animation)
   }
 
    initVisualizor = async() => {
@@ -71,37 +71,43 @@ class PlayingPanel extends Component{
     cxt.shadowColor = '#9B30FF'
     const self = this
     function drawSpectrum() {
-        // console.log(analyser.getByteFrequencyData(output))
-        self.state.analyser.getByteFrequencyData(output)//获取频域数据
-        cxt.clearRect(0, 0, wrap.width, wrap.height)
-        //画线条
-        let Rv1, Rv2
-        for (let i = 0; i < 200; i++) {
-            // if (i % 2 === 0) continue
-            let value = output[i] / 10//<===获取数据 
-            cxt.beginPath()
-            cxt.lineWidth = W
-            // Rv1 = (R - 1)
-            // cxt.moveTo(( Math.sin((i * du) / 180 * Math.PI) * R + potInt.y), -Math.cos((i * du) / 180 * Math.PI) * R + potInt.x)
-            // cxt.lineTo(( Math.sin((i * du) / 180 * Math.PI) * Rv1 + potInt.y), -Math.cos((i * du) / 180 * Math.PI) * Rv1 + potInt.x)
+      // console.log(analyser.getByteFrequencyData(output))
+      self.state.analyser.getByteFrequencyData(output)//获取频域数据
+      cxt.clearRect(0, 0, wrap.width, wrap.height)
+      //画线条
+      let Rv1, Rv2
+      for (let i = 0; i < 200; i++) {
+          // if (i % 2 === 0) continue
+          let value = output[i] / 10//<===获取数据 
+          cxt.beginPath()
+          cxt.lineWidth = W
+          // Rv1 = (R - 1)
+          // cxt.moveTo(( Math.sin((i * du) / 180 * Math.PI) * R + potInt.y), -Math.cos((i * du) / 180 * Math.PI) * R + potInt.x)
+          // cxt.lineTo(( Math.sin((i * du) / 180 * Math.PI) * Rv1 + potInt.y), -Math.cos((i * du) / 180 * Math.PI) * Rv1 + potInt.x)
 
-            Rv2 = R + value * 1.3
-            cxt.moveTo(( Math.sin((i * du) / 180 * Math.PI) * R + potInt.y),-Math.cos((i * du) / 180 * Math.PI) * R + potInt.x)
-            cxt.lineTo( ( Math.sin((i * du) / 180 * Math.PI) * Rv2 + potInt.y),-Math.cos((i * du) / 180 * Math.PI) * Rv2 + potInt.x)
-            cxt.stroke()
-        } 
-        //请求下一帧
-        requestAnimationFrame(drawSpectrum)
+          Rv2 = R + value * 1.3
+          cxt.moveTo(( Math.sin((i * du) / 180 * Math.PI) * R + potInt.y),-Math.cos((i * du) / 180 * Math.PI) * R + potInt.x)
+          cxt.lineTo( ( Math.sin((i * du) / 180 * Math.PI) * Rv2 + potInt.y),-Math.cos((i * du) / 180 * Math.PI) * Rv2 + potInt.x)
+          cxt.stroke()
+      } 
+      //请求下一帧
+      const animation = requestAnimationFrame(drawSpectrum)
+      self.setState({ animation })
     }
-
     drawSpectrum()
   }
 
   render() {
+    const { song } = this.props.controller
     return (
       this.state.showPlayingPanel &&
       <div className="pc-current-song-wrapper">
-        <canvas id="wrap" width="512" height="512"></canvas>
+        <div className="pc-visualizor-wrapper">
+          <canvas id="wrap" width="512" height="512" />
+          <div className="img" >
+            <img src={song.album.picUrl} alt="ablum"/>
+          </div>
+        </div>
       </div>
     )
   }
