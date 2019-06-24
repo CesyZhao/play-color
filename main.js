@@ -8,15 +8,17 @@ const os = require('os')
 let mainWindow
 
 function createWindow () {
-  process.env.NODE_ENV === 'development' && BrowserWindow.addDevToolsExtension(
-    path.join(os.homedir(), '/Documents/ChrisZhao/software/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0')
-  )
+  // process.env.NODE_ENV === 'development' && BrowserWindow.addDevToolsExtension(
+  //   path.join(os.homedir(), '/Documents/ChrisZhao/software/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0')
+  // )
   // Create the browser window.
+  const isWin = os.platform().includes('win')
   const windowConfig = {
     show: false,
+    frame: !isWin,
     webPreferences: {webSecurity: false}, // 为了解决 audio 获取不到远程的文件作为音频解析，不推荐，待改善
     titleBarStyle: 'hidden',
-    backgroundColor: 'none',
+    backgroundColor: isWin ? '#444' : 'none',
     resizable: false,
     maximizable: false,
     fullscreenable: false,
@@ -29,7 +31,6 @@ function createWindow () {
   })
   mainWindow.setVibrancy('ultra-dark')
   mainWindow.setOpacity(0.98)
-
   const winUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : `file://${__dirname}/build/index.html`
   // and load the index.html of the app.
   mainWindow.loadURL(winUrl)

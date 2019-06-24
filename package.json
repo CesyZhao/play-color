@@ -18,6 +18,7 @@
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "chalk": "2.4.1",
     "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
@@ -75,7 +76,9 @@
   "scripts": {
     "start": "concurrently --kill-others \"npm run dev\" \"npm run start-client\"",
     "dev": "node scripts/start.js",
+    "dev-windows": "concurrently --kill-others \"npm run dev\" \"npm run start-windows\"",
     "start-client": "NODE_ENV=development electron .",
+    "start-windows": "cross-env NODE_ENV=development electron .",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
