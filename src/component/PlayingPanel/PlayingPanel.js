@@ -106,13 +106,19 @@ class PlayingPanel extends Component{
     const modes = ['Song Mode', 'Lyric Mode']
     return (
       this.state.showPlayingPanel &&
-      <div className="pc-current-song-wrapper">
+      <div className={`pc-current-song-wrapper ${this.state.mode === 'Lyric Mode' && 'lyricMode'}`}>
         <div className="pc-visualizor-wrapper">
           <canvas id="wrap" width="512" height="512" />
           <div className="img" >
             <img src={song.album.picUrl} alt="ablum"/>
           </div>
         </div>
+        {
+            this.state.mode === 'Lyric Mode' &&
+            <div className="pc-lyric-wrapper">
+          
+            </div>
+        } 
         <div className="pc-playing-panel-switcher">
           {
             modes.map(mode => {
