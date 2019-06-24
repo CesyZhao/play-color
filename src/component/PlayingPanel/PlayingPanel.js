@@ -11,10 +11,10 @@ class PlayingPanel extends Component{
 
   state = {
     showPlayingPanel: false,
-    currentSongId: null,
     source: null,
     analyser: null,
-    animation: null
+    animation: null,
+    mode: 'Song Mode'
   }
 
   setStateAsync = (state) => {
@@ -97,8 +97,13 @@ class PlayingPanel extends Component{
     drawSpectrum()
   }
 
+  handleModeSwitch = (mode) => {
+    this.setState({mode})
+  }
+
   render() {
     const { song } = this.props.controller
+    const modes = ['Song Mode', 'Lyric Mode']
     return (
       this.state.showPlayingPanel &&
       <div className="pc-current-song-wrapper">
@@ -107,6 +112,13 @@ class PlayingPanel extends Component{
           <div className="img" >
             <img src={song.album.picUrl} alt="ablum"/>
           </div>
+        </div>
+        <div className="pc-playing-panel-switcher">
+          {
+            modes.map(mode => {
+              return <span className={`${this.state.mode === mode && 'active'}`} key={mode} onClick={() => this.setState({mode})}> {mode} </span>
+            })
+          }
         </div>
       </div>
     )
