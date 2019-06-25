@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import {Route} from 'react-router-dom'
+import {Route, withRouter} from 'react-router-dom'
 import Home from '../Home/Home'
+import Albums from '../Albums/Albums'
 import './RouteContainer.less'
 import {connect} from "react-redux"
 import EventBus from '../../events'
 
+@withRouter
 @connect(({user}) => ({
   user
 }))
@@ -39,6 +41,7 @@ class RouteContainer extends Component{
         </div>
         <div className="pc-routes">
           <Route path="/" exact component={Home} />
+          <Route path="/albums" component={Albums} />
         </div>
       </div>
     )

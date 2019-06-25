@@ -8,6 +8,7 @@ import { autoPlay } from 'react-swipeable-views-utils'
 import _ from 'lodash'
 import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST} from '../../store/action/actions'
 import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
@@ -66,7 +67,11 @@ class Home extends Component {
             </div>
           </div>
           <div>
-            <div className='pc-home-category-title'>Recommand Albums</div>
+            <div className='pc-home-category-title'> 
+              <Link to="/albums">
+                Recommand Albums <i className="iconfont icon-gengduo"></i>
+              </Link>
+            </div>
             <div className='pc-home-recommand'>
               {
                 this.state.albumList.map(album => {
