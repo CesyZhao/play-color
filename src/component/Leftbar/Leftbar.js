@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import './Leftbar.less'
 import logo from '../../asset/daydream.png'
 import menu from './menu'
+import { Link } from 'react-router-dom'
 
 class Leftbar extends Component {
 
@@ -9,8 +10,10 @@ class Leftbar extends Component {
     return (
       <div className='pc-leftbar'>
         <div className='pc-leftbar-logo'>
-          <img src={logo} alt="logo"/>
-          <span>PLAY COLOR</span> 
+          <Link to="/">
+            <img src={logo} alt="logo"/>
+            <span>PLAY COLOR</span> 
+          </Link>
         </div>
         {
           menu.map((category,index) => {
