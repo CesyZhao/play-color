@@ -11,6 +11,7 @@
   .pc-visualizor-wrapper{
     width: 100%;
     position: relative;
+    z-index: 55;
     transition: all .3s ease-in-out;
   }
   &.lyricMode{
@@ -20,7 +21,6 @@
   }
   .pc-lyric-wrapper{
     flex: 1;
-    background: #fff;
   }
   canvas{
     position: relative;
@@ -48,16 +48,17 @@
     right: 0;
     top: 0px;
     bottom: 0px;
-    background: rgba(11, 11, 11, 1);
-    filter: blur(250px) contrast(.85);
-    z-index: 1;
+    margin: -40px;
+    background: rgba(11, 11, 11, .98);
+    filter: blur(2px);
+    z-index: 4;
   }
 }
 .pc-playing-panel-switcher{
   position: absolute;
   bottom: 20px;
-  right: 20px;
-  z-index: 4;
+  left: 20px;
+  z-index: 66;
   span{
     font-size: 10px;
     margin-left: 18px;

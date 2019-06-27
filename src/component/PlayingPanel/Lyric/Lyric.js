@@ -5,7 +5,10 @@ import betterScroller from 'better-scroll'
 import http from '../../../config/http'
 import toaster from '../../../util/toast'
 import { formatLyric } from '../../../util/audio'
-let scroller
+import './Lyric.less'
+
+
+let scroller, timer
 
 
 @connect(({controller}) => ({
@@ -26,6 +29,11 @@ class Lyric extends Component {
     this.getLyrics()
   }
 
+  componentWillUnmount () {
+    scroller = null
+    clearInterval(timer)
+  }
+
   getLyrics = async () => {
     const {song} = this.props.controller
     try {
@@ -39,8 +47,11 @@ class Lyric extends Component {
         num: tlyric ? 4 : 9,
         times: Object.keys(lyrics)
       })
+      timer = setInterval(() => {
+        const audio = document.getElementById('audio')
+        this.findNextIndex(Math.round(audio.currentTime * 1000))
+      }, 1000)
     } catch (error) {
-      console.log(error)
       toaster.error('Fail to load lyrics')
     }
   }
@@ -52,8 +63,11 @@ class Lyric extends Component {
     this.setState({
       nextIndex
     }, () => {
-      if (nextIndex > this.num) {  
-        let lineEl = this.refs.lyricLine[nextIndex - this.num]  
+      if (nextIndex > this.state.num) {
+        console.log(nextIndex, this.state.num)
+        let lineEl = document.querySelector(`[data-lyric-line='${nextIndex - this.state.num}']`)
+
+        console.log(lineEl)
         scroller.scrollToElement(lineEl, 1000)  
       } else {  
         scroller.scrollToElement(0, 0, 1000)  
@@ -72,13 +86,13 @@ class Lyric extends Component {
         <div className="pc-lyric" ref="lyric">
           <ul className="lyric-scroller">
             {
-              Object.entries(this.state.lyrics).map(([key, lyric]) => {
+              Object.entries(this.state.lyrics).map(([key, lyric], index) => {
                 return (
-                  <li ref="lyricLine" key={ key } className={`lyric-scroll-item ${this.state.nextIndex - 1 === this.state.times.indexOf(key) && 'active'}`}>
+                  <li key={ key } data-lyric-line={ index } className={`lyric-scroll-item ${this.state.nextIndex - 1 === this.state.times.indexOf(key) && 'active'}`}>
                     <div className="lyric-row">{lyric}</div>
                     {
                       this.state.tlyrics && 
-                      <div class="tlyric-row">{this.state.tlyric[key]}</div>
+                      <div class="tlyric-row">{this.state.tlyrics[key]}</div>
                     }
                   </li>
                 )

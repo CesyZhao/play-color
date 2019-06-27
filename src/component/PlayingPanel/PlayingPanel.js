@@ -105,9 +105,13 @@ class PlayingPanel extends Component{
   render() {
     const { song } = this.props.controller
     const modes = ['Song Mode', 'Lyric Mode']
+    const coverBackground = {
+      backgroundImage: `url(${song.album.picUrl})`,
+      backgroundSize: 'cover'
+    }
     return (
       this.state.showPlayingPanel &&
-      <div className={`pc-current-song-wrapper ${this.state.mode === 'Lyric Mode' && 'lyricMode'}`}>
+      <div style={coverBackground} className={`pc-current-song-wrapper ${this.state.mode === 'Lyric Mode' && 'lyricMode'}`}>
         <div className="pc-visualizor-wrapper">
           <canvas id="wrap" width="512" height="512" />
           <div className="img" >
