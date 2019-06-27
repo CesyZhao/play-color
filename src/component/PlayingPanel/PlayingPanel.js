@@ -3,6 +3,7 @@ import './PlayingPanel.less'
 import eventBus from '../../events'
 import _ from 'lodash'
 import { connect } from 'react-redux'
+import Lyric from './Lyric/Lyric'
 
 @connect(({controller}) => ({
   controller
@@ -115,9 +116,7 @@ class PlayingPanel extends Component{
         </div>
         {
             this.state.mode === 'Lyric Mode' &&
-            <div className="pc-lyric-wrapper">
-          
-            </div>
+            <Lyric songId={ song.id }></Lyric>
         } 
         <div className="pc-playing-panel-switcher">
           {

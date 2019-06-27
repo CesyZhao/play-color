@@ -1,0 +1,36 @@
+.pc-lyric-wrapper{
+  height: 100%;
+  box-sizing: border-box;
+  padding: 16px 16px 96px 16px;
+}
+.pc-lyric{
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
+  // overflow-y: scroll;
+  &::-webkit-scrollbar{
+      width: 0;
+      height: 0;
+  }
+}
+.lyric-scroller{
+  padding: 0 0 12px 0;
+  list-style: none;
+  .lyric-scroll-item{
+      list-style: none;
+      // overflow: hidden;
+      white-space: nowrap;
+      color:#aaa
+  }
+  .active{
+      color:#fff;
+  }
+}
+.lyric-row,.tlyric-row{
+  height: 32px;
+  line-height: 24px;
+  font-size: 16px;
+}
+.tlyric-row{
+  font-size: 12px;
+}
