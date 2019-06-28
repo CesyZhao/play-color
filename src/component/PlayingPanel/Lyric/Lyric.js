@@ -26,7 +26,11 @@ class Lyric extends Component {
 
   componentDidMount () {
     scroller = new betterScroller(this.refs.lyric)
-    this.getLyrics()
+    this.getLyrics(this.props.controller.song)
+  }
+
+  componentWillReceiveProps (props) {
+    this.getLyrics(props.controller.song)
   }
 
   componentWillUnmount () {
@@ -34,8 +38,7 @@ class Lyric extends Component {
     clearInterval(timer)
   }
 
-  getLyrics = async () => {
-    const {song} = this.props.controller
+  getLyrics = async (song) => {
     try {
       const res = await http.get(`/lyric?id=${song.id}`)
       let { lrc, tlyric } = res.data
@@ -64,10 +67,7 @@ class Lyric extends Component {
       nextIndex
     }, () => {
       if (nextIndex > this.state.num) {
-        console.log(nextIndex, this.state.num)
         let lineEl = document.querySelector(`[data-lyric-line='${nextIndex - this.state.num}']`)
-
-        console.log(lineEl)
         scroller.scrollToElement(lineEl, 1000)  
       } else {  
         scroller.scrollToElement(0, 0, 1000)  
@@ -80,8 +80,8 @@ class Lyric extends Component {
     return (
       <div className="pc-lyric-wrapper">
         <div className="pc-lyric-song-info">
-          <h2> { song.name } </h2>
-          <span> { song.artists.map(artist => artist.name).join('/') } </span>
+          <h1> { song.name } </h1>
+          <span>Artist: { song.artists.map(artist => artist.name).join('/') } </span>
         </div>
         <div className="pc-lyric" ref="lyric">
           <ul className="lyric-scroller">
@@ -92,7 +92,7 @@ class Lyric extends Component {
                     <div className="lyric-row">{lyric}</div>
                     {
                       this.state.tlyrics && 
-                      <div class="tlyric-row">{this.state.tlyrics[key]}</div>
+                      <div className="tlyric-row">{this.state.tlyrics[key]}</div>
                     }
                   </li>
                 )
