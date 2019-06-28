@@ -111,25 +111,30 @@ class PlayingPanel extends Component{
     }
     return (
       this.state.showPlayingPanel &&
-      <div style={coverBackground} className={`pc-current-song-wrapper ${this.state.mode === 'Lyric Mode' && 'lyricMode'}`}>
-        <div className="pc-visualizor-wrapper">
-          <canvas id="wrap" width="512" height="512" />
-          <div className="img" >
-            <img src={song.album.picUrl} alt="ablum"/>
+      <React.Fragment>
+        <div className={`pc-current-song-wrapper ${this.state.mode === 'Lyric Mode' && 'lyricMode'}`}>
+          <div className="pc-visualizor-wrapper">
+            <canvas id="wrap" width="512" height="512" />
+            <div className="img" >
+              <img src={song.album.picUrl} alt="ablum"/>
+            </div>
+          </div>
+          {
+              this.state.mode === 'Lyric Mode' &&
+              <Lyric songId={ song.id }></Lyric>
+          } 
+          <div className="pc-playing-panel-switcher">
+            {
+              modes.map(mode => {
+                return <span className={`${this.state.mode === mode && 'active'}`} key={mode} onClick={() => this.setState({mode})}> {mode} </span>
+              })
+            }
           </div>
         </div>
-        {
-            this.state.mode === 'Lyric Mode' &&
-            <Lyric songId={ song.id }></Lyric>
-        } 
-        <div className="pc-playing-panel-switcher">
-          {
-            modes.map(mode => {
-              return <span className={`${this.state.mode === mode && 'active'}`} key={mode} onClick={() => this.setState({mode})}> {mode} </span>
-            })
-          }
+        <div className="pc-playing-panel-blur-cover">
+          <img src={song.album.picUrl} alt="ablum"></img>
         </div>
-      </div>
+      </React.Fragment>
     )
   }
 }
