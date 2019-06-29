@@ -19,6 +19,18 @@ class Controller extends Component{
     playing: false
   }
 
+  componentDidMount () {
+    const electron = window.require('electron')
+    const {ipcRenderer} = electron
+    const events = ['next', 'prev', 'togglePlaying']
+    for (const event of events) {
+      ipcRenderer.on(event, () => {
+        console.log(event)
+        this[event]()
+      })
+    }
+  }
+
   handleMusicReady = (e) => {
     this.setState({playing: true})
   }
