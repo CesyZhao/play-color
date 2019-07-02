@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Route, withRouter} from 'react-router-dom'
 import Home from '../Home/Home'
+import Album from '../Album/Album'
 import Albums from '../Albums/Albums'
 import './RouteContainer.less'
 import {connect} from "react-redux"
@@ -17,14 +18,18 @@ class RouteContainer extends Component{
     !profile && EventBus.emit('toggleLogin')
   }
 
+  handleHistory = (index) => {
+    window.history.go(index)
+  }
+
   render() {
     const {profile}  = this.props.user
     return(
       <div className="pc-route-container">
         <div className="pc-tool-bar">
           <div className="pc-tool-bar-tools">
-            <i className="iconfont icon-fanhui"/>
-            <i className="iconfont icon-gengduo"/>
+            <i className="iconfont icon-fanhui" onClick={ () => this.handleHistory(-1) }/>
+            <i className="iconfont icon-gengduo" onClick={ () => this.handleHistory(1) }/>
           </div>
           <div className='pc-tool-bar-search'>
             <input placeholder='Search something....'></input>
@@ -41,6 +46,7 @@ class RouteContainer extends Component{
         </div>
         <div className="pc-routes">
           <Route path="/" exact component={Home} />
+          <Route path="/album/:id" component={Album} />
           <Route path="/albums" component={Albums} />
         </div>
       </div>

@@ -76,10 +76,11 @@ class Home extends Component {
               {
                 this.state.albumList.map(album => {
                   return (
-                    <div className='pc-personalized-album' key={album.id} data-name={album.name}>
-                      {/* <img src={album.picUrl} alt='albumPic'/> */}
-                      <LazyImage imgUrl={album.picUrl} />
-                    </div>
+                    <Link to={{pathname: `/album/${album.id}`}} key={album.id}>
+                      <div className='pc-personalized-album' data-name={album.name}>
+                        <LazyImage imgUrl={album.picUrl} />
+                      </div>
+                    </Link>
                   )
                 })
               }
