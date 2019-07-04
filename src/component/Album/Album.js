@@ -2,7 +2,21 @@ import React, {Component} from 'react'
 import http from '../../config/http'
 import LazyImage from '../LazyImage/LazyImage'
 import './Album.less'
+import Playlist from '../PlayList/PlayList'
 
+const fields = [
+  {
+    name: 'name',
+    title: '歌名',
+    flex: 1
+  },
+  {
+    name: 'dt',
+    alias: 'duration',
+    title: '时长',
+    flex: 1
+  }
+]
 class Album extends Component {
   state = {
     album: null
@@ -44,6 +58,9 @@ class Album extends Component {
             </div>
           </div>
         </div>
+        <Playlist fields={ fields } list={ album.tracks }>
+
+        </Playlist>
       </div>
     )
   }
