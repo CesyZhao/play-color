@@ -2,37 +2,37 @@ export default [
   {
     list: [
       {
-        name: 'Found Music',
+        name: '发现音乐',
         icon: 'icon-tubiaozhizuomoban',
         link: '/'
       },
       {
-        name: 'Personal FM',
+        name: '私人 FM',
         icon: 'icon-xianxing_diantai',
         link: '/'
       },
       {
-        name: 'Ranking List',
+        name: '排行榜',
         icon: 'icon-paihangbang',
         link: '/'
       },
       {
-        name: 'Friends',
+        name: '朋友',
         icon: 'icon-friend_light',
         link: '/'
       },
     ]
   },
   {
-    name: 'My Music',
+    name: '我的音乐',
     list: [
       {
-        name: 'Collection',
+        name: '收藏',
         icon: 'icon-shoucang',
         link: '/'
       },
       {
-        name: 'Record',
+        name: '播放记录',
         icon: 'icon-lishijilu',
         link: '/'
       }

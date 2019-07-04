@@ -32,7 +32,7 @@ class RouteContainer extends Component{
             <i className="iconfont icon-gengduo" onClick={ () => this.handleHistory(1) }/>
           </div>
           <div className='pc-tool-bar-search'>
-            <input placeholder='Search something....'></input>
+            <input placeholder='搜索'></input>
             <i className='iconfont icon-sousuo1'></i>
           </div>
           <div className="pc-tool-bar-tools" onClick={this.toggleLogin}>

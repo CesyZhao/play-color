@@ -57,7 +57,7 @@ class Home extends Component {
         : <div className="pc-home">
         <div className='pc-home-category-left'>
           <div>
-            <div className='pc-home-category-title'>Today's Topic</div>
+            <div className='pc-home-category-title'>今日焦点</div>
             <div className='pc-home-banner'>
               <AutoPlaySwipeableViews>
                 {
@@ -69,7 +69,7 @@ class Home extends Component {
           <div>
             <div className='pc-home-category-title'> 
               <Link to="/albums">
-                Recommand Albums <i className="iconfont icon-gengduo"></i>
+                推荐歌单 <i className="iconfont icon-gengduo"></i>
               </Link>
             </div>
             <div className='pc-home-recommand'>
@@ -88,7 +88,7 @@ class Home extends Component {
           </div>
         </div>
         <div className='pc-home-category-right'>
-          <div className='pc-home-category-title'>Newest</div>
+          <div className='pc-home-category-title'>最新音乐</div>
           <div className='pc-home-newest'>
               {
                 this.state.newest.map((song,index) => {

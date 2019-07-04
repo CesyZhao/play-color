@@ -1,4 +1,69 @@
+.pc-album{
+  padding: 12px 24px;
+  flex: 1;
+}
 .pc-album-info{
-  width: 200px;
-  height: 200px;
+  display: flex;
+  .pc-album-cover{
+    width: 160px;
+    height: 160px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .pc-album-text{
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, .2);
+    color: rgb(4, 4, 4);
+    border-radius: 2px;
+  }
+  div.pc-album-text:nth-child(1){
+    padding: 8px 14px;
+    font-size: 24px;
+  }
+  .pc-album-detail{
+    position: relative;
+    margin-left: 12px;
+  }
+  .pc-album-creator{
+    position: absolute;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    flex-grow: 0;
+    .pc-album-creator-avatar{
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 12px;
+    }
+    .pc-album-creator-nickname{
+      vertical-align: middle;
+    }
+  }
+  .pc-album-tags{
+    position: absolute;
+    top: 96px;
+  }
+  .pc-album-counts{
+    position: absolute;
+    bottom: 6px;
+    span{
+      font-size: 12px !important;
+    }
+    .pc-album-play-all{
+      i{ font-size: 12px !important; }
+      padding: 6px 18px;
+      border-radius: 12px;
+      background: rgba(87, 225, 231, .6);
+      animation: shinning 2s ease-in-out infinite alternate;
+    }
+  }
+}
+
+@keyframes shinning{
+  100%{
+    box-shadow: 0 0 12px 0 #9B30FF;
+  }
 }
