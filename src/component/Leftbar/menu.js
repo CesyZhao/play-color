@@ -3,19 +3,23 @@ export default [
     list: [
       {
         name: 'Found Music',
-        icon: 'icon-tubiaozhizuomoban'
+        icon: 'icon-tubiaozhizuomoban',
+        link: '/'
       },
       {
         name: 'Personal FM',
-        icon: 'icon-xianxing_diantai'
+        icon: 'icon-xianxing_diantai',
+        link: '/'
       },
       {
         name: 'Ranking List',
-        icon: 'icon-paihangbang'
+        icon: 'icon-paihangbang',
+        link: '/'
       },
       {
         name: 'Friends',
-        icon: 'icon-friend_light'
+        icon: 'icon-friend_light',
+        link: '/'
       },
     ]
   },
@@ -24,11 +28,13 @@ export default [
     list: [
       {
         name: 'Collection',
-        icon: 'icon-shoucang'
+        icon: 'icon-shoucang',
+        link: '/'
       },
       {
         name: 'Record',
-        icon: 'icon-lishijilu'
+        icon: 'icon-lishijilu',
+        link: '/'
       }
     ]
   }

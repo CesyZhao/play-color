@@ -11,3 +11,15 @@ export function formatLyric(lyric){
   })
   return result
 }
+
+function pad(number) {
+  return ('0' + number).slice(-2);
+}
+/*
+* 格式化时间  毫秒 => 秒
+* */
+export function formatDuration(duration){
+  var minutes = Math.floor(duration / 1000 / 60);
+  var second = Math.floor(duration / 1000 - minutes * 60);
+  return `${pad(minutes)}:${pad(second)}`;
+}
