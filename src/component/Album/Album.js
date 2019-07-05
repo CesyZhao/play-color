@@ -8,7 +8,13 @@ const fields = [
   {
     name: 'name',
     title: '歌名',
-    flex: 1
+    flex: 2
+  },
+  {
+    name: 'ar',
+    alias: 'artists',
+    title: '歌手',
+    flex: 2
   },
   {
     name: 'dt',
@@ -58,7 +64,7 @@ class Album extends Component {
             </div>
           </div>
         </div>
-        <Playlist fields={ fields } list={ album.tracks }>
+        <Playlist fields={ fields } list={ album.tracks } className='pc-album-list'>
 
         </Playlist>
       </div>
