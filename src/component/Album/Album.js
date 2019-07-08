@@ -56,8 +56,10 @@ class Album extends Component {
               </span>
               <span className='pc-album-creator-nickname'>{ album.creator.nickname }</span>
             </div>
-            <div className='pc-album-text pc-album-tags'>
-              { album.tags.join('/') }
+            <div className='pc-album-tags'>
+              <span className='pc-album-text'> { album.tags.join('/') } </span>
+              <span className='pc-album-text'> 播放量: { (album.playCount / 10000).toFixed(2) } 万</span>
+              <span className='pc-album-text'> { album.tracks.length } 首</span>
             </div>
             <div className='pc-album-counts'>
               <span className='pc-album-play-all'> <i className='iconfont icon-bofangqi-bofang'></i> 播放全部 </span>
