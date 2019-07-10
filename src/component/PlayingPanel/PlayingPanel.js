@@ -5,6 +5,8 @@ import _ from 'lodash'
 import { connect } from 'react-redux'
 import Lyric from './Lyric/Lyric'
 
+const CANVAS_RADIUS = 304
+const BYTE_ARRAY_LENGTH = 250
 @connect(({controller}) => ({
   controller
 }))
@@ -61,9 +63,9 @@ class PlayingPanel extends Component{
     }
     // audio.play()
     //创建数据
-    let output = new Uint8Array(200) 
+    let output = new Uint8Array(BYTE_ARRAY_LENGTH) 
     let du = 2//角度
-    let potInt = { x: 256, y: 256 }//起始坐标
+    let potInt = { x: CANVAS_RADIUS, y: CANVAS_RADIUS }//起始坐标
     let R = 150//半径
     let W = 2//宽
     // console.log(analyser.getByteFrequencyData(output))
@@ -77,7 +79,7 @@ class PlayingPanel extends Component{
       cxt.clearRect(0, 0, wrap.width, wrap.height)
       //画线条
       let Rv1, Rv2
-      for (let i = 0; i < 200; i++) {
+      for (let i = 0; i < BYTE_ARRAY_LENGTH; i++) {
           // if (i % 2 === 0) continue
           let value = output[i] / 10//<===获取数据 
           cxt.beginPath()
@@ -87,8 +89,8 @@ class PlayingPanel extends Component{
           // cxt.lineTo(( Math.sin((i * du) / 180 * Math.PI) * Rv1 + potInt.y), -Math.cos((i * du) / 180 * Math.PI) * Rv1 + potInt.x)
 
           Rv2 = R + value * 1.3
-          cxt.moveTo(( Math.sin((i * du) / 180 * Math.PI) * R + potInt.y),-Math.cos((i * du) / 180 * Math.PI) * R + potInt.x)
-          cxt.lineTo( ( Math.sin((i * du) / 180 * Math.PI) * Rv2 + potInt.y),-Math.cos((i * du) / 180 * Math.PI) * Rv2 + potInt.x)
+          cxt.moveTo(( Math.sin((i * du) / BYTE_ARRAY_LENGTH * Math.PI) * R + potInt.y),-Math.cos((i * du) / BYTE_ARRAY_LENGTH * Math.PI) * R + potInt.x)
+          cxt.lineTo( ( Math.sin((i * du) / BYTE_ARRAY_LENGTH * Math.PI) * Rv2 + potInt.y),-Math.cos((i * du) / BYTE_ARRAY_LENGTH * Math.PI) * Rv2 + potInt.x)
           cxt.stroke()
       } 
       //请求下一帧
@@ -102,19 +104,21 @@ class PlayingPanel extends Component{
     this.setState({mode})
   }
 
+  dismiss = () => {
+    console.log('1111111')
+    this.setState({showPlayingPanel: false})
+  }
+
   render() {
     const { song } = this.props.controller
     const modes = ['Song Mode', 'Lyric Mode']
-    const coverBackground = {
-      backgroundImage: `url(${song.album.picUrl})`,
-      backgroundSize: 'cover'
-    }
     return (
       this.state.showPlayingPanel &&
       <React.Fragment>
         <div className={`pc-current-song-wrapper ${this.state.mode === 'Lyric Mode' && 'lyricMode'}`}>
+          <div className='iconfont icon-fanhui icon-dismiss' onClick={ this.dismiss }></div>
           <div className="pc-visualizor-wrapper">
-            <canvas id="wrap" width="512" height="512" />
+            <canvas id="wrap" width={ CANVAS_RADIUS * 2 } height={ CANVAS_RADIUS * 2 } />
             <div className="img" >
               <img src={song.album.picUrl} alt="ablum"/>
             </div>

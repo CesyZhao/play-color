@@ -2,8 +2,8 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 48px;
-  bottom: 48px;
+  top: 0;
+  bottom: 0;
   background: rgba(4, 4, 4, .8);
   overflow: hidden;
   z-index: 3;
@@ -11,7 +11,7 @@
   .pc-visualizor-wrapper{
     width: 100%;
     position: relative;
-    z-index: 55;
+    z-index: 5;
     transition: all .3s ease-in-out;
   }
   &.lyricMode{
@@ -22,7 +22,7 @@
   .pc-lyric-wrapper{
     width: 40%;
     position: relative;
-    z-index: 55;
+    z-index: 5;
   }
   canvas{
     position: relative;
@@ -48,7 +48,7 @@
   position: absolute;
   bottom: 20px;
   left: 20px;
-  z-index: 66;
+  z-index: 6;
   span{
     font-size: 10px;
     margin-left: 18px;
@@ -70,8 +70,8 @@
 }
 .pc-playing-panel-blur-cover{
   position: absolute;
-  top: 48px;
-  bottom: 48px;
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   overflow: hidden;
@@ -82,4 +82,12 @@
     height: 102%;
     filter: blur(20px);
   }
+}
+.icon-dismiss{
+  position: absolute;
+  left: 80px;
+  top: 4px;
+  transform: rotate(-90deg);
+  cursor: pointer;
+  z-index: 6;
 }
