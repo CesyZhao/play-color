@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import './PlayingPanel.less'
 import eventBus from '../../events'
-import _ from 'lodash'
+import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import Lyric from './Lyric/Lyric'
 
@@ -105,7 +105,6 @@ class PlayingPanel extends Component{
   }
 
   dismiss = () => {
-    console.log('1111111')
     this.setState({showPlayingPanel: false})
   }
 
@@ -113,32 +112,33 @@ class PlayingPanel extends Component{
     const { song } = this.props.controller
     const modes = ['Song Mode', 'Lyric Mode']
     return (
-      this.state.showPlayingPanel &&
-      <React.Fragment>
-        <div className={`pc-current-song-wrapper ${this.state.mode === 'Lyric Mode' && 'lyricMode'}`}>
-          <div className='iconfont icon-fanhui icon-dismiss' onClick={ this.dismiss }></div>
-          <div className="pc-visualizor-wrapper">
-            <canvas id="wrap" width={ CANVAS_RADIUS * 2 } height={ CANVAS_RADIUS * 2 } />
-            <div className="img" >
-              <img src={song.album.picUrl} alt="ablum"/>
+      <CSSTransition in={this.state.showPlayingPanel} timeout={300} unmountOnExit classNames="pc-playing-panel">
+        <div className='pc-playing-panel'>
+          <div className={`pc-current-song-wrapper ${this.state.mode === 'Lyric Mode' && 'lyricMode'}`}>
+            <div className='iconfont icon-fanhui icon-dismiss' onClick={ this.dismiss }></div>
+            <div className="pc-visualizor-wrapper">
+              <canvas id="wrap" width={ CANVAS_RADIUS * 2 } height={ CANVAS_RADIUS * 2 } />
+              <div className="img" >
+                <img src={song.album.picUrl} alt="ablum"/>
+              </div>
+            </div>
+            {
+                this.state.mode === 'Lyric Mode' &&
+                <Lyric songId={ song.id }></Lyric>
+            } 
+            <div className="pc-playing-panel-switcher">
+              {
+                modes.map(mode => {
+                  return <span className={`${this.state.mode === mode && 'active'}`} key={mode} onClick={() => this.setState({mode})}> {mode} </span>
+                })
+              }
             </div>
           </div>
-          {
-              this.state.mode === 'Lyric Mode' &&
-              <Lyric songId={ song.id }></Lyric>
-          } 
-          <div className="pc-playing-panel-switcher">
-            {
-              modes.map(mode => {
-                return <span className={`${this.state.mode === mode && 'active'}`} key={mode} onClick={() => this.setState({mode})}> {mode} </span>
-              })
-            }
+          <div className="pc-playing-panel-blur-cover">
+            <img src={song.album.picUrl} alt="ablum"></img>
           </div>
         </div>
-        <div className="pc-playing-panel-blur-cover">
-          <img src={song.album.picUrl} alt="ablum"></img>
-        </div>
-      </React.Fragment>
+      </CSSTransition>
     )
   }
 }
