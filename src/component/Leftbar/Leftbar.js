@@ -10,10 +10,10 @@ class Leftbar extends Component {
     return (
       <div className='pc-leftbar'>
         <div className='pc-leftbar-logo'>
-          {/* <Link to="/">
+          <Link to="/">
             <img src={logo} alt="logo"/>
             <span>PLAY COLOR</span> 
-          </Link> */}
+          </Link>
         </div>
         {
           menu.map((category,index) => {
