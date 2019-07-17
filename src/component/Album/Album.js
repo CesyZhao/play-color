@@ -17,6 +17,12 @@ const fields = [
     flex: 2
   },
   {
+    name: 'al',
+    alias: 'album',
+    title: '专辑',
+    flex: 2
+  },
+  {
     name: 'dt',
     alias: 'duration',
     title: '时长',

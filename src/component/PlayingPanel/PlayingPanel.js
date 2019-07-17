@@ -17,7 +17,7 @@ class PlayingPanel extends Component{
     source: null,
     analyser: null,
     animation: null,
-    mode: 'Song Mode'
+    mode: '歌曲模式'
   }
 
   setStateAsync = (state) => {
@@ -110,11 +110,11 @@ class PlayingPanel extends Component{
 
   render() {
     const { song } = this.props.controller
-    const modes = ['Song Mode', 'Lyric Mode']
+    const modes = ['歌曲模式', '歌词模式']
     return (
       <CSSTransition in={this.state.showPlayingPanel} timeout={300} unmountOnExit classNames="pc-playing-panel">
         <div className='pc-playing-panel'>
-          <div className={`pc-current-song-wrapper ${this.state.mode === 'Lyric Mode' && 'lyricMode'}`}>
+          <div className={`pc-current-song-wrapper ${this.state.mode === '歌词模式' && 'lyricMode'}`}>
             <div className='iconfont icon-fanhui icon-dismiss' onClick={ this.dismiss }></div>
             <div className="pc-visualizor-wrapper">
               <canvas id="wrap" width={ CANVAS_RADIUS * 2 } height={ CANVAS_RADIUS * 2 } />
@@ -123,7 +123,7 @@ class PlayingPanel extends Component{
               </div>
             </div>
             {
-                this.state.mode === 'Lyric Mode' &&
+                this.state.mode === '歌词模式' &&
                 <Lyric songId={ song.id }></Lyric>
             } 
             <div className="pc-playing-panel-switcher">

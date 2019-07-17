@@ -12,7 +12,8 @@ class PlayList extends Component {
   getContent = (song, name, alias) => {
     const dealerMap = {
       duration: () => formatDuration(song[name]),
-      artists: () => song[name].map(at => at.name).join('/')
+      artists: () => song[name].map(at => at.name).join('/'),
+      album: () => song[name].name
     }
     return dealerMap[alias] ? dealerMap[alias]() : song[name]
   }
@@ -21,7 +22,7 @@ class PlayList extends Component {
     return (
       <div className="pc-playlist-wrapper">
         <div className="pc-playlist-song pc-playlist-header">
-            <div style={{width: '40px'}}> # </div>
+            <div style={{width: '20px'}}> # </div>
             {
               this.props.fields.map(field => {
                 return <div style={{ flex: field.flex }}>
@@ -33,7 +34,7 @@ class PlayList extends Component {
         {
           this.props.list.map((song, index) => {
             return <div className="pc-playlist-song">
-              <div style={{width: '40px'}}>{ index + 1 }</div>
+              <div style={{width: '20px'}}>{ index + 1 }</div>
               {
                 this.props.fields.map(field => {
                   return <div style={{ flex: field.flex }}> { this.getContent(song, field.name, field.alias)} </div>
