@@ -1,16 +1,15 @@
 .pc-playlist-wrapper{
-  overflow-y: scroll;
-  &::-webkit-scrollbar{
-    width: 0;
-    height: 0;
-  }
+  flex: 1;
+  overflow: hidden;
 }
 .pc-playlist-header{
   font-size: 16px;
   position: sticky;
   top: 0;
-  background: linear-gradient(to right bottom, #51416B, #4E8291);
   padding: 12px 0;
+  background: rgba(255, 255, 255, .1);
+  border-radius: 2px;
+  margin: 0 !important;
 }
 .pc-playlist-song{
   display: flex;
@@ -22,5 +21,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+}
+.pc-playlist-songs{
+  height:  calc(100% - 42px);
+  overflow-y: scroll;
+  &::-webkit-scrollbar{
+    width: 0;
+    height: 0;
   }
 }

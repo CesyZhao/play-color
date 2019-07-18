@@ -22,7 +22,7 @@ class PlayList extends Component {
     return (
       <div className="pc-playlist-wrapper">
         <div className="pc-playlist-song pc-playlist-header">
-            <div style={{width: '20px'}}> # </div>
+            <div style={{width: '30px'}}> # </div>
             {
               this.props.fields.map(field => {
                 return <div style={{ flex: field.flex }}>
@@ -30,19 +30,21 @@ class PlayList extends Component {
                 </div>
               })
             }
-          </div>
-        {
-          this.props.list.map((song, index) => {
-            return <div className="pc-playlist-song">
-              <div style={{width: '20px'}}>{ index + 1 }</div>
-              {
-                this.props.fields.map(field => {
-                  return <div style={{ flex: field.flex }}> { this.getContent(song, field.name, field.alias)} </div>
-                })
-              }
-            </div>
-          })
-        }
+        </div>
+        <div className="pc-playlist-songs">
+          {
+            this.props.list.map((song, index) => {
+              return <div className="pc-playlist-song">
+                <div style={{width: '30px'}}>{ index + 1 }</div>
+                {
+                  this.props.fields.map(field => {
+                    return <div style={{ flex: field.flex }}> { this.getContent(song, field.name, field.alias)} </div>
+                  })
+                }
+              </div>
+            })
+          }
+        </div>
       </div>
     )
   }
