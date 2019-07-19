@@ -17,6 +17,12 @@ const fields = [
     flex: 2
   },
   {
+    name: 'al',
+    alias: 'album',
+    title: '专辑',
+    flex: 2
+  },
+  {
     name: 'dt',
     alias: 'duration',
     title: '时长',
@@ -57,12 +63,12 @@ class Album extends Component {
               <span className='pc-album-creator-nickname'>{ album.creator.nickname }</span>
             </div>
             <div className='pc-album-tags'>
-              <span className='pc-album-text'> { album.tags.join('/') } </span>
-              <span className='pc-album-text'> 播放量: { (album.playCount / 10000).toFixed(2) } 万</span>
-              <span className='pc-album-text'> { album.tracks.length } 首</span>
+              <div className='pc-album-text'> { album.tags.join('/') } </div>
+              <div className='pc-album-text'> 播放量: { (album.playCount / 10000).toFixed(2) } 万</div>
+              <div className='pc-album-text'> { album.tracks.length } 首</div>
             </div>
             <div className='pc-album-counts'>
-              <span className='pc-album-play-all'> <i className='iconfont icon-bofangqi-bofang'></i> 播放全部 </span>
+              <div className='pc-album-play-all'> <i className='iconfont icon-bofangqi-bofang'></i> 播放全部 </div>
             </div>
           </div>
         </div>

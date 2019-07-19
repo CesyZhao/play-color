@@ -1,9 +1,8 @@
 .pc-album{
-  padding: 12px 24px;
-  background-color: rgb(4, 4, 4);
   flex: 1;
   display: flex;
   flex-direction: column;
+  padding-right: 8px;
   .pc-album-list{
     flex: 1;
   }
@@ -11,7 +10,9 @@
 .pc-album-info{
   display: flex;
   flex-shrink: 0;
-  margin-bottom: 24px;
+  padding: 18px;
+  background: rgba(255, 255, 255, .1);
+  border-radius: 2px;
   .pc-album-cover{
     width: 160px;
     height: 160px;
@@ -24,17 +25,18 @@
     color: rgb(4, 4, 4);
     border-radius: 2px;
   }
-  div.pc-album-text:nth-child(1){
-    padding: 8px 14px;
-    font-size: 24px;
-  }
   .pc-album-detail{
-    position: relative;
     margin-left: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    &>div.pc-album-text:nth-child(1){
+      padding: 8px 14px;
+      font-size: 24px;
+    }
   }
   .pc-album-creator{
-    position: absolute;
-    margin-top: 8px;
     display: flex;
     align-items: center;
     flex-grow: 0;
@@ -51,15 +53,12 @@
     }
   }
   .pc-album-tags{
-    position: absolute;
-    top: 102px;
-    span{
+    display: flex;
+    div{
       margin-right: 8px;
     }
   }
   .pc-album-counts{
-    position: absolute;
-    bottom: 6px;
     span{
       font-size: 12px !important;
       margin-right: 12px;

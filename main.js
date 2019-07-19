@@ -30,7 +30,7 @@ function createWindow () {
     mainWindow.show()
   })
   mainWindow.setVibrancy('ultra-dark')
-  mainWindow.setOpacity(0.98)
+  mainWindow.setOpacity(0.99)
   const winUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : `file://${__dirname}/build/index.html`
   // and load the index.html of the app.
   mainWindow.loadURL(winUrl)
