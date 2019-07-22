@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { formatDuration } from '../../util/audio'
 import './PlayList.less'
+import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST} from '../../store/action/actions'
+import {connect} from 'react-redux'
 
+@connect()
 class PlayList extends Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
@@ -16,6 +19,17 @@ class PlayList extends Component {
       album: () => song[name].name
     }
     return dealerMap[alias] ? dealerMap[alias]() : song[name]
+  }
+
+  handleSongClick = (song) => {
+    this.props.dispatch({
+      type: UPDATE_PLAYING_SONG,
+      song
+    })
+    this.props.dispatch({
+      type: UPDATE_PLAYING_LIST,
+      currentPlaingAlbum: this.props.list
+    })
   }
 
   render () {
@@ -34,7 +48,7 @@ class PlayList extends Component {
         <div className="pc-playlist-songs">
           {
             this.props.list.map((song, index) => {
-              return <div className="pc-playlist-song">
+              return <div className="pc-playlist-song" onClick={() => this.handleSongClick(song)}>
                 <div style={{width: '30px'}}>{ index + 1 }</div>
                 {
                   this.props.fields.map(field => {

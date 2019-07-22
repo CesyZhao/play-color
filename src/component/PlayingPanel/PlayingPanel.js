@@ -4,6 +4,7 @@ import eventBus from '../../events'
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import Lyric from './Lyric/Lyric'
+import _ from 'lodash'
 
 const CANVAS_RADIUS = 304
 const BYTE_ARRAY_LENGTH = 250
@@ -112,6 +113,7 @@ class PlayingPanel extends Component{
     const { song } = this.props.controller
     const modes = ['歌曲模式', '歌词模式']
     return (
+      !_.isEmpty(song) && 
       <CSSTransition in={this.state.showPlayingPanel} timeout={300} unmountOnExit classNames="pc-playing-panel">
         <div className='pc-playing-panel'>
           <div className={`pc-current-song-wrapper ${this.state.mode === '歌词模式' && 'lyricMode'}`}>

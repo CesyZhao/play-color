@@ -11,19 +11,19 @@ const fields = [
     flex: 2
   },
   {
-    name: 'ar',
+    name: 'artists',
     alias: 'artists',
     title: '歌手',
     flex: 2
   },
   {
-    name: 'al',
+    name: 'album',
     alias: 'album',
     title: '专辑',
     flex: 2
   },
   {
-    name: 'dt',
+    name: 'duration',
     alias: 'duration',
     title: '时长',
     flex: 1
@@ -37,8 +37,31 @@ class Album extends Component {
   async componentDidMount () {
     try {
       const { data } = await http.get(`/playlist/detail?id=${this.props.match.params.id}`)
-      console.log(data.playlist)
-      this.setState({ album: data.playlist })
+      let { playlist } = data
+      let songs = playlist.tracks.map(e => {
+          // eslint-disable-next-line
+          console.log(e,'++++++++=')
+          let {al /* Album */, ar /* Artist */} = e
+          return {
+              id: e.id.toString(),
+              name: e.name,
+              duration: e.dt,
+              album: {
+                  id: al.id.toString(),
+                  name: al.name,
+                  picUrl: `${al.picUrl}?param=y100y100`,
+                  link: `/player/1/${al.id}`
+              },
+              artists: ar.map(e => ({
+                  id: e.id.toString(),
+                  name: e.name,
+                  // Broken link
+                  link: e.id ? `/artist/${e.id}` : '',
+              }))
+          }
+      })
+      playlist.tracks = songs
+      this.setState({ album: playlist })
     } catch (error) {
       console.log(error)
     }
