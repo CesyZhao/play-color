@@ -27,7 +27,7 @@ class Home extends Component {
     let bannerRes = await http.get('/banner')
     let topRes = await http.get('/top/song?type=0')
     this.setState({
-      albumList: _.take(albumRes.data.result, 8),
+      albumList: _.take(albumRes.data.result, 12),
       banners: bannerRes.data.banners,
       newest: _.take(topRes.data.data, 10)})
     setTimeout(() => {
@@ -57,7 +57,6 @@ class Home extends Component {
         : <div className="pc-home">
         <div className='pc-home-category-left'>
           <div>
-            <div className='pc-home-category-title'>今日焦点</div>
             <div className='pc-home-banner'>
               <AutoPlaySwipeableViews>
                 {

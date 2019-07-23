@@ -33,6 +33,7 @@
     border-radius: 4px;
     overflow: hidden;
     font-size: 0;
+    margin-bottom: 8px;
     img{
       max-width: 100%;
     }
@@ -58,6 +59,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-top: 4px;
+    a:nth-of-type(n+6){
+      .pc-personalized-album{
+        margin-bottom: 0;
+      }
+    }
     .pc-personalized-album{
       position: relative;
       display: flex;
@@ -68,7 +75,7 @@
       overflow: hidden;
       cursor: pointer;
       img{
-        max-width: 122px;
+        max-width: 102px;
         transition: .3s;
       }
       &:hover{
