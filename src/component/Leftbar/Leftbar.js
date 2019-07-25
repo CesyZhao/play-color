@@ -12,9 +12,12 @@ class Leftbar extends Component {
   }
   componentDidMount () {
     EventBus.on('toggleMenu', () => {
-      this.setState({
-        showMenu: !this.state.showMenu
-      })
+      this.toggleMenu()
+    })
+  }
+  toggleMenu = () => {
+    this.setState({
+      showMenu: !this.state.showMenu
     })
   }
   render () {
@@ -22,7 +25,7 @@ class Leftbar extends Component {
       <CSSTransition in={this.state.showMenu} timeout={300} unmountOnExit classNames="pc-leftbar">
         <div className='pc-leftbar'>
           <div className='pc-leftbar-logo'>
-            <Link to="/">
+            <Link to="/" onClick={ this.toggleMenu }>
               <img src={logo} alt="logo"/>
               <span>PLAY COLOR</span> 
             </Link>
@@ -30,7 +33,7 @@ class Leftbar extends Component {
           {
             menu.map((category,index) => {
               const item = category.list.map(item => 
-                <Link to={item.link}  key={item.name}>
+                <Link to={item.link}  key={item.name} onClick={ this.toggleMenu }>
                   <div className='pc-leftbar-category-item'>
                     <i className={`iconfont ${item.icon}`} /> {item.name} 
                   </div>
