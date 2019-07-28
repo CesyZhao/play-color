@@ -18,6 +18,10 @@ class RouteContainer extends Component{
     !profile && EventBus.emit('toggleLogin')
   }
 
+  toggleMenu = () => {
+    EventBus.emit('toggleMenu')
+  }
+
   handleHistory = (index) => {
     window.history.go(index)
   }
@@ -31,17 +35,12 @@ class RouteContainer extends Component{
             <i className="iconfont icon-fanhui" onClick={ () => this.handleHistory(-1) }/>
             <i className="iconfont icon-gengduo" onClick={ () => this.handleHistory(1) }/>
           </div>
-          <div className='pc-tool-bar-search'>
-            <input placeholder='搜索'></input>
-            <i className='iconfont icon-sousuo1'></i>
-          </div>
-          <div className="pc-tool-bar-tools" onClick={this.toggleLogin}>
-            {
-              profile && profile.nickname
-            }
-            {
-              profile ? <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar"/> : <i className="iconfont icon-user11 pc-user-avatar" />
-            }
+          <div className="pc-tool-bar-tools" >
+            { profile && profile.nickname }
+            <span onClick={this.toggleLogin}>
+              { profile ? <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar"/> : <i className="iconfont icon-user11 pc-user-avatar" /> }  
+            </span>  
+            <i className="iconfont icon-diandiandianshu icon-menu" onClick={ this.toggleMenu }></i>
           </div>
         </div>
         <div className="pc-routes">
