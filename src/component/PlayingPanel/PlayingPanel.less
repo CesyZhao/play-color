@@ -47,17 +47,30 @@
     position: relative;
     z-index: 2;
   }
+  .img-wrapper{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    i{
+      font-size: 20px;
+      margin-right: 16px;
+      padding: 12px;
+      border: 1px solid rgba(170, 170, 170, .3);
+      border-radius: 50%;
+      &:nth-last-child(1){
+        margin-right: 0;
+      }
+    }
+  }
   .img{
     width: 250px;
     height: 250px;
     border-radius: 50%;
     background: #fff;
     z-index: 3;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     overflow: hidden;
+    margin-bottom: 36px;
     img{
       width: 100%;
     }

@@ -120,8 +120,13 @@ class PlayingPanel extends Component{
             <div className='iconfont icon-fanhui icon-dismiss' onClick={ this.dismiss }></div>
             <div className="pc-visualizor-wrapper">
               <canvas id="wrap" width={ CANVAS_RADIUS * 2 } height={ CANVAS_RADIUS * 2 } />
-              <div className="img" >
-                <img src={song.album.picUrl} alt="ablum"/>
+              <div className="img-wrapper">
+                <div className="img" >
+                  <img src={song.album.picUrl} alt="ablum"/>
+                </div>
+                <i className="iconfont icon-zhuifanshu"></i>
+                <i className="iconfont icon-xiayigexiayishou"></i>
+                <i className="iconfont icon-aui-icon-comment"></i>
               </div>
             </div>
             {
