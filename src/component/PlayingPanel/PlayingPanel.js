@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import Lyric from './Lyric/Lyric'
 import _ from 'lodash'
 
-const CANVAS_RADIUS = 304
+const CANVAS_RADIUS = 274
 const BYTE_ARRAY_LENGTH = 250
 @connect(({controller}) => ({
   controller
@@ -109,6 +109,10 @@ class PlayingPanel extends Component{
     this.setState({showPlayingPanel: false})
   }
 
+  handleNext = () => {
+    eventBus.emit('next')
+  }
+
   render() {
     const { song } = this.props.controller
     const modes = ['歌曲模式', '歌词模式']
@@ -124,8 +128,8 @@ class PlayingPanel extends Component{
                 <div className="img" >
                   <img src={song.album.picUrl} alt="ablum"/>
                 </div>
-                <i className="iconfont icon-zhuifanshu"></i>
-                <i className="iconfont icon-xiayigexiayishou"></i>
+                <i className={`iconfont ${song.starred ? 'icon-yizhuifan' : 'icon-zhuifanshu'}`}></i>
+                <i className="iconfont icon-xiayigexiayishou" onClick={ this.handleNext }></i>
                 <i className="iconfont icon-aui-icon-comment"></i>
               </div>
             </div>

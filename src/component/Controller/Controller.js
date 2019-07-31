@@ -25,7 +25,9 @@ class Controller extends Component{
     const events = ['next', 'prev', 'togglePlaying']
     for (const event of events) {
       ipcRenderer.on(event, () => {
-        console.log(event)
+        this[event]()
+      })
+      eventBus.on(event, () => {
         this[event]()
       })
     }
