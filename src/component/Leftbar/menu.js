@@ -35,7 +35,9 @@ export default [
         name: '播放记录',
         icon: 'icon-lishijilu',
         link: '/'
-      }
+      },
+      {link: '/'},
+      {link: '/'}
     ]
   }
 ]

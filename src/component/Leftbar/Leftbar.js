@@ -35,12 +35,13 @@ class Leftbar extends Component {
               const item = category.list.map(item => 
                 <Link to={item.link}  key={item.name} onClick={ this.toggleMenu }>
                   <div className='pc-leftbar-category-item'>
-                    <i className={`iconfont ${item.icon}`} /> {item.name} 
+                    <i className={`iconfont ${item.icon}`} />
+                    <span>{item.name}</span>
                   </div>
                 </Link> )
               return (
                 <div className='pc-leftbar-category' key={index}>
-                  {category.name && <div className='pc-leftbar-category-label'>{ category.name }</div>} 
+                  {/* {category.name && <div className='pc-leftbar-category-label'>{ category.name }</div>}  */}
                   { item }
                 </div>
               )
