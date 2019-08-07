@@ -41,9 +41,9 @@ class Leftbar extends Component {
               <span>PLAY COLOR</span> 
             </Link> */}
             { profile ? 
-              <React.Fragment onClick={ this.toggleLogin }>
-                <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar"/>
-                <span>{profile.nickname}</span>
+              <React.Fragment>
+                <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar"  onClick={ this.toggleLogin }/>
+                <span  onClick={ this.toggleLogin }>{profile.nickname}</span>
               </React.Fragment>
               : <React.Fragment>
                   <img src={logo} alt="logo" onClick={ this.toggleLogin }/>
