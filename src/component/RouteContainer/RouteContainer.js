@@ -1,22 +1,13 @@
 import React, { Component } from 'react'
-import {Route, withRouter} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 import Home from '../Home/Home'
 import Album from '../Album/Album'
 import Albums from '../Albums/Albums'
 import './RouteContainer.less'
-import {connect} from "react-redux"
 import EventBus from '../../events'
 
-@withRouter
-@connect(({user}) => ({
-  user
-}))
-class RouteContainer extends Component{
 
-  toggleLogin = () => {
-    const {profile} = this.props.user
-    !profile && EventBus.emit('toggleLogin')
-  }
+class RouteContainer extends Component{
 
   toggleMenu = () => {
     EventBus.emit('toggleMenu')
@@ -27,7 +18,6 @@ class RouteContainer extends Component{
   }
 
   render() {
-    const {profile}  = this.props.user
     return(
       <div className="pc-route-container">
         <div className="pc-tool-bar">
@@ -36,10 +26,6 @@ class RouteContainer extends Component{
             <i className="iconfont icon-gengduo" onClick={ () => this.handleHistory(1) }/>
           </div>
           <div className="pc-tool-bar-tools" >
-            { profile && profile.nickname }
-            <span onClick={this.toggleLogin}>
-              { profile ? <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar"/> : <i className="iconfont icon-user11 pc-user-avatar" /> }  
-            </span>  
             <i className="iconfont icon-diandiandianshu icon-menu" onClick={ this.toggleMenu }></i>
           </div>
         </div>

@@ -10,6 +10,7 @@
   background: @primary-color;
   box-shadow: 0 0 12px 0 #51416B;
   transition: all .3s ease-in-out;
+  user-select: none;
   div{
     padding: 0 12px;
   }
@@ -17,20 +18,17 @@
     padding-left: 16px;
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 48px;
     img{
       width: 72px;
       margin-right: 12px;
+      cursor: pointer;
     }
-    a{
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: inherit;
-      span{
-        vertical-align: middle;
-        font-size: 24px;
-      }
+    span{
+      vertical-align: middle;
+      font-size: 28px;
+      cursor: pointer;
     }
   }
   .pc-leftbar-category{
