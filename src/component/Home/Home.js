@@ -9,6 +9,7 @@ import _ from 'lodash'
 import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST} from '../../store/action/actions'
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
+import scripts from '../../config/scripts'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
@@ -49,41 +50,45 @@ class Home extends Component {
   render() {
     return (
       this.state.loading
-        ? <div className="pc-home">
+        ? <div className="pc-home loading">
             <svg viewBox="25 25 50 50">
               <circle cx="50" cy="50" r="20"></circle>
             </svg>
-        </div>
-        : <div className="pc-home">
-        <div className='pc-home-category-left'>
-          <div>
-            <div className='pc-home-banner'>
-              <AutoPlaySwipeableViews>
+            <span>
+              { scripts[Math.floor(Math.random() * scripts.length)] }
+            </span>
+          </div>
+        : 
+        <div className="pc-home">
+          <div className='pc-home-category-left'>
+            <div>
+              <div className='pc-home-banner'>
+                <AutoPlaySwipeableViews>
                 {
                   this.state.banners.map((banner,index) => <img src={banner.imageUrl} alt='banner' key={banner.encodeId + index}></img>)
                 }
-              </AutoPlaySwipeableViews>
+                </AutoPlaySwipeableViews>
+              </div>
             </div>
-          </div>
-          <div>
-            <div className='pc-home-category-title'> 
-              <Link to="/albums">
-                推荐歌单 <i className="iconfont icon-gengduo"></i>
-              </Link>
-            </div>
-            <div className='pc-home-recommand'>
-              {
-                this.state.albumList.map(album => {
-                  return (
-                    <Link to={{pathname: `/album/${album.id}`}} key={album.id}>
-                      <div className='pc-personalized-album' data-name={album.name}>
-                        <LazyImage imgUrl={album.picUrl} />
-                      </div>
-                    </Link>
-                  )
-                })
-              }
-            </div>
+            <div>
+              <div className='pc-home-category-title'> 
+                <Link to="/albums">
+                  推荐歌单 <i className="iconfont icon-gengduo"></i>
+                </Link>
+              </div>
+              <div className='pc-home-recommand'>
+                {
+                  this.state.albumList.map(album => {
+                    return (
+                      <Link to={{pathname: `/album/${album.id}`}} key={album.id}>
+                        <div className='pc-personalized-album' data-name={album.name}>
+                          <LazyImage imgUrl={album.picUrl} />
+                        </div>
+                      </Link>
+                    )
+                  })
+                }
+              </div>
           </div>
         </div>
         <div className='pc-home-category-right'>
