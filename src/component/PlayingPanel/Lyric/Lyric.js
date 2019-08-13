@@ -21,7 +21,8 @@ class Lyric extends Component {
     nextIndex: 0,
     lyrics: [],
     tlyrics: [],
-    num: 0
+    num: 0,
+    nolyric: true
   }
 
   componentDidMount () {
@@ -41,13 +42,20 @@ class Lyric extends Component {
   getLyrics = async (song) => {
     try {
       const res = await http.get(`/lyric?id=${song.id}`)
-      let { lrc, tlyric } = res.data
+      let { lrc, tlyric, nolyric, uncollected } = res.data
+      if (nolyric || uncollected) {
+        this.setState({
+          nolyric: true
+        })
+        return
+      }
       let lyrics = formatLyric(lrc.lyric)
       let tlyrics = tlyric.lyric ? formatLyric(tlyric.lyric) : null
       this.setState({
+        nolyric: false,
         lyrics,
         tlyrics,
-        num: tlyric ? 4 : 9,
+        num: tlyric ? 3 : 12,
         times: Object.keys(lyrics)
       })
       timer = setInterval(() => {
@@ -81,24 +89,28 @@ class Lyric extends Component {
       <div className="pc-lyric-wrapper">
         <div className="pc-lyric-song-info">
           <h1> { song.name } </h1>
-          <span>Artist: { song.artists.map(artist => artist.name).join('/') } </span>
+          <span>歌手: { song.artists.map(artist => artist.name).join('/') } </span>
         </div>
         <div className="pc-lyric" ref="lyric">
-          <ul className="lyric-scroller">
-            {
-              Object.entries(this.state.lyrics).map(([key, lyric], index) => {
-                return (
-                  <li key={ key } data-lyric-line={ index } className={`lyric-scroll-item ${this.state.nextIndex - 1 === this.state.times.indexOf(key) && 'active'}`}>
-                    <div className="lyric-row">{lyric}</div>
-                    {
-                      this.state.tlyrics && 
-                      <div className="tlyric-row">{this.state.tlyrics[key]}</div>
-                    }
-                  </li>
-                )
-              })
-            }
-          </ul>
+          {
+            this.state.nolyric ? 
+           <span> 没有歌词 </span> :
+            <ul className="lyric-scroller">
+              {
+                Object.entries(this.state.lyrics).map(([key, lyric], index) => {
+                  return (
+                    <li key={ key } data-lyric-line={ index } className={`lyric-scroll-item ${this.state.nextIndex - 1 === this.state.times.indexOf(key) && 'active'}`}>
+                      <div className="lyric-row">{lyric}</div>
+                      {
+                        this.state.tlyrics && 
+                        <div className="tlyric-row">{this.state.tlyrics[key]}</div>
+                      }
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          }
         </div>
       </div>
     )

@@ -124,6 +124,15 @@ class PlayingPanel extends Component{
             <div className='iconfont icon-fanhui icon-dismiss' onClick={ this.dismiss }></div>
             <div className="pc-visualizor-wrapper">
               <canvas id="wrap" width={ CANVAS_RADIUS * 2 } height={ CANVAS_RADIUS * 2 } />
+              <svg viewBox="0 0 250 250">
+                <path d="
+                  M 125 125
+                  m 0 -123
+                  a 123 123 0 1 1 0 246
+                  a 123 123 0 1 1 0 -246"
+                  stroke="#e5e9f2" strokeWidth="4.8" fill="none" 
+                  style={{strokeDasharray: "295.31px, 295.31px", strokeDashoffset: "0px"}}></path>
+              </svg>
               <div className="img-wrapper">
                 <div className="img" >
                   <img src={song.album.picUrl} alt="ablum"/>
