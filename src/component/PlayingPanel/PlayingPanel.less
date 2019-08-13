@@ -27,6 +27,22 @@
   overflow: hidden;
   z-index: 3;
   display: flex;
+  &::before, &::after{
+    content: ' ';
+    position: absolute;
+    top: 50%;
+    width: calc((100% - 280px) / 2 - 30px);
+    height: 1px;
+    background: #fff;
+    opacity: .2;
+    transform: translateY(-50%);
+  }
+  &::before{
+    left: 0;
+  }
+  &::after{
+    right: 0;
+  }
   .pc-visualizor-wrapper{
     width: 100%;
     position: relative;
@@ -34,6 +50,9 @@
     transition: all .3s ease-in-out;
   }
   &.lyricMode{
+    &::before, &::after{
+      width: 104px;
+    }
     .pc-visualizor-wrapper{
       width: 548px;
     }
@@ -44,14 +63,20 @@
     z-index: 5;
   }
   canvas{
-    position: relative;
-    z-index: 2;
-  }
-  .img-wrapper{
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -45%);
+    transform: translate(-50%, -50%);
+    // background: rgba(4, 4, 4, .8);
+    z-index: 22;
+  }
+  .img-wrapper{
+    width: 280px;
+    height: 280px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 6;
     i{
       font-size: 20px;
@@ -66,13 +91,13 @@
     }
   }
   .img{
-    width: 250px;
-    height: 250px;
+    width: 280px;
+    height: 280px;
     border-radius: 50%;
     background: #fff;
     z-index: 3;
     overflow: hidden;
-    margin-bottom: 72px;
+    // margin-bottom: 72px;
     img{
       width: 100%;
     }

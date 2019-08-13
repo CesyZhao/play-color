@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import Lyric from './Lyric/Lyric'
 import _ from 'lodash'
 
-const CANVAS_RADIUS = 274
+const CANVAS_RADIUS = 200
 const BYTE_ARRAY_LENGTH = 250
 @connect(({controller}) => ({
   controller
@@ -67,7 +67,7 @@ class PlayingPanel extends Component{
     let output = new Uint8Array(BYTE_ARRAY_LENGTH) 
     let du = 2//角度
     let potInt = { x: CANVAS_RADIUS, y: CANVAS_RADIUS }//起始坐标
-    let R = 150//半径
+    let R = 140//半径
     let W = 2//宽
     // console.log(analyser.getByteFrequencyData(output))
     cxt.strokeStyle = '#7BA3FF'
@@ -128,9 +128,9 @@ class PlayingPanel extends Component{
                 <div className="img" >
                   <img src={song.album.picUrl} alt="ablum"/>
                 </div>
-                <i className={`iconfont ${song.starred ? 'icon-yizhuifan' : 'icon-zhuifanshu'}`}></i>
+                {/* <i className={`iconfont ${song.starred ? 'icon-yizhuifan' : 'icon-zhuifanshu'}`}></i>
                 <i className="iconfont icon-xiayigexiayishou" onClick={ this.handleNext }></i>
-                <i className="iconfont icon-aui-icon-comment"></i>
+                <i className="iconfont icon-aui-icon-comment"></i> */}
               </div>
             </div>
             {
