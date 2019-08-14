@@ -137,9 +137,12 @@ class PlayingPanel extends Component{
                 <div className="img" >
                   <img src={song.album.picUrl} alt="ablum"/>
                 </div>
-                {/* <i className={`iconfont ${song.starred ? 'icon-yizhuifan' : 'icon-zhuifanshu'}`}></i>
+              </div>
+              <div className="pc-playing-panel-toolbar">
+                <div> { song.name } </div>
+                <i className={`iconfont ${song.starred ? 'icon-yizhuifan' : 'icon-zhuifanshu'}`}></i>
                 <i className="iconfont icon-xiayigexiayishou" onClick={ this.handleNext }></i>
-                <i className="iconfont icon-aui-icon-comment"></i> */}
+                <i className="iconfont icon-aui-icon-comment"></i>
               </div>
             </div>
             {
