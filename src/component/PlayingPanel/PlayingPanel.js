@@ -139,7 +139,9 @@ class PlayingPanel extends Component{
                 </div>
               </div>
               <div className="pc-playing-panel-toolbar">
-                <div> { song.name } </div>
+                {
+                  this.state.mode !== '歌词模式' &&  <div> { song.name } </div>
+                }
                 <i className={`iconfont ${song.starred ? 'icon-yizhuifan' : 'icon-zhuifanshu'}`}></i>
                 <i className="iconfont icon-xiayigexiayishou" onClick={ this.handleNext }></i>
                 <i className="iconfont icon-aui-icon-comment"></i>
