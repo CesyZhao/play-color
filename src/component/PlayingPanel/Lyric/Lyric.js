@@ -55,7 +55,7 @@ class Lyric extends Component {
         nolyric: false,
         lyrics,
         tlyrics,
-        num: tlyric ? 3 : 6,
+        num: 1,
         times: Object.keys(lyrics)
       })
       timer = setInterval(() => {
@@ -75,10 +75,10 @@ class Lyric extends Component {
       nextIndex
     }, () => {
       if (nextIndex > this.state.num) {
-        let lineEl = document.querySelector(`[data-lyric-line='${nextIndex - this.state.num}']`)
-        scroller.scrollToElement(lineEl, 1000)  
+        let lineEl = document.querySelector(`[data-lyric-line='${nextIndex - 1}']`)
+        scroller.scrollToElement(lineEl, 500)  
       } else {  
-        scroller.scrollToElement(0, 0, 1000)  
+        scroller.scrollToElement(0, 0, 500)  
       }
     })
   }
@@ -88,7 +88,7 @@ class Lyric extends Component {
     return (
       <div className="pc-lyric-wrapper">
         <div className="pc-lyric-song-info">
-          <h1> { song.name } </h1>
+          <h3> { song.name } </h3>
           <span>歌手: { song.artists.map(artist => artist.name).join('/') } </span>
         </div>
         <div className="pc-lyric" ref="lyric">
