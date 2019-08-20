@@ -68,18 +68,10 @@ class PlayingPanel extends Component{
     // audio.play()
     //创建数据
     let output = new Uint8Array(BYTE_ARRAY_LENGTH) 
-    let du = 2//角度
-    // let potInt = { x: CANVAS_RADIUS, y: CANVAS_RADIUS }//起始坐标
-    let R = 140//半径
-    let W = 2//宽
-    // console.log(analyser.getByteFrequencyData(output))
-    cxt.strokeStyle = '#7BA3FF'
-    cxt.shadowBlur = 30
-    cxt.shadowColor = '#9B30FF'
     const { width, height }= wrap
     var scaleX = (screenWidth/width).toPrecision(5),
 		scaleY = (screenHeight/height).toPrecision(5)
-		wrap.style = 'transform-origin:0% 0%; transform:scale('+scaleX+','+scaleY+') translateY(-12%);'
+		wrap.style = 'transform-origin:0% 0%; transform:scale('+scaleX+','+scaleY+') translateY(-8%);'
     this.state.analyser.fftSize = BYTE_ARRAY_LENGTH
     const self = this
     let gradient = cxt.createLinearGradient(0, 100, 480, 100)
@@ -88,30 +80,6 @@ class PlayingPanel extends Component{
     let gradientRight = cxt.createLinearGradient(886, 100, 1366, 100)
     gradientRight.addColorStop("0", "#0ee7f7")
     gradientRight.addColorStop("1.0", "#2ce672")
-    // function drawSpectrum() {
-    //   // console.log(analyser.getByteFrequencyData(output))
-    //   self.state.analyser.getByteFrequencyData(output)//获取频域数据
-    //   cxt.clearRect(0, 0, wrap.width, wrap.height)
-    //   //画线条
-    //   let Rv1, Rv2
-    //   for (let i = 0; i < BYTE_ARRAY_LENGTH; i++) {
-    //       // if (i % 2 === 0) continue
-    //       let value = output[i] / 10//<===获取数据 
-    //       cxt.beginPath()
-    //       cxt.lineWidth = W
-    //       // Rv1 = (R - 1)
-    //       // cxt.moveTo(( Math.sin((i * du) / 180 * Math.PI) * R + potInt.y), -Math.cos((i * du) / 180 * Math.PI) * R + potInt.x)
-    //       // cxt.lineTo(( Math.sin((i * du) / 180 * Math.PI) * Rv1 + potInt.y), -Math.cos((i * du) / 180 * Math.PI) * Rv1 + potInt.x)
-
-    //       Rv2 = R + value * 1.3
-    //       cxt.moveTo(( Math.sin((i * du) / BYTE_ARRAY_LENGTH * Math.PI) * R + potInt.y),-Math.cos((i * du) / BYTE_ARRAY_LENGTH * Math.PI) * R + potInt.x)
-    //       cxt.lineTo( ( Math.sin((i * du) / BYTE_ARRAY_LENGTH * Math.PI) * Rv2 + potInt.y),-Math.cos((i * du) / BYTE_ARRAY_LENGTH * Math.PI) * Rv2 + potInt.x)
-    //       cxt.stroke()
-    //   } 
-    //   //请求下一帧
-    //   const animation = requestAnimationFrame(drawSpectrum)
-    //   self.setState({ animation })
-    // }
     function draw() {
       requestAnimationFrame(draw)
       self.state.analyser.getByteFrequencyData(output)//获取频域数据
@@ -264,7 +232,8 @@ class PlayingPanel extends Component{
 
   render() {
     const { song } = this.props.controller
-    const modes = ['歌曲模式', '歌词模式']
+    const perimeter = 2 * Math.PI * 122.5
+    const percentage = 50
     return (
       !_.isEmpty(song) && 
       <CSSTransition in={this.state.showPlayingPanel} timeout={300} unmountOnExit classNames="pc-playing-panel">
@@ -279,8 +248,8 @@ class PlayingPanel extends Component{
                   m 0 -123
                   a 123 123 0 1 1 0 246
                   a 123 123 0 1 1 0 -246"
-                  stroke="#e5e9f2" strokeWidth="4.8" fill="none" 
-                  style={{strokeDasharray: "295.31px, 295.31px", strokeDashoffset: "0px"}}></path>
+                  stroke="#e5e9f2" strokeWidth="5" fill="none" 
+                  style={{strokeDasharray: `${perimeter}px, ${perimeter}px`, strokeDashoffset: (1 - percentage / 100) * perimeter + 'px', transition: 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'}}></path>
               </svg>
               <div className="img-wrapper">
                 <div className="img" >
@@ -297,13 +266,6 @@ class PlayingPanel extends Component{
                 <i className="iconfont icon-xiayigexiayishou" onClick={ this.handleNext }></i>
                 <i className="iconfont icon-aui-icon-comment"></i>
               </div>
-            </div>
-            <div className="pc-playing-panel-switcher">
-              {
-                modes.map(mode => {
-                  return <span className={`${this.state.mode === mode && 'active'}`} key={mode} onClick={() => this.setState({mode})}> {mode} </span>
-                })
-              }
             </div>
           </div>
           <div className="pc-playing-panel-blur-cover">
