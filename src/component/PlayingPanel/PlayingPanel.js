@@ -20,7 +20,8 @@ class PlayingPanel extends Component{
     source: null,
     analyser: null,
     animation: null,
-    mode: '歌曲模式'
+    mode: '歌曲模式',
+    progress: 0
   }
 
   setStateAsync = (state) => {
@@ -34,12 +35,12 @@ class PlayingPanel extends Component{
       this.setState(prevState => ({
         showPlayingPanel: !prevState.showPlayingPanel
       }), () => {
-        this.state.showPlayingPanel ? this.initVisualizor() : this.destoryVisualizor()
+        this.state.showPlayingPanel ? this.initVisualizor() : this.destroyVisualizor()
       })
     })
   }
 
-  destoryVisualizor = () => {
+  destroyVisualizor = () => {
     cancelAnimationFrame(this.state.animation)
   }
 
@@ -80,8 +81,14 @@ class PlayingPanel extends Component{
     let gradientRight = cxt.createLinearGradient(886, 100, 1366, 100)
     gradientRight.addColorStop("0", "#0ee7f7")
     gradientRight.addColorStop("1.0", "#2ce672")
+    const audio = document.querySelector('#audio')
+    const _this = this
     function draw() {
       requestAnimationFrame(draw)
+      const { currentTime, duration } = audio
+      _this.setState({
+        progress: currentTime / duration
+      })
       self.state.analyser.getByteFrequencyData(output)//获取频域数据
       cxt.clearRect(0, 0, width, height)
   
@@ -233,7 +240,6 @@ class PlayingPanel extends Component{
   render() {
     const { song } = this.props.controller
     const perimeter = 2 * Math.PI * 122.5
-    const percentage = 50
     return (
       !_.isEmpty(song) && 
       <CSSTransition in={this.state.showPlayingPanel} timeout={300} unmountOnExit classNames="pc-playing-panel">
@@ -248,8 +254,8 @@ class PlayingPanel extends Component{
                   m 0 -123
                   a 123 123 0 1 1 0 246
                   a 123 123 0 1 1 0 -246"
-                  stroke="#e5e9f2" strokeWidth="5" fill="none" 
-                  style={{strokeDasharray: `${perimeter}px, ${perimeter}px`, strokeDashoffset: (1 - percentage / 100) * perimeter + 'px', transition: 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'}}></path>
+                  stroke="#9B30FF" strokeWidth="4.5" fill="none" 
+                  style={{strokeDasharray: `${perimeter}px, ${perimeter}px`, strokeDashoffset: (1 - this.state.progress) * perimeter + 'px', transition: 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'}}></path>
               </svg>
               <div className="img-wrapper">
                 <div className="img" >
