@@ -6,6 +6,8 @@ import { Link, withRouter } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 import EventBus from '../../events'
 import {connect} from "react-redux"
+import http from '../../config/http'
+import {formatList} from '../../util/audio'
 
 @withRouter
 @connect(({user}) => ({
@@ -25,7 +27,16 @@ class Leftbar extends Component {
       this.toggleMenu()
     })
   }
-  toggleMenu = () => {
+  toggleMenu = (name) => {
+    if (name === '私人 FM') {
+      http.get('/personal_fm')
+      .then(({data}) => {
+        let playlist = {}
+        console.log(data.data)
+        playlist.tracks = formatList(data.data)
+        console.log(playlist)
+      })
+    }
     this.setState({
       showMenu: !this.state.showMenu
     })
@@ -54,7 +65,7 @@ class Leftbar extends Component {
           {
             menu.map((category,index) => {
               const item = category.list.map(item => 
-                <Link to={item.link}  key={item.name} onClick={ this.toggleMenu }>
+                <Link to={item.link}  key={item.name} onClick={ () => this.toggleMenu(item.name) }>
                   <div className='pc-leftbar-category-item'>
                     <i className={`iconfont ${item.icon}`} />
                     <span>{item.name}</span>

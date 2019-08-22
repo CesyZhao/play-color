@@ -3,6 +3,7 @@ import http from '../../config/http'
 import LazyImage from '../LazyImage/LazyImage'
 import './Album.less'
 import Playlist from '../PlayList/PlayList'
+import {formatList} from '../../util/audio'
 
 const fields = [
   {
@@ -38,28 +39,7 @@ class Album extends Component {
     try {
       const { data } = await http.get(`/playlist/detail?id=${this.props.match.params.id}`)
       let { playlist } = data
-      let songs = playlist.tracks.map(e => {
-          // eslint-disable-next-line
-          console.log(e,'++++++++=')
-          let {al /* Album */, ar /* Artist */} = e
-          return {
-              id: e.id.toString(),
-              name: e.name,
-              duration: e.dt,
-              album: {
-                  id: al.id.toString(),
-                  name: al.name,
-                  picUrl: `${al.picUrl}?param=y100y100`,
-                  link: `/player/1/${al.id}`
-              },
-              artists: ar.map(e => ({
-                  id: e.id.toString(),
-                  name: e.name,
-                  // Broken link
-                  link: e.id ? `/artist/${e.id}` : '',
-              }))
-          }
-      })
+      let songs = formatList(playlist.tracks)
       playlist.tracks = songs
       this.setState({ album: playlist })
     } catch (error) {

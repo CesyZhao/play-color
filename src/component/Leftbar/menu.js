@@ -9,7 +9,7 @@ export default [
       {
         name: '私人 FM',
         icon: 'icon-xianxing_diantai',
-        link: '/'
+        link: '#'
       },
       {
         name: '排行榜',
