@@ -47,10 +47,6 @@ class Leftbar extends Component {
       <CSSTransition in={this.state.showMenu} timeout={300} unmountOnExit classNames="pc-leftbar">
         <div className='pc-leftbar'>
           <div className='pc-leftbar-logo'>
-            {/* <Link to="/" onClick={ this.toggleMenu }>
-              <img src={logo} alt="logo"/>
-              <span>PLAY COLOR</span> 
-            </Link> */}
             { profile ? 
               <React.Fragment>
                 <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar"  onClick={ this.toggleLogin }/>
@@ -73,7 +69,6 @@ class Leftbar extends Component {
                 </Link> )
               return (
                 <div className='pc-leftbar-category' key={index}>
-                  {/* {category.name && <div className='pc-leftbar-category-label'>{ category.name }</div>}  */}
                   { item }
                 </div>
               )

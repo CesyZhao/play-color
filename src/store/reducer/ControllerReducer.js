@@ -1,6 +1,5 @@
 
 import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../action/actions'
-import _ from 'lodash'
 
 const initState = {
   song: {},

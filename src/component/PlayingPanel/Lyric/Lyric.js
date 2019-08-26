@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import _ from 'lodash'
 import betterScroller from 'better-scroll'
 import http from '../../../config/http'
 import toaster from '../../../util/toast'

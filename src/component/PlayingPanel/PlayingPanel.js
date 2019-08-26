@@ -259,8 +259,7 @@ class PlayingPanel extends Component{
               </svg>
               <div className="img-wrapper">
                 <div className="img" >
-                  {/* <img src={song.album.picUrl.replace('y100y100','y240y240')} alt="ablum"/> */}
-                  <LazyImage imgUrl={song.album.picUrl.replace('y100y100','y240y240')} />
+                  <img src={song.album.picUrl.replace('100y100','240y240')} alt="ablum"/>
                 </div>
               </div>
               <div className="pc-playing-panel-toolbar">
