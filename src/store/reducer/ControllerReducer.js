@@ -1,5 +1,6 @@
 
 import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../action/actions'
+import logo from '../../asset/daydream.png'
 
 const initState = {
   song: {},
@@ -44,6 +45,7 @@ function nextSong(state) {
       nextSong = currentPlaingAlbum[Math.floor(Math.random() * currentPlaingAlbum.length)]
     }
   }
+  pushNotification(nextSong)
   return Object.assign({}, state, { song: nextSong })
 }
 
@@ -63,5 +65,14 @@ function prevSong(state) {
       prevSong = currentPlaingAlbum[Math.floor(Math.random() * currentPlaingAlbum.length)];
     }
   }
+  pushNotification(prevSong)
   return Object.assign({}, state, { song: prevSong })
+}
+
+function pushNotification (song) {
+  return new Notification(song.name, {
+    icon: logo,
+    body: song.artists.map(artist => artist.name).join('/'),
+    silent: true
+  })
 }
