@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.less';
 import './theme/theme-default.less'
 import './asset/icon/iconfont.css'
-import Leftbar from './component/Leftbar/Leftbar.js';
+import Menu from './component/Menu/Menu.js';
 import Controller from './component/Controller/Controller'
 import Login from './component/Login/Login'
 import RouteContainer from './component/RouteContainer/RouteContainer'
@@ -17,7 +17,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="play-color">
           <header className="pc-header" />
-          <Leftbar />
+          <Menu />
           <RouteContainer />
           <Controller />
           <Login />

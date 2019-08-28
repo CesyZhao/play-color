@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import './Leftbar.less'
+import './Menu.less'
 import logo from '../../asset/daydream.png'
-import menu from './menu'
+import menu from './menus'
 import { Link, withRouter } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 import EventBus from '../../events'
@@ -18,7 +18,6 @@ class Leftbar extends Component {
     showMenu: false
   }
   toggleLogin = () => {
-    console.log(11111111)
     const {profile} = this.props.user
     !profile && EventBus.emit('toggleLogin')
   }

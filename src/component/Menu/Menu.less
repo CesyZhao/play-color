@@ -2,15 +2,16 @@
 .pc-leftbar {
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   height: calc(100vh - 48px);
   width: 100%;
   padding-top: 48px;
   z-index: 33;
   background: @primary-color;
   box-shadow: 0 0 12px 0 #51416B;
-  transition: all .3s ease-in-out;
+  transition: all .2s ease-in-out;
   user-select: none;
+  clip-path: path('M25, 0 A400, Z');
   div{
     padding: 0 12px;
   }
@@ -62,14 +63,14 @@
   }
 }
 .pc-leftbar-enter {
-  left: -100vw;
+  right: -100vw;
 }
 .pc-leftbar-enter-active {
-  left: 0;
+  right: 0;
 }
 .pc-leftbar-exit {
-  left: 0;
+  right: 0;
 }
 .pc-leftbar-exit-active {
-  left: -100vw;
+  right: -100vw;
 }
