@@ -10,8 +10,27 @@ import PlayingPanel from './component/PlayingPanel/PlayingPanel'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import {BrowserRouter} from 'react-router-dom'
+import http from './config/http'
+import {connect} from 'react-redux'
+import {SET_USER_PROFILE} from './store/action/actions'
 
+@connect(({user}) => ({
+  user
+}))
 class App extends Component {
+  componentDidMount() {
+    http.get('/login/status')
+    .then(({data}) => {
+      if (!data.profile) {
+        this.props.dispatch({type: SET_USER_PROFILE, user: {}})
+      } else {
+        http.get('/login/refresh')
+      }
+    })
+    .catch(err => {
+      this.props.dispatch({type: SET_USER_PROFILE, user: {}})
+    })
+  }
   render() {
     return (
       <BrowserRouter>

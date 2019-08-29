@@ -13,6 +13,14 @@ class RouteContainer extends Component{
     menuDisplayed: false
   }
 
+  componentDidMount () {
+    EventBus.on('closeMenu', () => {
+      this.setState({
+        menuDisplayed: false
+      })
+    })
+  }
+
   toggleMenu = () => {
     EventBus.emit('toggleMenu')
     this.setState({

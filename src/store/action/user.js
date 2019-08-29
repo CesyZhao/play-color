@@ -1,8 +1,8 @@
-import { SAVE_USER_PROFILE } from './actions'
+import { SET_USER_PROFILE } from './actions'
 
 function saveUserProfile (user) {
   return {
-    type: SAVE_USER_PROFILE,
+    type: SET_USER_PROFILE,
     payload: user
   }
 }

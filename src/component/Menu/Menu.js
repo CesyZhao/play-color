@@ -39,6 +39,7 @@ class Leftbar extends Component {
     this.setState({
       showMenu: !this.state.showMenu
     })
+    EventBus.emit('closeMenu')
   }
   render () {
     const {profile}  = this.props.user

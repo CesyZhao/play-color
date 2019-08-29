@@ -5,7 +5,7 @@ import {CSSTransition} from 'react-transition-group'
 import http from '../../config/http'
 import toaster from '../../util/toast'
 import { connect } from 'react-redux'
-import { SAVE_USER_PROFILE } from '../../store/action/actions'
+import { SET_USER_PROFILE } from '../../store/action/actions'
 
 let WAVE_HEIGHT = 40 //波浪变化高度
 
@@ -113,8 +113,8 @@ class Login extends Component {
       let { profile } = res.data
       const {dispatch} = this.props
       dispatch({
-        type: SAVE_USER_PROFILE,
-        user: {profile}
+        type: SET_USER_PROFILE,
+        user: {profile, userAccount: this.state.username, userPassword: this.state.password}
       })
 
     } catch (error) {
