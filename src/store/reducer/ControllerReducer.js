@@ -2,10 +2,12 @@
 import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../action/actions'
 import logo from '../../asset/daydream.png'
 import _ from 'lodash'
+import { stat } from 'fs';
 
 const initState = {
   song: {},
   currentPlaingAlbum: [],
+  originalAlbum: [],
   history: [],
   currentPlaingHistory: [],
   mode: 'listCirculation'
@@ -16,11 +18,9 @@ export default function ControllerReducer (state = initState, action) {
     case UPDATE_PLAYING_SONG:
       return Object.assign({}, state, { song: action.song, history: state.history.concat(action.song) })
     case UPDATE_PLAYING_LIST:
-      const { currentPlaingAlbum } = action
-      action.currentPlaingAlbum = state.mode === 'shuffle' ? _.shuffle(currentPlaingAlbum) : currentPlaingAlbum
-      return Object.assign({}, state, action)
+      return updatePlayingList(state, action)
     case UPDATE_PLAYING_MODE:
-      return Object.assign({}, state, action)
+      return updatePlayingMode(state, action)
     case NEXT_SONG:
       return nextSong(state)
     case PREV_SONG:
@@ -28,6 +28,33 @@ export default function ControllerReducer (state = initState, action) {
     default: 
       return state
   }
+}
+
+function updatePlayingList(state, action) {
+  action.originalAlbum = []
+  if (state.mode === 'shuffle') {
+    const { currentPlaingAlbum } = action
+    action.currentPlaingAlbum = _.shuffle(currentPlaingAlbum)
+    action.originalAlbum = currentPlaingAlbum
+  }
+  return Object.assign({}, state, action)
+}
+
+function updatePlayingMode(state, action) {
+  if (action.mode === 'shuffle') {
+    if (!state.originalAlbum.length) {
+      state.originalAlbum = state.currentPlaingAlbum
+      state.currentPlaingAlbum = _.shuffle(state.currentPlaingAlbum)
+    } else {
+      const { originalAlbum, currentPlaingAlbum } = _.cloneDeep(state)
+      state.originalAlbum = currentPlaingAlbum
+      state.currentPlaingAlbum = originalAlbum
+    }
+  }
+  if (state.mode === 'shuffle') {
+    state.currentPlaingAlbum = state.originalAlbum
+  }
+  return Object.assign({}, state, action)
 }
 
 function nextSong(state) {
