@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import './Controller.less'
-import VF from '../../asset/VF.png'
 import {connect} from 'react-redux'
 import _ from 'lodash'
 import {UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../../store/action/actions'
 import toaster from '../../util/toast'
 import eventBus from '../../events'
+import { formatDuration } from '../../util/audio'
 /**
  * 下方控制器，包括当前播放信息、音量等信息
  * */
@@ -15,8 +15,8 @@ import eventBus from '../../events'
 class Controller extends Component{
 
   state = {
-    progress: 0,
-    playing: false
+    playing: false,
+    currentTime: 0
   }
 
   componentDidMount () {
@@ -65,7 +65,7 @@ class Controller extends Component{
     const audio = e.target
     setInterval(() => {
       this.setState({
-        progress: audio.currentTime / audio.duration 
+        currentTime: audio.currentTime
       })
     }, 1000)
   }
@@ -92,7 +92,7 @@ class Controller extends Component{
     const hasSong = !_.isEmpty(song)
     return (
       <div className='pc-controller'>
-        <div className='pc-controller-progress-bar' style={{width: `${this.state.progress * 100}%`}}></div>
+        <div className='pc-controller-progress-bar' style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
         <div className='pc-controller-contents'>
           {
             hasSong &&  <audio id="audio" crossOrigin="anonymous" ref='audio' src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onError={this.handleError} onEnded={this.handlePlayEnded} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} autoPlay></audio>
@@ -111,15 +111,19 @@ class Controller extends Component{
             }
           </div>
           <div className='pc-controller-controls'>
-            <i className='iconfont icon-yinliang'></i>
-            <div className='pc-controller-volune'>
-              <div className='pc-controller-volune-inner'></div>  
-            </div>
             <i className='iconfont icon-bofangqi-xiayiji-copy' onClick={ this.prev }></i>
             <i onClick={this.togglePlaying} className={`iconfont ${this.state.playing ? 'icon-bofangqi-zanting' : 'icon-bofangqi-bofang'}`}></i>
             <i className='iconfont icon-bofangqi-xiayiji' onClick={ this.next }></i>
           </div>
-          <img className='pc-controller-VF' src={VF} alt='VF' />
+          <div className="pc-controller-controls">
+            <span className="pc-controller-time">
+              { ` ${ formatDuration(this.state.currentTime * 1000) } / ${ formatDuration(song.duration) } ` }
+            </span>
+            <i className='iconfont icon-yinliang'></i>
+            <div className='pc-controller-volune'>
+              <div className='pc-controller-volune-inner'></div>  
+            </div>
+          </div>
           <div className='pc-controller-ops'>
             <i className='iconfont icon-zhuifanshu'></i>
             <i onClick={this.changeMode} className={`iconfont icon-${mode}`}></i>
