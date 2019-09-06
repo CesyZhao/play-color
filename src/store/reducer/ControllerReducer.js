@@ -48,7 +48,7 @@ function updatePlayingMode(state, action) {
     } else {
       const { originalAlbum, currentPlaingAlbum } = _.cloneDeep(state)
       state.originalAlbum = currentPlaingAlbum
-      state.currentPlaingAlbum = originalAlbum
+      state.currentPlaingAlbum = _.shuffle(originalAlbum)
     }
   }
   if (state.mode === 'shuffle') {
