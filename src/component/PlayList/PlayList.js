@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { formatDuration } from '../../util/audio'
 import './PlayList.less'
-import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST} from '../../store/action/actions'
+import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM} from '../../store/action/actions'
 import {connect} from 'react-redux'
 
 @connect()
 class PlayList extends Component {
   static propTypes = {
-    list: PropTypes.array.isRequired,
+    album: PropTypes.object.isRequired,
     fields: PropTypes.array.isRequired
   }
 
@@ -22,13 +22,14 @@ class PlayList extends Component {
   }
 
   handleSongClick = (song) => {
+    const { id, name } =  this.props.album
     this.props.dispatch({
       type: UPDATE_PLAYING_SONG,
-      song
+      song: { ...song, fromId: id, from: name}
     })
     this.props.dispatch({
-      type: UPDATE_PLAYING_LIST,
-      currentPlaingAlbum: this.props.list
+      type: UPDATE_PLAYING_ALBUM,
+      playingAlbum: this.props.album
     })
   }
 
@@ -47,7 +48,7 @@ class PlayList extends Component {
         </div>
         <div className="pc-playlist-songs">
           {
-            this.props.list.map((song, index) => {
+            this.props.album.tracks.map((song, index) => {
               return <div className="pc-playlist-song" onClick={() => this.handleSongClick(song)}>
                 <div style={{width: '30px'}}>{ index + 1 }</div>
                 {

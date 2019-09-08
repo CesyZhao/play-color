@@ -6,7 +6,7 @@ import LazyImage  from '../LazyImage/LazyImage'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils'
 import _ from 'lodash'
-import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_LIST} from '../../store/action/actions'
+import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM} from '../../store/action/actions'
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 import scripts from '../../config/scripts'
@@ -42,8 +42,8 @@ class Home extends Component {
       song
     })
     this.props.dispatch({
-      type: UPDATE_PLAYING_LIST,
-      currentPlaingAlbum: this.state.newest
+      type: UPDATE_PLAYING_ALBUM,
+      playingAlbum: { tracks: this.state.newest, id: 'findMusic', name: '发现音乐' }
     })
   }
 

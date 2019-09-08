@@ -49,7 +49,6 @@ class Album extends Component {
   
   render() {
     const { album } = this.state
-    console.log( album )
     return (
       album &&
       <div className='pc-album'>
@@ -75,7 +74,7 @@ class Album extends Component {
             </div>
           </div>
         </div>
-        <Playlist fields={ fields } list={ album.tracks } className='pc-album-list'>
+        <Playlist fields={ fields } album={ album } className='pc-album-list'>
 
         </Playlist>
       </div>

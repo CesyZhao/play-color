@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import Lyric from './Lyric/Lyric'
 import _ from 'lodash'
 import LazyImage from '../LazyImage/LazyImage'
+import { Link } from 'react-router-dom'
 
 const CANVAS_WIDTH = 690
 const CANVAS_HEIGHT = 340
@@ -237,6 +238,14 @@ class PlayingPanel extends Component{
     eventBus.emit('next')
   }
 
+  getFromUrl = (song) => {
+    const map = {
+      findMusic: '/',
+    }
+    let url = map[song.fromId] || `/album/${song.fromId}`
+    return url
+  }
+
   render() {
     const { song } = this.props.controller
     const perimeter = 2 * Math.PI * 122.5
@@ -270,6 +279,9 @@ class PlayingPanel extends Component{
                 <i className={`iconfont ${song.starred ? 'icon-yizhuifan' : 'icon-zhuifanshu'}`}></i>
                 <i className="iconfont icon-xiayigexiayishou" onClick={ this.handleNext }></i>
                 <i className="iconfont icon-aui-icon-comment"></i>
+              </div>
+              <div className="pc-playing-panel-info">
+                <Link to={ this.getFromUrl(song) }> 来源: { song.from } </Link>
               </div>
             </div>
           </div>
