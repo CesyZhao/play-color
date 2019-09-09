@@ -43,7 +43,7 @@ class Home extends Component {
     })
     this.props.dispatch({
       type: UPDATE_PLAYING_ALBUM,
-      playingAlbum: { tracks: this.state.newest, fromId: 'findMusic', from: '发现音乐' }
+      playingAlbum: { tracks: this.state.newest, id: 'findMusic', name: '发现音乐' }
     })
   }
 

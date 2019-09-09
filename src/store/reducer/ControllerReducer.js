@@ -2,6 +2,7 @@
 import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../action/actions'
 import logo from '../../asset/daydream.png'
 import _ from 'lodash'
+import FM from '../../entity/FM'
 
 const initState = {
   song: {},
@@ -59,21 +60,13 @@ function nextSong(state) {
   const { mode, playingAlbum, song, history } = state
   let nextIndex, nextSong
   let index = playingAlbum.tracks.findIndex(e => e.id === song.id)
-    // 由于存在用来辨别歌单的对象 {name:***} 所以歌单长度减一
-    nextIndex = ++index < playingAlbum.tracks.length - 1 ? index : 0
-    nextSong = playingAlbum.tracks[nextIndex]
-  // if(mode === 'listCirculation' || mode === 'singleCirculation'){
-    
-  // }else{
-  //   //随机模式下，从当前播放歌单除了当前歌曲的剩余歌曲中取一首 songs 即剩余歌曲
-  //   let songs = playingAlbum.filter(e => !history.includes(e.id))
-  //   if (songs.length) {
-  //     nextSong = songs[Math.floor(Math.random() * songs.length)]
-  //   } else {
-  //     // 当剩余歌曲长度为0 开始新一轮随机
-  //     nextSong = playingAlbum[Math.floor(Math.random() * playingAlbum.length)]
-  //   }
-  // }
+  nextIndex = ++index < playingAlbum.tracks.length ? index : 0
+  nextSong = playingAlbum.tracks[nextIndex]
+  if (index === playingAlbum.tracks.length && playingAlbum.id === 'personalFM') {
+    const newAlbumInfo = FM.getNewAlbumInfo()
+    console.log(newAlbumInfo)
+    return Object.assign({}, state, newAlbumInfo)
+  }
   pushNotification(nextSong)
   const { id, name } = playingAlbum
   return Object.assign({}, state, { song: {...nextSong, fromId: id, from: name} })
