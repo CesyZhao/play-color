@@ -8,6 +8,7 @@ import EventBus from '../../events'
 import {connect} from "react-redux"
 import http from '../../config/http'
 import {formatList} from '../../util/audio'
+import FM from '../../entity/FM'
 
 @withRouter
 @connect(({user}) => ({
@@ -28,6 +29,7 @@ class Leftbar extends Component {
   }
   toggleMenu = (name) => {
     if (name === '私人 FM') {
+      FM.getPersonalFM()
       http.get('/personal_fm')
       .then(({data}) => {
         let playlist = {}
