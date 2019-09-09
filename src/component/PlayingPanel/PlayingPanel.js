@@ -281,7 +281,7 @@ class PlayingPanel extends Component{
                 <i className="iconfont icon-aui-icon-comment"></i>
               </div>
               <div className="pc-playing-panel-info">
-                <Link to={ this.getFromUrl(song) }> 来源: { song.from } </Link>
+                <Link to={ this.getFromUrl(song) } onClick={ this.dismiss }> 来源: { song.from } </Link>
               </div>
             </div>
           </div>
