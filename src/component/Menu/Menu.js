@@ -30,13 +30,6 @@ class Leftbar extends Component {
   toggleMenu = (name) => {
     if (name === '私人 FM') {
       FM.getPersonalFM()
-      http.get('/personal_fm')
-      .then(({data}) => {
-        let playlist = {}
-        console.log(data.data)
-        playlist.tracks = formatList(data.data)
-        console.log(playlist)
-      })
     }
     this.setState({
       showMenu: !this.state.showMenu
