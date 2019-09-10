@@ -26,6 +26,7 @@ class FM {
   }
 
   async initFM () {
+    if (store.getState().controller.playingAlbum.id === 'personalFM') return
     await this.getPersonalFM()
     store.dispatch({
       type: UPDATE_PLAYING_SONG,
