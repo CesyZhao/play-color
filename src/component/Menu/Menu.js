@@ -26,30 +26,29 @@ class Leftbar extends Component {
     })
   }
   toggleMenu = async (name) => {
+    this.setState({
+      showMenu: !this.state.showMenu
+    }, () => this.state.showMenu && this.drawMenuArc() )
+    EventBus.emit('closeMenu')
     if (name === '私人 FM') {
       await FM.initFM()
       EventBus.emit('togglePlayingPanel')
     }
-    this.setState({
-      showMenu: !this.state.showMenu
-    }, () => {
-      if (this.state.showMenu) {
-        const canvas = document.querySelector('#menuCanvas')
-        const context = canvas.getContext('2d')
-        let grad = context.createLinearGradient(740, 0, 964, 608)//创建一个渐变色线性对象
-        grad.addColorStop(0,"#4E8291")             //定义渐变色颜色
-        grad.addColorStop(1,"#51416B")
-        context.moveTo( 964, 0 )
-        context.lineTo( 740, 0 )
-        context.quadraticCurveTo(800, 304, 664, 608)
-        context.lineTo( 964, 608 )
-        context.fillStyle = grad
-        context.shadowBlur = 30
-        context.shadowColor = "#51416B"
-        context.fill()
-      }
-    })
-    EventBus.emit('closeMenu')
+  }
+  drawMenuArc = () => {
+    const canvas = document.querySelector('#menuCanvas')
+    const context = canvas.getContext('2d')
+    let grad = context.createLinearGradient(740, 0, 964, 608)//创建一个渐变色线性对象
+    grad.addColorStop(0,"#4E8291")             //定义渐变色颜色
+    grad.addColorStop(1,"#51416B")
+    context.moveTo( 964, 0 )
+    context.lineTo( 740, 0 )
+    context.quadraticCurveTo(800, 304, 664, 608)
+    context.lineTo( 964, 608 )
+    context.fillStyle = grad
+    context.shadowBlur = 30
+    context.shadowColor = "#51416B"
+    context.fill()
   }
   render () {
     const {profile}  = this.props.user

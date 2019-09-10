@@ -21,6 +21,11 @@ export default [
         icon: 'icon-friend_light',
         link: '/'
       },
+      {
+        name: '搜索',
+        icon: 'icon-serch',
+        link: '/'
+      }
     ]
   },
   {
@@ -35,9 +40,7 @@ export default [
         name: '播放记录',
         icon: 'icon-lishijilu',
         link: '/'
-      },
-      {link: '/'},
-      {link: '/'}
+      }
     ]
   }
 ]
