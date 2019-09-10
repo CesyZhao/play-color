@@ -2,6 +2,7 @@ import store from '../store/index'
 import http from '../config/http'
 import { UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_SONG } from '../store/action/actions'
 import { formatList } from '../util/audio'
+import toaster from '../util/toast'
 
 class FM {
   constructor () {
@@ -9,9 +10,9 @@ class FM {
     this.currentSong = {}
   }
 
-  getPersonalFM () {
-    http.get('/personal_fm')
-    .then(({data}) => {
+  async getPersonalFM () {
+    try {
+      const { data } = await http.get('/personal_fm')
       let playlist = {
         tracks: formatList(data.data),
         id: 'personalFM',
@@ -19,19 +20,25 @@ class FM {
       }
       this.currentAlbum = playlist
       this.currentSong = playlist.tracks[0]
-      store.dispatch({
-        type: UPDATE_PLAYING_SONG,
-        song: { ...playlist.tracks[0], fromId: 'personalFM', from: '私人 FM' }
-      })
-      store.dispatch({
-        type: UPDATE_PLAYING_ALBUM,
-        playingAlbum: playlist
-      })
+    } catch (error) {
+      toaster.error('获取私人 FM 失败')
+    }
+  }
+
+  async initFM () {
+    await this.getPersonalFM()
+    store.dispatch({
+      type: UPDATE_PLAYING_SONG,
+      song: { ...this.currentAlbum.tracks[0], fromId: 'personalFM', from: '私人 FM' }
+    })
+    store.dispatch({
+      type: UPDATE_PLAYING_ALBUM,
+      playingAlbum: this.currentAlbum
     })
   }
 
   getNewAlbumInfo () {
-    return { playgingAlbum: this.currentAlbum, song: this.currentSong }
+    return { playingAlbum: this.currentAlbum, song: this.currentSong }
   }
 }
 

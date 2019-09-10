@@ -62,10 +62,15 @@ function nextSong(state) {
   let index = playingAlbum.tracks.findIndex(e => e.id === song.id)
   nextIndex = ++index < playingAlbum.tracks.length ? index : 0
   nextSong = playingAlbum.tracks[nextIndex]
-  if (index === playingAlbum.tracks.length && playingAlbum.id === 'personalFM') {
-    const newAlbumInfo = FM.getNewAlbumInfo()
-    console.log(newAlbumInfo)
-    return Object.assign({}, state, newAlbumInfo)
+  console.log(nextSong)
+  if (playingAlbum.id === 'personalFM') {
+    if (index === playingAlbum.tracks.length) {
+      const newAlbumInfo = FM.getNewAlbumInfo()
+      console.log(newAlbumInfo)
+      return Object.assign({}, state, newAlbumInfo)
+    } else if (index === playingAlbum.tracks.length - 1) {
+      FM.getPersonalFM()
+    }
   }
   pushNotification(nextSong)
   const { id, name } = playingAlbum
@@ -95,7 +100,7 @@ function prevSong(state) {
 }
 
 function pushNotification (song) {
-  return new Notification(song.name, {
+  new Notification(song.name, {
     icon: logo,
     body: song.artists.map(artist => artist.name).join('/'),
     silent: true

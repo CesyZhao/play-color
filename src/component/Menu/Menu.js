@@ -29,7 +29,7 @@ class Leftbar extends Component {
   }
   toggleMenu = (name) => {
     if (name === '私人 FM') {
-      FM.getPersonalFM()
+      FM.initFM()
     }
     this.setState({
       showMenu: !this.state.showMenu
