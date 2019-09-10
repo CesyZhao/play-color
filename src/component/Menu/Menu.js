@@ -6,8 +6,6 @@ import { Link, withRouter } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 import EventBus from '../../events'
 import {connect} from "react-redux"
-import http from '../../config/http'
-import {formatList} from '../../util/audio'
 import FM from '../../entity/FM'
 
 @withRouter
@@ -27,9 +25,10 @@ class Leftbar extends Component {
       this.toggleMenu()
     })
   }
-  toggleMenu = (name) => {
+  toggleMenu = async (name) => {
     if (name === '私人 FM') {
-      FM.initFM()
+      await FM.initFM()
+      EventBus.emit('togglePlayingPanel')
     }
     this.setState({
       showMenu: !this.state.showMenu
