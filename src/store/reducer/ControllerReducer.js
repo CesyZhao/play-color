@@ -3,6 +3,7 @@ import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_MODE, NEXT_SON
 import logo from '../../asset/daydream.png'
 import _ from 'lodash'
 import FM from '../../entity/FM'
+import toaster from '../../util/toast'
 
 const initState = {
   song: {},
@@ -84,6 +85,10 @@ function prevSong(state) {
   // 由于存在用来辨别歌单的对象 {name:***} 所以歌单长度减二
   prevIndex = --index >= 0 ? index : playingAlbum.tracks.length - 1
   prevSong = playingAlbum.tracks[prevIndex]
+  if (index === 0) {
+    toaster.error('没有上一首了~')
+    return state
+  }
   // if (mode === 'listCirculation' || mode === 'singleCirculation') {
    
   // } else {
