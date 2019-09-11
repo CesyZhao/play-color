@@ -7,6 +7,7 @@ import Controller from './component/Controller/Controller'
 import Login from './component/Login/Login'
 import RouteContainer from './component/RouteContainer/RouteContainer'
 import PlayingPanel from './component/PlayingPanel/PlayingPanel'
+import Search from './component/Search/Search'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import {BrowserRouter} from 'react-router-dom'
@@ -42,6 +43,7 @@ class App extends Component {
           <Login />
           <ToastContainer hideProgressBar/>
           <PlayingPanel />
+          <Search />
         </div>
       </BrowserRouter>
     );
