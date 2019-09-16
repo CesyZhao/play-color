@@ -38,9 +38,14 @@
     }
   }
   .pc-search-results-wrapper{
-    height: 80%;
+    height: 0;
     margin-top: 4px;
     display: flex;
+    overflow: hidden;
+    transition: all .1s ease-in-out;
+    &.hasResult{
+      height: 80%;
+    }
     .pc-search-results, .pc-search-result{
       flex:1;
     }
