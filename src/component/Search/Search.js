@@ -44,7 +44,7 @@ class Search extends Component {
     try {
       const { data } = await http.get(`/search?keywords=${keyword}&type=${type}&offset=${page}`)
       this.setState({
-        [searchType]: data.result[searchType]
+        [searchType]: data.result[searchType].slice(0, 5)
       })
     } catch (error) {
       console.log(`fail to search ${searchType} `)
@@ -66,15 +66,15 @@ class Search extends Component {
             {
               Object.values(typeMap).map(type => {
                 return (
-                  <div className="pc-search-result-category">
-                    <div className="pc-search-result-category-title">
+                  <div className="pc-search-results-category">
+                    <div className="pc-search-results-category-title">
                       { nameMap[type] }
                     </div>
                     <div>
                       {
                         this.state[type].map(rs => {
                           return (
-                            <span> { rs.name } </span>
+                            <div className="pc-search-results-item"> { rs.name } </div>
                           )
                         })
                       }

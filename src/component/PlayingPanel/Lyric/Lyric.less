@@ -1,3 +1,4 @@
+@import '../../../theme/common.less';
 .pc-lyric-wrapper{
   height: 100%;
   box-sizing: border-box;
@@ -16,10 +17,7 @@
   box-sizing: border-box;
   height: 100%;
   overflow-y: scroll;
-  &::-webkit-scrollbar{
-      width: 0;
-      height: 0;
-  }
+  .no-scroll-bar
 }
 .lyric-scroller{
   padding: 0 0 12px 0;

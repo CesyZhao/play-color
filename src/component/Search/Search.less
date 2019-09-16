@@ -1,3 +1,4 @@
+@import '../../theme/common.less';
 .pc-search{
   width: 60%;
   height: 80%;
@@ -51,6 +52,9 @@
     }
     .pc-search-results{
       position: relative;
+      padding: 8px;
+      overflow: auto;
+      .no-scroll-bar
       &::after{
         content: '';
         display: block;
@@ -61,6 +65,17 @@
         width: 1px;
         background: #444;
         transform: scaleX(.5)
+      }
+    }
+    .pc-search-results-category{
+      text-align: left;
+      .pc-search-results-category-title, .pc-search-results-item{
+        line-height: 18px;
+        padding: 1px 8px;
+        
+      }
+      .pc-search-results-category-title{
+        background: rgba(100, 100 , 100, .2)
       }
     }
   }
