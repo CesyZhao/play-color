@@ -33,6 +33,8 @@ class Leftbar extends Component {
     if (name === '私人 FM') {
       await FM.initFM()
       EventBus.emit('togglePlayingPanel')
+    } else if (name === '搜索') {
+      EventBus.emit('toggleSearch', true)
     }
   }
   drawMenuArc = () => {

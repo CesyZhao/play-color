@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Search.less'
 import _ from 'lodash'
 import http from '../../config/http'
+import EventBus from '../../events'
 
 const typeMap = {
   '1': 'songs',
@@ -20,7 +21,29 @@ class Search extends Component {
     songs: [],
     playlists: [],
     artists: [],
-    userprofiles: []
+    userprofiles: [],
+    showSearch: false
+  }
+
+  componentDidMount () {
+    EventBus.on('toggleSearch', (status) => {
+      this.setState({
+        showSearch: status
+      })
+      if (status) {
+        const hideSearch = (e) => {
+          const searhEl = document.querySelector('.pc-search')
+          if (!searhEl.contains(e.target) || e.key === 'esc') {
+            this.setState({
+              showSearch: false
+            })
+            document.removeEventListener('click', hideSearch)
+          }
+        }
+        document.addEventListener('click', hideSearch)
+        document.addEventListener('keydown', hideSearch)
+      }
+    })
   }
 
   handleSearch = _.debounce(async (e) => {
@@ -42,19 +65,41 @@ class Search extends Component {
   doSearch = async (keyword, type = 1, page = 0) => {
     const searchType = typeMap[type]
     try {
-      const { data } = await http.get(`/search?keywords=${keyword}&type=${type}&offset=${page}`)
+      const { data } = await http.get(`/search?keywords=${keyword}&type=${type}&limit=5&offset=${page}`)
       this.setState({
-        [searchType]: data.result[searchType].slice(0, 5)
+        [searchType]: data.result[searchType]
       })
     } catch (error) {
       console.log(`fail to search ${searchType} `)
     }
   }
 
+  renderItemByType = (type) => {
+    const coverUrlMap = {
+      songs: 'album.img1v1Url',
+      artists: 'picUrl',
+      playlists: 'coverImgUrl',
+      userprofiles: 'avatarUrl'
+    }
+    const extraInfoMap = {
+      songs: (item) => item.artists.map(artist => artist.name).join('/'),
+      playlists: (item) => item.creator.nickname
+    }
+    return this.state[type].map(item => {
+      return (
+        <div className="pc-search-results-item" key={ item.id }>
+          <img src={ item[coverUrlMap[type]]} alt="" className="pc-search-songs-cover"></img>
+          <span className="pc-search-item-name"> { item.name || item.nickname } </span>
+          <span className="pc-search-item-extra"> { extraInfoMap[type] && extraInfoMap[type](item) } </span>
+        </div>
+      )
+    })
+  }
+
   render () {
-    const { songs, playlists, artists, userprofiles } = this.state
-    console.log(Object.values(typeMap))
+    const { songs, playlists, artists, userprofiles, showSearch } = this.state
     return (
+      showSearch &&
       <div className="pc-search">
         <div className="pc-search-input-wrapper">
           <input className="pc-search-input" placeholder="输入搜索关键字" onInput={ this.handleSearch } ref="searchInput"></input>
@@ -72,11 +117,7 @@ class Search extends Component {
                     </div>
                     <div>
                       {
-                        this.state[type].map(rs => {
-                          return (
-                            <div className="pc-search-results-item"> { rs.name } </div>
-                          )
-                        })
+                        this.renderItemByType(type)
                       }
                     </div>
                   </div>
