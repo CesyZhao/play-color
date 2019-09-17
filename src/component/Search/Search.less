@@ -54,28 +54,18 @@
       position: relative;
       padding: 8px;
       overflow: auto;
-      .no-scroll-bar
-      &::after{
-        content: '';
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 1px;
-        background: #444;
-        transform: scaleX(.5)
-      }
+      border-right: 1px solid rgba(100, 100 , 100, .6);
+      .no-scroll-bar;
     }
     .pc-search-results-category{
       text-align: left;
       .pc-search-results-category-title, .pc-search-results-item{
-        line-height: 18px;
+        line-height: 24px;
         padding: 1px 8px;
-        
       }
       .pc-search-results-category-title{
-        background: rgba(100, 100 , 100, .2)
+        padding: 2px 8px;
+        background: rgba(100, 100 , 100, .2);
       }
     }
   }
