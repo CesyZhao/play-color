@@ -29,20 +29,22 @@ class Search extends Component {
     EventBus.on('toggleSearch', (status) => {
       this.setState({
         showSearch: status
-      })
-      if (status) {
-        const hideSearch = (e) => {
-          const searhEl = document.querySelector('.pc-search')
-          if (!searhEl.contains(e.target) || e.key === 'esc') {
-            this.setState({
-              showSearch: false
-            })
-            document.removeEventListener('click', hideSearch)
+      }, () => {
+        if (status) {
+          const hideSearch = (e) => {
+            const searhEl = document.querySelector('.pc-search')
+            if (!searhEl.contains(e.target) || e.key === 'esc') {
+              this.setState({
+                showSearch: false
+              })
+              document.removeEventListener('click', hideSearch)
+              document.removeEventListener('keydown', hideSearch)
+            }
           }
+          document.addEventListener('click', hideSearch)
+          document.addEventListener('keydown', hideSearch)
         }
-        document.addEventListener('click', hideSearch)
-        document.addEventListener('keydown', hideSearch)
-      }
+      })
     })
   }
 
