@@ -127,7 +127,6 @@ class Search extends Component {
               })
             }
           </div>
-          <div className="pc-search-result"></div>
         </div>
       </div>
     ) 

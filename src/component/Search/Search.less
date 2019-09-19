@@ -1,6 +1,6 @@
 @import '../../theme/common.less';
 .pc-search{
-  width: 60%;
+  width: 70%;
   height: 80%;
   position: absolute;
   top: 50%;
@@ -47,15 +47,14 @@
     &.hasResult{
       height: 80%;
     }
-    .pc-search-results, .pc-search-result{
-      flex:2;
+    .pc-search-results{
+      flex: 1;
     }
     .pc-search-results{
       flex: 3;
       position: relative;
       padding: 8px;
       overflow: auto;
-      border-right: 1px solid rgba(100, 100 , 100, .6);
       .no-scroll-bar;
     }
     .pc-search-results-category{
@@ -73,6 +72,7 @@
         display: flex;
         align-items: center;
         margin-top: 4px;
+        cursor: pointer;
         .pc-search-songs-cover{
           width: 32px;
           height: 32px;
