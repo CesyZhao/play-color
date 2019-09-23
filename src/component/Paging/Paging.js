@@ -8,10 +8,20 @@ class Paging extends Component {
     pageSize: Proptypes.number.isRequired,
     onPageChange: Proptypes.func.isRequired
   }
+  state = {
+    current: 0
+  }
   render () {
+    const { current, total } = this.state
     return (
       <div>
-
+        {
+          [current, current + 1, current + 2].map(item => {
+            return <span> { item } </span>
+          })
+        }
+        <span>...</span>
+        <span> {total} </span>
       </div>
     )
   }
