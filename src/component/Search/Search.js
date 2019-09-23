@@ -3,6 +3,7 @@ import './Search.less'
 import _ from 'lodash'
 import http from '../../config/http'
 import EventBus from '../../events'
+import Pagination from '../Pagination/Pagination'
 
 const typeMap = {
   '1': 'songs',
@@ -116,6 +117,7 @@ class Search extends Component {
                   <div className="pc-search-results-category">
                     <div className="pc-search-results-category-title">
                       { nameMap[type] }
+                      
                     </div>
                     <div>
                       {
