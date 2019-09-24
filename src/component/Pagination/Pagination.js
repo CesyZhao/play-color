@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import Proptypes from 'prop-types'
+import './Pagination.less'
 
 
 class Pagination extends Component {
   static Proptypes = {
     total: Proptypes.number.isRequired,
-    pageSize: Proptypes.number.isRequired,
     onPageChange: Proptypes.func.isRequired
   }
   state = {
-    current: 0
+    current: 0,
+    pageSize: 5
   }
   render () {
-    const { current, total } = this.state
+    const { current, pageSize } = this.state
+    const { total } = this.props
     return (
       <div className="pc-pagination">
         <i className="iconfont icon-fanhui"></i>
@@ -22,7 +24,7 @@ class Pagination extends Component {
           })
         }
         <span> ... </span>
-        <span> { total } </span>
+        <span> { total / pageSize } </span>
         <input></input>
         <i className="iconfont icon-gengduo"></i>
       </div>

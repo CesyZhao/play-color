@@ -116,8 +116,8 @@ class Search extends Component {
                 return (
                   <div className="pc-search-results-category">
                     <div className="pc-search-results-category-title">
-                      { nameMap[type] }
-                      
+                      <span>{ nameMap[type] }</span>
+                      <Pagination total={ 20 } onPageChange={ (page) => {console.log(page)} }/>
                     </div>
                     <div>
                       {
