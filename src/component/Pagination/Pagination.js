@@ -10,13 +10,18 @@ class Pagination extends Component {
   }
   state = {
     current: 0,
-    pageSize: 5
+    pageSize: 5,
+    showTotal: false,
+    jumpable: false
   }
   render () {
-    const { current, pageSize } = this.state
+    const { current, pageSize, showTotal, jumpable } = this.state
     const { total } = this.props
     return (
       <div className="pc-pagination">
+        {
+          showTotal && <span className="pc-pagination-total"> 共 { total } 条</span>
+        }
         <i className="iconfont icon-fanhui"></i>
         {
           [current, current + 1, current + 2].map(item => {
@@ -25,8 +30,10 @@ class Pagination extends Component {
         }
         <span> ... </span>
         <span> { total / pageSize } </span>
-        <input></input>
         <i className="iconfont icon-gengduo"></i>
+        {
+          jumpable && <span className="pc-pagination-to"> 前往第 <input></input> 页 </span>
+        }
       </div>
     )
   }

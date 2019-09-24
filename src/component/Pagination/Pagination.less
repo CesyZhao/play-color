@@ -1,6 +1,9 @@
 .pc-pagination{
   display: flex;
   align-items: center;
+  .pc-pagination-total, .pc-pagination-to{
+    color: #777;
+  }
   &>*{
     padding: 2px;
     margin-right: 4px;
@@ -9,6 +12,7 @@
     width: 20px;
     border: none;
     border-radius: 2px;
+    background: rgba(200, 200, 200, .4);
     &:focus{
       outline: none;
     }
