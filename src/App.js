@@ -33,8 +33,9 @@ class App extends Component {
       this.props.dispatch({type: SET_USER_PROFILE, user: {}})
     })
     document.addEventListener('keydown', e => {
-      console.log(e)
-      if (e.key === 'p' && e.metaKey && e.shiftKey) {
+      const {ctrlKey, metaKey, key, shiftKey} = e
+      const isControlOrCommand = ctrlKey || metaKey
+      if (key === 'P' && isControlOrCommand && shiftKey) {
         console.log(111111111)
         EventBus.emit('toggleSearch', true)
       }

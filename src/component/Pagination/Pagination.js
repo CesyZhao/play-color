@@ -15,8 +15,6 @@ class Pagination extends Component {
     jumpable: true
   }
   handlePageClick = (e, page) => {
-    console.log(e)
-    e.stopPropagation()
     this.setState({
       current: page
     })
