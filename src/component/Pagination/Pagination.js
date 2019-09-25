@@ -25,7 +25,7 @@ class Pagination extends Component {
         <i className="iconfont icon-fanhui"></i>
         {
           [current, current + 1, current + 2].map(item => {
-            return <span> { item } </span>
+            return <span key={ item }> { item } </span>
           })
         }
         <span> ... </span>

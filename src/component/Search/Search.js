@@ -20,9 +20,13 @@ const nameMap = {
 class Search extends Component {
   state = {
     songs: [],
+    songsTotal: 0,
     playlists: [],
+    playlistsTotal: 0,
     artists: [],
+    artistsTotal: 0,
     userprofiles: [],
+    userprofilesTotal: 0,
     showSearch: false
   }
 
@@ -70,9 +74,11 @@ class Search extends Component {
     try {
       const { data } = await http.get(`/search?keywords=${keyword}&type=${type}&limit=5&offset=${page}`)
       this.setState({
-        [searchType]: data.result[searchType]
+        [searchType]: data.result[searchType],
+        [`${searchType}Total`]: data.result[`${searchType.substring(0, searchType.length - 1)}Count`],
       })
     } catch (error) {
+      console.log(error)
       console.log(`fail to search ${searchType} `)
     }
   }
@@ -117,7 +123,7 @@ class Search extends Component {
                   <div className="pc-search-results-category">
                     <div className="pc-search-results-category-title">
                       <span>{ nameMap[type] }</span>
-                      <Pagination total={ 20 } onPageChange={ (page) => {console.log(page)} }/>
+                      <Pagination total={ this.state[`${type}Total`] } onPageChange={ (page) => {console.log(page)} }/>
                     </div>
                     <div>
                       {

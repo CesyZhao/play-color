@@ -14,6 +14,7 @@ import {BrowserRouter} from 'react-router-dom'
 import http from './config/http'
 import {connect} from 'react-redux'
 import {SET_USER_PROFILE} from './store/action/actions'
+import EventBus from './events'
 
 @connect(({user}) => ({
   user
@@ -30,6 +31,13 @@ class App extends Component {
     })
     .catch(err => {
       this.props.dispatch({type: SET_USER_PROFILE, user: {}})
+    })
+    document.addEventListener('keydown', e => {
+      console.log(e)
+      if (e.key === 'p' && e.metaKey && e.shiftKey) {
+        console.log(111111111)
+        EventBus.emit('toggleSearch', true)
+      }
     })
   }
   render() {
