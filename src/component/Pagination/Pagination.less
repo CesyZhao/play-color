@@ -1,12 +1,17 @@
+@import '../../theme/vars.less';
 .pc-pagination{
   display: flex;
   align-items: center;
   .pc-pagination-total, .pc-pagination-to{
     color: #777;
   }
-  &>*{
+  .pc-pagination-option{
     padding: 2px;
     margin-right: 4px;
+    cursor: pointer;
+    &:hover,  &.current{
+      color: #4E8291;
+    }
   }
   input{
     width: 20px;

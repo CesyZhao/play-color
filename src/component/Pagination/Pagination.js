@@ -9,28 +9,44 @@ class Pagination extends Component {
     onPageChange: Proptypes.func.isRequired
   }
   state = {
-    current: 0,
+    current: 1,
     pageSize: 5,
     showTotal: false,
-    jumpable: false
+    jumpable: true
+  }
+  handlePageClick = (e, page) => {
+    console.log(e)
+    e.stopPropagation()
+    this.setState({
+      current: page
+    })
   }
   render () {
     const { current, pageSize, showTotal, jumpable } = this.state
     const { total } = this.props
+    const totalPage = total / pageSize
     return (
       <div className="pc-pagination">
         {
           showTotal && <span className="pc-pagination-total"> 共 { total } 条</span>
         }
-        <i className="iconfont icon-fanhui"></i>
+        <i className="iconfont icon-fanhui pc-pagination-option"></i>
         {
-          [current, current + 1, current + 2].map(item => {
-            return <span key={ item }> { item } </span>
-          })
+          current < totalPage - 2
+          ? [current , current + 1, current + 2].map(item => {
+              return <span key={ item } className={ `pc-pagination-option ${current === item ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, item) }> { item } </span>
+            })
+          : <span className={ `pc-pagination-option ${current === 1 ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, 1) }> 1 </span>
         }
         <span> ... </span>
-        <span> { total / pageSize } </span>
-        <i className="iconfont icon-gengduo"></i>
+        {
+          current < totalPage - 2
+          ? <span className={ `pc-pagination-option ${current === totalPage ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, totalPage) }> { totalPage } </span>
+          : [totalPage - 2 , totalPage - 1, totalPage].map(item => {
+              return <span key={ item } className={ `pc-pagination-option ${current === item ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, item) }> { item } </span>
+            })
+        }
+        <i className="iconfont icon-gengduo pc-pagination-option"></i>
         {
           jumpable && <span className="pc-pagination-to"> 前往第 <input></input> 页 </span>
         }
