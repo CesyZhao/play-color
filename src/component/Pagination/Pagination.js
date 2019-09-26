@@ -30,19 +30,25 @@ class Pagination extends Component {
         }
         <i className="iconfont icon-fanhui pc-pagination-option"></i>
         {
-          current < totalPage - 2
-          ? [current , current + 1, current + 2].map(item => {
+          current < 1 + 2
+          ? [1, 2, 3].map(item => {
               return <span key={ item } className={ `pc-pagination-option ${current === item ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, item) }> { item } </span>
             })
           : <span className={ `pc-pagination-option ${current === 1 ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, 1) }> 1 </span>
         }
         <span> ... </span>
         {
-          current < totalPage - 2
-          ? <span className={ `pc-pagination-option ${current === totalPage ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, totalPage) }> { totalPage } </span>
-          : [totalPage - 2 , totalPage - 1, totalPage].map(item => {
+          current >= 1 + 2 && current <= totalPage - 2 &&
+          [current - 2, current - 1, current , current + 1, current + 2].map(item => {
+            return <span key={ item } className={ `pc-pagination-option ${current === item ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, item) }> { item } </span>
+          })
+        }
+        {
+          current > totalPage - 2 && current <= totalPage
+          ? [totalPage - 2 , totalPage - 1, totalPage].map(item => {
               return <span key={ item } className={ `pc-pagination-option ${current === item ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, item) }> { item } </span>
             })
+          : <span className={ `pc-pagination-option ${current === totalPage ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, totalPage) }> { totalPage } </span>
         }
         <i className="iconfont icon-gengduo pc-pagination-option"></i>
         {
