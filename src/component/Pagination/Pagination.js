@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Proptypes from 'prop-types'
 import './Pagination.less'
 
@@ -30,22 +30,27 @@ class Pagination extends Component {
         }
         <i className="iconfont icon-fanhui pc-pagination-option"></i>
         {
-          current < 1 + 2
-          ? [1, 2, 3].map(item => {
+          current < 1 + 3
+          ? [1, 2, 3, 4].map(item => {
               return <span key={ item } className={ `pc-pagination-option ${current === item ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, item) }> { item } </span>
             })
           : <span className={ `pc-pagination-option ${current === 1 ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, 1) }> 1 </span>
         }
         <span> ... </span>
         {
-          current >= 1 + 2 && current <= totalPage - 2 &&
-          [current - 2, current - 1, current , current + 1, current + 2].map(item => {
-            return <span key={ item } className={ `pc-pagination-option ${current === item ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, item) }> { item } </span>
-          })
+          current >= 1 + 3 && current <= totalPage - 3 &&
+          <Fragment>
+            {
+              [ current - 1, current , current + 1].map(item => {
+                return <span key={ item } className={ `pc-pagination-option ${current === item ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, item) }> { item } </span>
+              })
+            }
+            <span> ... </span>
+          </Fragment>
         }
         {
-          current > totalPage - 2 && current <= totalPage
-          ? [totalPage - 2 , totalPage - 1, totalPage].map(item => {
+          current > totalPage - 3 && current <= totalPage
+          ? [totalPage - 3 ,totalPage - 2 , totalPage - 1, totalPage].map(item => {
               return <span key={ item } className={ `pc-pagination-option ${current === item ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, item) }> { item } </span>
             })
           : <span className={ `pc-pagination-option ${current === totalPage ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, totalPage) }> { totalPage } </span>
