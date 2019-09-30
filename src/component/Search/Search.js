@@ -6,16 +6,10 @@ import EventBus from '../../events'
 import Pagination from '../Pagination/Pagination'
 
 const typeMap = {
-  '1': 'songs',
-  '100': 'artists',
-  '1000': 'playlists',
-  '1002': 'userprofiles'
-}
-const nameMap = {
-  songs: '单曲',
-  artists: '歌手',
-  playlists: '歌单',
-  userprofiles: '用户'
+  songs: { type: 1, title: '单曲' },
+  artists: { type: 100, title: '歌手' },
+  playlists: { type: 1000, title: '歌单' },
+  userprofiles: { type: 1002, title: '用户' }
 }
 class Search extends Component {
   state = {
@@ -61,22 +55,25 @@ class Search extends Component {
       })
       return
     }
-    for (const type in typeMap) {
-      this.doSearch(keyword, type)
+    for (const key in typeMap) {
+      this.doSearch(keyword, typeMap[key].type, key)
     }
   }, 500)
 
-  doSearch = async (keyword, type = 1, page = 0) => {
-    const searchType = typeMap[type]
+  handlePageChange = (page, key) => {
+    this.doSearch(this.refs.searchInput.value, typeMap[key].type, key,  page - 1)
+  }
+
+  doSearch = async (keyword, type = 1, key, page = 0) => {
     try {
       const { data } = await http.get(`/search?keywords=${keyword}&type=${type}&limit=5&offset=${page}`)
       this.setState({
-        [searchType]: data.result[searchType],
-        [`${searchType}Total`]: data.result[`${searchType.substring(0, searchType.length - 1)}Count`],
+        [key]: data.result[key],
+        [`${key}Total`]: data.result[`${key.substring(0, key.length - 1)}Count`],
       })
     } catch (error) {
       console.log(error)
-      console.log(`fail to search ${searchType} `)
+      console.log(`fail to search ${key} `)
     }
   }
 
@@ -115,12 +112,12 @@ class Search extends Component {
          ${ (songs.length || playlists.length || artists.length || userprofiles.length) ? 'hasResult' : '' }` }>
           <div className="pc-search-results">
             {
-              Object.values(typeMap).map(type => {
+              Object.keys(typeMap).map(type => {
                 return (
                   <div className="pc-search-results-category">
                     <div className="pc-search-results-category-title">
-                      <span>{ nameMap[type] }</span>
-                      <Pagination total={ this.state[`${type}Total`] } onPageChange={ (page) => {console.log(page)} }/>
+                      <span>{ typeMap[type].title }</span>
+                      <Pagination total={ this.state[`${type}Total`] } onPageChange={ page => this.handlePageChange(page, type) }/>
                     </div>
                     <div>
                       {

@@ -18,6 +18,7 @@ class Pagination extends Component {
     this.setState({
       current: page
     })
+    this.props.onPageChange(page)
   }
   handleInput = (e) => {
     this.handlePageClick(e, +e.target.value)
@@ -25,7 +26,7 @@ class Pagination extends Component {
   render () {
     const { current, pageSize, showTotal, jumpable } = this.state
     const { total } = this.props
-    const totalPage = total / pageSize
+    const totalPage = total % pageSize === 0 ? total / pageSize : Math.floor(total / pageSize) + 1
     return (
       <div className="pc-pagination">
         {
