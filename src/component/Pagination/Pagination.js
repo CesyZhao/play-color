@@ -19,6 +19,9 @@ class Pagination extends Component {
       current: page
     })
   }
+  handleInput = (e) => {
+    this.handlePageClick(e, +e.target.value)
+  }
   render () {
     const { current, pageSize, showTotal, jumpable } = this.state
     const { total } = this.props
@@ -57,7 +60,7 @@ class Pagination extends Component {
         }
         <i className="iconfont icon-gengduo pc-pagination-option"></i>
         {
-          jumpable && <span className="pc-pagination-to"> 前往第 <input></input> 页 </span>
+          jumpable && <span className="pc-pagination-to"> 前往第 <input onInput={ this.handleInput }></input> 页 </span>
         }
       </div>
     )
