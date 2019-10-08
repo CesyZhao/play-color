@@ -4,6 +4,7 @@ import _ from 'lodash'
 import http from '../../config/http'
 import EventBus from '../../events'
 import Pagination from '../Pagination/Pagination'
+import logo from '../../asset/daydream.png'
 
 const typeMap = {
   songs: { type: 1, title: '单曲' },
@@ -79,8 +80,7 @@ class Search extends Component {
 
   renderItemByType = (type) => {
     const coverUrlMap = {
-      songs: 'album.img1v1Url',
-      artists: 'picUrl',
+      artists: 'img1v1Url',
       playlists: 'coverImgUrl',
       userprofiles: 'avatarUrl'
     }
@@ -91,7 +91,7 @@ class Search extends Component {
     return this.state[type].map(item => {
       return (
         <div className="pc-search-results-item" key={ item.id }>
-          <img src={ item[coverUrlMap[type]]} alt="" className="pc-search-songs-cover"></img>
+          <img src={ type === 'songs' ? logo : item[coverUrlMap[type]]} alt="" className="pc-search-songs-cover"></img>
           <span className="pc-search-item-name"> { item.name || item.nickname } </span>
           <span className="pc-search-item-extra"> { extraInfoMap[type] && extraInfoMap[type](item) } </span>
         </div>
