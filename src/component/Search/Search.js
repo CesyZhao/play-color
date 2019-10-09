@@ -32,7 +32,7 @@ class Search extends Component {
       }, () => {
         if (status) {
           const hideSearch = (e) => {
-            if (e.key === 'esc') {
+            if (e.key === 'esc' || e.key === 'Escape') {
               this.setState({
                 showSearch: false
               })
@@ -90,7 +90,7 @@ class Search extends Component {
     }
     return this.state[type].map(item => {
       return (
-        <div className="pc-search-results-item" key={ item.id }>
+        <div className="pc-search-results-item" key={ item.id || item.userId }>
           <img src={ type === 'songs' ? logo : item[coverUrlMap[type]]} alt="" className="pc-search-songs-cover"></img>
           <span className="pc-search-item-name"> { item.name || item.nickname } </span>
           <span className="pc-search-item-extra"> { extraInfoMap[type] && extraInfoMap[type](item) } </span>
@@ -114,7 +114,7 @@ class Search extends Component {
             {
               Object.keys(typeMap).map(type => {
                 return (
-                  <div className="pc-search-results-category">
+                  <div className="pc-search-results-category" key={ type }>
                     <div className="pc-search-results-category-title">
                       <span>{ typeMap[type].title }</span>
                       <Pagination total={ this.state[`${type}Total`] } onPageChange={ page => this.handlePageChange(page, type) }/>

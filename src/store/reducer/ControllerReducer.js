@@ -67,7 +67,6 @@ function nextSong(state) {
   if (playingAlbum.id === 'personalFM') {
     if (index === playingAlbum.tracks.length) {
       const newAlbumInfo = FM.getNewAlbumInfo()
-      console.log(newAlbumInfo)
       return Object.assign({}, state, newAlbumInfo)
     } else if (index === playingAlbum.tracks.length - 1) {
       FM.getPersonalFM()
@@ -106,7 +105,7 @@ function prevSong(state) {
 
 function pushNotification (song) {
   new Notification(song.name, {
-    icon: logo,
+    // icon: logo,
     body: song.artists.map(artist => artist.name).join('/'),
     silent: true
   })
