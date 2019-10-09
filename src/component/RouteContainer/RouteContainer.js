@@ -36,10 +36,10 @@ class RouteContainer extends Component{
     return(
       <div className="pc-route-container">
         <div className="pc-tool-bar">
-          {/* <div className="pc-tool-bar-tools">
+          <div className="pc-tool-bar-tools">
             <i className="iconfont icon-fanhui" onClick={ () => this.handleHistory(-1) }/>
             <i className="iconfont icon-gengduo" onClick={ () => this.handleHistory(1) }/>
-          </div> */}
+          </div>
           <div className="pc-tool-bar-tools" >
             <i className={ `iconfont icon-diandiandianshu ${this.state.menuDisplayed ? 'icon-you' : 'icon-menu'}` } onClick={ this.toggleMenu }></i>
           </div>
