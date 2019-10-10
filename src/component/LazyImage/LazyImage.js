@@ -14,8 +14,8 @@ class LazyImage extends Component{
   }
   static defaultProps = {
     shape: 'squared',
-    width: 150,
-    height: 150
+    width: 50,
+    height: 50
   }
   state = {
     preImageUrl: `${this.props.imgUrl}?param=${this.props.width}y${this.props.height}`
