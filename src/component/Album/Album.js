@@ -89,6 +89,7 @@ class Album extends Component {
         primaryOpacity="0.3"
         secondaryOpacity="0.3"
         className="pc-loader"
+        ariaLabel={ false }
       >
         <rect x="12" y="0" rx="0" ry="0" width="940" height="196" /> 
         <rect x="12" y="204" rx="0" ry="0" width="940" height="46" /> 
