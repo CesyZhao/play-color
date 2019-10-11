@@ -4,7 +4,7 @@ import LazyImage from '../LazyImage/LazyImage'
 import './Album.less'
 import Playlist from '../PlayList/PlayList'
 import {formatList} from '../../util/audio'
-import ContentLoader from "react-content-loader"
+import AlbumLoader from '../Loaders/AlbumLoader'
 
 const fields = [
   {
@@ -80,56 +80,7 @@ class Album extends Component {
         </Playlist>
       </div>
       :
-      <ContentLoader 
-        height={512}
-        width={964}
-        speed={1}
-        primaryColor="#fffff"
-        secondaryColor="#4E8291"
-        primaryOpacity="0.3"
-        secondaryOpacity="0.3"
-        className="pc-loader"
-        ariaLabel={ false }
-      >
-        <rect x="12" y="0" rx="0" ry="0" width="940" height="196" /> 
-        <rect x="12" y="204" rx="0" ry="0" width="940" height="46" /> 
-
-        <rect x="12" y="264" rx="0" ry="0" width="42" height="30" /> 
-        <rect x="78" y="264" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="328" y="264" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="580" y="264" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="837" y="264" rx="0" ry="0" width="113" height="30" />
-
-        <rect x="12" y="306" rx="0" ry="0" width="42" height="30" /> 
-        <rect x="78" y="306" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="328" y="306" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="580" y="306" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="837" y="306" rx="0" ry="0" width="113" height="30" />
-
-        <rect x="12" y="348" rx="0" ry="0" width="42" height="30" /> 
-        <rect x="78" y="348" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="328" y="348" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="580" y="348" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="837" y="348" rx="0" ry="0" width="113" height="30" />
-
-        <rect x="12" y="390" rx="0" ry="0" width="42" height="30" /> 
-        <rect x="78" y="390" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="328" y="390" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="580" y="390" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="837" y="390" rx="0" ry="0" width="113" height="30" />
-
-        <rect x="12" y="432" rx="0" ry="0" width="42" height="30" /> 
-        <rect x="78" y="432" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="328" y="432" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="580" y="432" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="837" y="432" rx="0" ry="0" width="113" height="30" />
-
-        <rect x="12" y="474" rx="0" ry="0" width="42" height="30" /> 
-        <rect x="78" y="474" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="328" y="474" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="580" y="474" rx="0" ry="0" width="226" height="30" /> 
-        <rect x="837" y="474" rx="0" ry="0" width="113" height="30" />
-      </ContentLoader>
+     <AlbumLoader></AlbumLoader>
     )
   }
 }
