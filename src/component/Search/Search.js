@@ -5,12 +5,13 @@ import http from '../../config/http'
 import EventBus from '../../events'
 import Pagination from '../Pagination/Pagination'
 import logo from '../../asset/daydream.png'
+import { Link } from 'react-router-dom'
 
 const typeMap = {
   songs: { type: 1, title: '单曲' },
-  artists: { type: 100, title: '歌手' },
-  playlists: { type: 1000, title: '歌单' },
-  userprofiles: { type: 1002, title: '用户' }
+  artists: { type: 100, title: '歌手', route: 'artist' },
+  playlists: { type: 1000, title: '歌单', route: 'album' },
+  userprofiles: { type: 1002, title: '用户', route: 'user' }
 }
 class Search extends Component {
   state = {
@@ -90,11 +91,13 @@ class Search extends Component {
     }
     return this.state[type].map(item => {
       return (
-        <div className="pc-search-results-item" key={ item.id || item.userId }>
-          <img src={ type === 'songs' ? logo : item[coverUrlMap[type]]} alt="" className="pc-search-songs-cover"></img>
-          <span className="pc-search-item-name"> { item.name || item.nickname } </span>
-          <span className="pc-search-item-extra"> { extraInfoMap[type] && extraInfoMap[type](item) } </span>
-        </div>
+        <Link to={{pathname: `/${typeMap[type].route}/${item.id || item.userId}`}} key={ item.id || item.userId }>
+          <div className="pc-search-results-item">
+            <img src={ type === 'songs' ? logo : item[coverUrlMap[type]]} alt="" className="pc-search-songs-cover"></img>
+            <span className="pc-search-item-name"> { item.name || item.nickname } </span>
+            <span className="pc-search-item-extra"> { extraInfoMap[type] && extraInfoMap[type](item) } </span>
+          </div>
+        </Link>
       )
     })
   }

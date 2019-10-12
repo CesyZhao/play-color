@@ -3,6 +3,7 @@ import {Route} from 'react-router-dom'
 import Home from '../Home/Home'
 import Album from '../Album/Album'
 import Albums from '../Albums/Albums'
+import Artist from '../Artist/Artist'
 import './RouteContainer.less'
 import EventBus from '../../events'
 
@@ -48,6 +49,7 @@ class RouteContainer extends Component{
           <Route path="/" exact component={Home} />
           <Route path="/album/:id" component={Album} />
           <Route path="/albums" component={Albums} />
+          <Route path="/artist/:id" component={Artist}></Route>
         </div>
       </div>
     )
