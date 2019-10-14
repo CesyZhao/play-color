@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import Proptypes from 'prop-types'
+import PropTypes from 'prop-types'
 import './Pagination.less'
 
 
 class Pagination extends Component {
-  static Proptypes = {
-    total: Proptypes.number.isRequired,
-    onPageChange: Proptypes.func.isRequired
+  static propTypes = {
+    total: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired
   }
   state = {
     current: 1,
