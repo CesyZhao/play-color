@@ -5,8 +5,26 @@
     width: 0;
     height: 0;
   }
-  .pc-artist-info{
+  .pc-artist-info-wrapper{
     height: 150px;
     background: rgba(255, 255, 255, .1);
+    display: flex;
+    img{
+      width: 150px;
+      height: 150px;
+      border-radius: 4px;
+    }
+    .pc-artist-info{
+      flex: 1;
+    }
+    .pa-artist-desc{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      /* autoprefixer: off */
+      -webkit-box-orient: vertical;
+      /* autoprefixer: on */
+    }
   }
 }
