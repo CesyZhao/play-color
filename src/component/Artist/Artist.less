@@ -6,16 +6,24 @@
     height: 0;
   }
   .pc-artist-info-wrapper{
-    height: 150px;
     background: rgba(255, 255, 255, .1);
     display: flex;
+    align-items: center;
+    padding:0 8px;
     img{
-      width: 150px;
-      height: 150px;
+      width: 130px;
+      height: 130px;
       border-radius: 4px;
     }
     .pc-artist-info{
       flex: 1;
+      margin-left: 12px;
+      text-align: left;
+    }
+    .pc-artist-sub-info{
+      span{
+        margin-right: 8px;
+      }
     }
     .pa-artist-desc{
       overflow: hidden;
@@ -26,5 +34,10 @@
       -webkit-box-orient: vertical;
       /* autoprefixer: on */
     }
+  }
+  .pc-artist-hot-songs-header{
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
   }
 }

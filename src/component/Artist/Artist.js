@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import './Artist.less'
 import http from '../../config/http'
+import Pagination from '../Pagination/Pagination'
+import PlayList from '../PlayList/PlayList'
 
 const categories = [
   {
@@ -23,6 +25,31 @@ const categories = [
     url: '/artist/desc',
     dataset: 'briefDesc'
   },
+]
+const fields = [
+  {
+    name: 'name',
+    title: '歌名',
+    flex: 2
+  },
+  {
+    name: 'ar',
+    alias: 'artists',
+    title: '歌手',
+    flex: 2
+  },
+  {
+    name: 'al',
+    alias: 'album',
+    title: '专辑',
+    flex: 2
+  },
+  {
+    name: 'dt',
+    alias: 'duration',
+    title: '时长',
+    flex: 1
+  }
 ]
 class Artist extends Component {
 
@@ -56,6 +83,7 @@ class Artist extends Component {
 
   render () {
     const { info } = this.state.artist
+    const { hotSongs } = this.state
     console.log(this.state)
     return (
       <div className="pc-artist">
@@ -65,7 +93,7 @@ class Artist extends Component {
             <img src={ info.img1v1Url } alt="歌手照片"></img>
             <div className="pc-artist-info">
               <h2> { info.name } </h2>
-              <div className="pa-artist-sub-info">
+              <div className="pc-artist-sub-info">
                 <span>中文名: { info.transNames } </span>
                 <span>单曲数: { info.musicSize }</span>
                 <span>专辑数: { info.albumSize } </span>
@@ -75,8 +103,17 @@ class Artist extends Component {
                 { info.briefDesc }
               </p>
             </div>
-
           </div>
+        }
+        {
+          hotSongs.length &&
+          <Fragment>
+            <div className="pc-artist-hot-songs-header">
+              <span>热门歌曲</span>
+              <Pagination total={50}></Pagination>
+            </div>
+            <PlayList fields={ fields } album={ { tracks: hotSongs } }></PlayList>
+          </Fragment>
         }
       </div>
     )
