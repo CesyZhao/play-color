@@ -6,15 +6,18 @@ import './Pagination.less'
 class Pagination extends Component {
   static propTypes = {
     total: PropTypes.number.isRequired,
-    onPageChange: PropTypes.func.isRequired
+    onPageChange: PropTypes.func.isRequired,
+    pageSize: PropTypes.number,
+    showTotal: PropTypes.bool,
+    jumpable:  PropTypes.bool
   }
   state = {
-    current: 1,
-    pageSize: 5,
-    showTotal: false,
-    jumpable: true
+    current: 1
   }
   handlePageClick = (e, page) => {
+    const { total, pageSize = 5 } = this.props
+    const totalPage = total % pageSize === 0 ? total / pageSize : Math.floor(total / pageSize) + 1
+    if (page < 1 || page > totalPage) return
     this.setState({
       current: page
     })
@@ -24,15 +27,15 @@ class Pagination extends Component {
     this.handlePageClick(e, +e.target.value)
   }
   render () {
-    const { current, pageSize, showTotal, jumpable } = this.state
-    const { total } = this.props
+    const { current } = this.state
+    const { total, pageSize = 5, showTotal = false, jumpable = true } = this.props
     const totalPage = total % pageSize === 0 ? total / pageSize : Math.floor(total / pageSize) + 1
     return (
       <div className="pc-pagination">
         {
           showTotal && <span className="pc-pagination-total"> 共 { total } 条</span>
         }
-        <i className="iconfont icon-fanhui pc-pagination-option"></i>
+        <i className={`iconfont icon-fanhui pc-pagination-option ${current >= 1 ? 'disabled' : ''}`} onClick={ (e) => this.handlePageClick(e, current - 1) }></i>
         {
           current < 1 + 3
           ? [1, 2, 3, 4].map(item => {
@@ -59,7 +62,7 @@ class Pagination extends Component {
             })
           : <span className={ `pc-pagination-option ${current === totalPage ? 'current' : ''}` } onClick={ (e) => this.handlePageClick(e, totalPage) }> { totalPage } </span>
         }
-        <i className="iconfont icon-gengduo pc-pagination-option"></i>
+        <i className={`iconfont icon-gengduo pc-pagination-option ${current === totalPage ? 'disabled' : ''}`} onClick={ (e) => this.handlePageClick(e, current + 1) }></i>
         {
           jumpable && <span className="pc-pagination-to"> 前往第 <input onInput={ this.handleInput }></input> 页 </span>
         }

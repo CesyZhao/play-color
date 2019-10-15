@@ -57,7 +57,8 @@ class Artist extends Component {
     hotSongs: [],
     mvs: [],
     hotAlbums: [],
-    artist: {}
+    artist: {},
+    currentPage: 0
   }
 
   async componentWillMount () {
@@ -83,8 +84,8 @@ class Artist extends Component {
 
   render () {
     const { info } = this.state.artist
-    const { hotSongs } = this.state
-    console.log(this.state)
+    const { hotSongs, currentPage } = this.state
+    const pageSize = 5
     return (
       <div className="pc-artist">
         {
@@ -105,16 +106,18 @@ class Artist extends Component {
             </div>
           </div>
         }
+        <div className="pc-artist-content">
         {
           hotSongs.length &&
           <Fragment>
             <div className="pc-artist-hot-songs-header">
               <span>热门歌曲</span>
-              <Pagination total={50}></Pagination>
+              <Pagination pageSize={ pageSize } jumpable={ false } total={50} onPageChange={ (page) => this.setState({currentPage: page}) }></Pagination>
             </div>
-            <PlayList fields={ fields } album={ { tracks: hotSongs } }></PlayList>
+            <PlayList fields={ fields } album={ { tracks: hotSongs.slice(currentPage * pageSize, (currentPage + 1) * pageSize ) } } className></PlayList>
           </Fragment>
         }
+        </div>
       </div>
     )
   }
