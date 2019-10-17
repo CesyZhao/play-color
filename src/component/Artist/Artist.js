@@ -88,9 +88,10 @@ class Artist extends Component {
 
   render () {
     const { info } = this.state.artist
-    const { hotSongs, currentSongPage, currentAlbumPage, currentMvPage, hotAlbums } = this.state
+    const { hotSongs, currentSongPage, currentAlbumPage, currentMvPage, hotAlbums, mvs } = this.state
     const songPageSize = 10
     const albumPageSize = 5
+    const mvPageSize = 4
     return (
       <div className="pc-artist">
         {
@@ -112,8 +113,6 @@ class Artist extends Component {
           </div>
         }
         <div className="pc-artist-content">
-        {
-          hotSongs.length &&
           <Fragment>
             <div className="pc-artist-hot-songs-header">
               <span>热门歌曲</span>
@@ -121,9 +120,6 @@ class Artist extends Component {
             </div>
             <PlayList fields={ fields } album={ { tracks: hotSongs.slice(currentSongPage * songPageSize, (currentSongPage + 1) * songPageSize ) } } className></PlayList>
           </Fragment>
-        }
-        {
-          hotAlbums &&
           <Fragment>
             <div className="pc-artist-hot-songs-header">
               <span>专辑</span>
@@ -131,7 +127,7 @@ class Artist extends Component {
             </div>
             <div className="pc-artist-albums-wrapper">
             {
-              hotAlbums.slice(currentMvPage * albumPageSize, (currentMvPage + 1) * albumPageSize ).map(album => {
+              hotAlbums.slice(currentAlbumPage * albumPageSize, (currentAlbumPage + 1) * albumPageSize ).map(album => {
                 return (
                   <div className="pc-artist-album" data-name={album.name}>
                     <LazyImage imgUrl={album.picUrl}></LazyImage>
@@ -141,7 +137,23 @@ class Artist extends Component {
             }
             </div>
           </Fragment>
-        }
+          <Fragment>
+            <div className="pc-artist-hot-songs-header">
+              <span>MV</span>
+              <Pagination pageSize={ mvPageSize } jumpable={ false } total={mvs.length} onPageChange={ (page) => this.setState({currentMvPage: page - 1}) }></Pagination>
+            </div>
+            <div className="pc-artist-mv-wrapper">
+            {
+              mvs.slice(currentMvPage * mvPageSize, (currentMvPage + 1) * mvPageSize ).map(mv => {
+                return (
+                  <div className="pc-artist-mv" data-name={mv.name}>
+                    <LazyImage imgUrl={mv.imgurl16v9}></LazyImage>
+                  </div>
+                )
+              })
+            }
+             </div>
+          </Fragment>
         </div>
       </div>
     )

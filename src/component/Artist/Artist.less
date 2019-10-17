@@ -46,7 +46,7 @@
     display: flex;
     justify-content: space-between;
   }
-  .pc-artist-album{
+  .pc-artist-album, .pc-artist-mv{
     display: inline-block;
     position: relative;
     overflow: hidden;
@@ -72,7 +72,7 @@
         background: rgba(0, 0, 0, .5);
         display: flex;
         align-items: center;
-        text-align: center;
+        justify-content: center;
       }
     }
     &:nth-child(1){
@@ -81,5 +81,9 @@
     &:last-child{
       margin-right: 0;
     }
+  }
+  .pc-artist-mv{
+    width: 216px;
+    height: 121px;
   }
 }

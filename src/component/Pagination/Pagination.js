@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import './Pagination.less'
 
-
+const PAGE_OFFSET = 3
 class Pagination extends Component {
   static propTypes = {
     total: PropTypes.number.isRequired,
