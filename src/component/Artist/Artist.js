@@ -4,6 +4,7 @@ import http from '../../config/http'
 import Pagination from '../Pagination/Pagination'
 import PlayList from '../PlayList/PlayList'
 import { formatList } from '../../util/audio'
+import LazyImage from '../LazyImage/LazyImage'
 
 const categories = [
   {
@@ -127,6 +128,17 @@ class Artist extends Component {
             <div className="pc-artist-hot-songs-header">
               <span>专辑</span>
               <Pagination pageSize={ albumPageSize } jumpable={ false } total={hotAlbums.length} onPageChange={ (page) => this.setState({currentAlbumPage: page - 1}) }></Pagination>
+            </div>
+            <div className="pc-artist-albums-wrapper">
+            {
+              hotAlbums.slice(currentMvPage * albumPageSize, (currentMvPage + 1) * albumPageSize ).map(album => {
+                return (
+                  <div className="pc-artist-album" data-name={album.name}>
+                    <LazyImage imgUrl={album.picUrl}></LazyImage>
+                  </div>
+                )
+              })
+            }
             </div>
           </Fragment>
         }
