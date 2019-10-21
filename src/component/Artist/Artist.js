@@ -129,7 +129,7 @@ class Artist extends Component {
             {
               hotAlbums.slice(currentAlbumPage * albumPageSize, (currentAlbumPage + 1) * albumPageSize ).map(album => {
                 return (
-                  <div className="pc-artist-album" data-name={album.name}>
+                  <div className="pc-artist-album" data-name={album.name} key={ album.id }>
                     <LazyImage imgUrl={album.picUrl}></LazyImage>
                   </div>
                 )
@@ -146,7 +146,7 @@ class Artist extends Component {
             {
               mvs.slice(currentMvPage * mvPageSize, (currentMvPage + 1) * mvPageSize ).map(mv => {
                 return (
-                  <div className="pc-artist-mv" data-name={mv.name}>
+                  <div className="pc-artist-mv" data-name={mv.name} key={ mv.id }>
                     <LazyImage imgUrl={mv.imgurl16v9}></LazyImage>
                   </div>
                 )
