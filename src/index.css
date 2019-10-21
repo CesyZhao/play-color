@@ -1,9 +1,14 @@
+@font-face{
+  font-family: 'Hiragino Sans GB';
+  src: url('./asset/font/Hiragino\ Sans\ GB\ W3.ttf')
+}
+
 body {
   margin: 0;
   padding: 0;
   border-radius: 0;
   font-size: 13px;
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","PingFang SC","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
