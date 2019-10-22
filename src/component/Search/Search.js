@@ -31,19 +31,21 @@ class Search extends Component {
       this.setState({
         showSearch: status
       }, () => {
-        if (status) {
-          const hideSearch = (e) => {
-            if (e.key === 'esc' || e.key === 'Escape') {
-              this.setState({
-                showSearch: false
-              })
-              document.removeEventListener('keydown', hideSearch)
-            }
-          }
-          document.addEventListener('keydown', hideSearch)
+        if (!status) return
+        const hideSearch = (e) => {
+          if (e.key !== 'esc' && e.key !== 'Escape') return
+          this.setState({
+            showSearch: false
+          })
+          document.removeEventListener('keydown', hideSearch)
         }
+        document.addEventListener('keydown', hideSearch)
       })
     })
+  }
+
+  handleItemClick = () => {
+    this.setState({ showSearch: false })
   }
 
   handleSearch = _.debounce(async (e) => {
@@ -91,7 +93,7 @@ class Search extends Component {
     }
     return this.state[type].map(item => {
       return (
-        <Link to={{pathname: `/${typeMap[type].route}/${item.id || item.userId}`}} key={ item.id || item.userId }>
+        <Link onClick={ this.handleItemClick } to={{pathname: `/${typeMap[type].route}/${item.id || item.userId}`}} key={ item.id || item.userId }>
           <div className="pc-search-results-item">
             <img src={ type === 'songs' ? logo : item[coverUrlMap[type]]} alt="" className="pc-search-songs-cover"></img>
             <span className="pc-search-item-name"> { item.name || item.nickname } </span>
