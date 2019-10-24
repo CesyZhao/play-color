@@ -14,7 +14,7 @@ export default [
       {
         name: '排行榜',
         icon: 'icon-paihangbang',
-        link: '/'
+        link: '/rankingList'
       },
       {
         name: '朋友',
