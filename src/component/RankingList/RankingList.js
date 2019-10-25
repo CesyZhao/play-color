@@ -26,14 +26,16 @@ class RankingList extends Component {
         {
           this.state.rankingList.map(item => {
             return (
-              <div className="pc-ranking-list-item">
-                <img src={ item.coverImgUrl } alt="榜单封面"></img>
-                <span className="pc-ranking-list-item-count"> 
-                  <i className="iconfont icon-bofangqi-bofang"></i>
-                  <span> { Math.round(item.playCount / 10000).toFixed(0) }万 </span>
-                </span>
-                <span className="pc-ranking-list-item-name"> {item.name} </span>
-              </div>
+              <Link to={ `/album/${item.id}` }>
+                <div className="pc-ranking-list-item">
+                  <img src={ item.coverImgUrl } alt="榜单封面"></img>
+                  <span className="pc-ranking-list-item-count"> 
+                    <i className="iconfont icon-bofangqi-bofang"></i>
+                    <span> { Math.round(item.playCount / 10000).toFixed(0) }万 </span>
+                  </span>
+                  <span className="pc-ranking-list-item-name"> {item.name} </span>
+                </div>
+              </Link>
             )
           })
         }

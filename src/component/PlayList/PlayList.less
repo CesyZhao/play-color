@@ -20,7 +20,7 @@
   &:hover{
     background: rgba(255, 255, 255, .1);
   }
-  div{
+  &>div{
     max-width: 250px;
     margin: 0 12px;
     overflow: hidden;
@@ -34,5 +34,32 @@
   &::-webkit-scrollbar{
     width: 0;
     height: 0;
+  }
+}
+.pc-playing-indicator{
+  display: block;
+  display: flex;
+  transform: rotate(180deg);
+  .pc-playing-indicator-item{
+    width: 3px;
+    height: 4px;
+    margin-right: 2px;
+    background: rgba(87, 225, 231, .6);
+    box-shadow: 0 0 4px 0 #9B30FF;
+    animation: shrinkShort .7s infinite alternate ease-in-out;
+    &:nth-child(odd){
+      height: 8px;
+      animation: shrinkLong .5s infinite alternate ease-in-out;
+    }
+  }
+}
+@keyframes shrinkShort {
+  100% {
+    height: 8px
+  }
+}
+@keyframes shrinkLong {
+  100% {
+    height: 12px
   }
 }

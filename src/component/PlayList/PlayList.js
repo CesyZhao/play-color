@@ -5,7 +5,9 @@ import './PlayList.less'
 import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM} from '../../store/action/actions'
 import {connect} from 'react-redux'
 
-@connect()
+@connect(({controller}) => ({
+  controller
+}))
 class PlayList extends Component {
   static propTypes = {
     album: PropTypes.object.isRequired,
@@ -37,7 +39,7 @@ class PlayList extends Component {
     return (
       <div className="pc-playlist-wrapper">
         <div className="pc-playlist-song pc-playlist-header">
-            <div style={{width: '30px'}}> # </div>
+            <div style={{width: '36px', textAlign: 'center'}}> # </div>
             {
               this.props.fields.map(field => {
                 return <div style={{ flex: field.flex }}>
@@ -50,7 +52,19 @@ class PlayList extends Component {
           {
             this.props.album.tracks.map((song, index) => {
               return <div className="pc-playlist-song" onClick={() => this.handleSongClick(song)}>
-                <div style={{width: '30px'}}>{ index + 1 }</div>
+                <div style={{width: '36px', textAlign: 'center', display: 'flex', justifyContent: 'center'}}>
+                  {
+                    this.props.controller.song.id === song.id
+                    ?
+                    <div className="pc-playing-indicator">
+                      <div class="pc-playing-indicator-item"></div>
+                      <div class="pc-playing-indicator-item"></div>
+                      <div class="pc-playing-indicator-item"></div>
+                      <div class="pc-playing-indicator-item"></div>
+                    </div>
+                    : index + 1 
+                  }
+                </div>
                 {
                   this.props.fields.map(field => {
                     return <div style={{ flex: field.flex }}> { this.getContent(song, field.name, field.alias)} </div>
