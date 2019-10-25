@@ -28,7 +28,7 @@ class Leftbar extends Component {
   toggleMenu = async (name) => {
     this.setState({
       showMenu: !this.state.showMenu
-    }, () => this.state.showMenu && this.drawMenuArc() )
+    })
     EventBus.emit('closeMenu')
     if (name === '私人 FM') {
       await FM.initFM()
@@ -37,27 +37,27 @@ class Leftbar extends Component {
       EventBus.emit('toggleSearch', true)
     }
   }
-  drawMenuArc = () => {
-    const canvas = document.querySelector('#menuCanvas')
-    const context = canvas.getContext('2d')
-    let grad = context.createLinearGradient(740, 0, 964, 608)//创建一个渐变色线性对象
-    grad.addColorStop(0,"#4E8291")             //定义渐变色颜色
-    grad.addColorStop(1,"#51416B")
-    context.moveTo( 964, 0 )
-    context.lineTo( 740, 0 )
-    context.quadraticCurveTo(800, 304, 664, 608)
-    context.lineTo( 964, 608 )
-    context.fillStyle = grad
-    context.shadowBlur = 30
-    context.shadowColor = "#51416B"
-    context.fill()
-  }
   render () {
     const {profile}  = this.props.user
     return (
       <CSSTransition in={this.state.showMenu} timeout={300} unmountOnExit classNames="pc-leftbar">
         <div className='pc-leftbar'>
-          <canvas id="menuCanvas" width="964" height="608"></canvas>
+          <svg width="968" height="669" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="orange_red" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4E8291" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#51416B" stop-opacity="1"/>
+            </linearGradient>
+            <filter id="blur-2px">
+              <feOffset result="offOut" in="SourceAlpha" dx="-5" dy="0" />
+              <feGaussianBlur result="blurOut" in="offOut" stdDeviation="15" />
+              <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+            </filter>
+          </defs>
+          <g>
+            <path id="svg_2" fill="url(#orange_red)" filter="url(#blur-2px)" d="m967.5,-0.04688l-216.5,0.04688c37,221.66667 9,448.33333 -111,668l329,0c-0.5,-222.68229 -1,-445.36458 -1.5,-668.04688z"/>
+          </g>
+          </svg>
           <div className="menuWrapper">
             {
               menu.map((category,index) => {
