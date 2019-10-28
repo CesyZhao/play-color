@@ -7,6 +7,7 @@
   position: absolute;
   left: 0;
   bottom: 0;
+  box-shadow: 0 0 4px 0 #51416B;
   // border-top: .5px solid #444;
   .pc-controller-progress-bar{
     height: 1px;
@@ -20,6 +21,10 @@
     position: relative;
     z-index: 2;
     display: flex;
+    justify-content: space-between;
+    .pc-controller-cover-wrapper{
+      display: flex;
+    }
     .pc-controller-cover{
       width: @controller-height;
       height: @controller-height;
@@ -34,7 +39,6 @@
       }
     }
     .pc-controller-info{
-      width: 240px;
       padding-left: 12px;
       text-align: left;
       div:nth-child(1){
@@ -48,19 +52,17 @@
       }
     }
     .pc-controller-controls,.pc-controller-ops{
-      width: 300px;
       display: flex;
       align-items: center;
       justify-content: center;
-      i{margin-left: 12px; cursor: pointer;}
+      i{
+        margin-left: 32px;
+        cursor: pointer;
+        font-size: 20px;
+      }
       .pc-controller-time{
         margin-right: 24px;
         white-space: nowrap;
-      }
-      .icon-bofangqi-bofang,.icon-bofangqi-zanting{
-        padding: 6px;
-        border-radius: 50%;
-        border: 1px solid rgba(222, 222, 222, .5);
       }
       .pc-controller-volune{
         margin-left: 8px;
@@ -78,11 +80,17 @@
         }
       }
     }
+    .pc-controller-controls{
+      padding-right: 36px;
+      i:nth-child(2){
+        margin-right: 36px;
+      }
+    }
     .pc-controller-ops{
       flex: 1;
       padding-right: 24px;
       justify-content: flex-end;
-      i:nth-child(1){
+      i{
         font-size: 18px;
       }
     }

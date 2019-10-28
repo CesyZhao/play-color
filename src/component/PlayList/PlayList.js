@@ -57,10 +57,10 @@ class PlayList extends Component {
                     this.props.controller.song.id === song.id
                     ?
                     <div className="pc-playing-indicator">
-                      <div class="pc-playing-indicator-item"></div>
-                      <div class="pc-playing-indicator-item"></div>
-                      <div class="pc-playing-indicator-item"></div>
-                      <div class="pc-playing-indicator-item"></div>
+                      <div className="pc-playing-indicator-item"></div>
+                      <div className="pc-playing-indicator-item"></div>
+                      <div className="pc-playing-indicator-item"></div>
+                      <div className="pc-playing-indicator-item"></div>
                     </div>
                     : index + 1 
                   }

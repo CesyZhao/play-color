@@ -97,36 +97,30 @@ class Controller extends Component{
           {
             hasSong &&  <audio id="audio" crossOrigin="anonymous" ref='audio' src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onError={this.handleError} onEnded={this.handlePlayEnded} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} autoPlay></audio>
           }
-          <div className='pc-controller-cover' onClick={() => this.showCurrentSong(song.id)}>
-            {
-              hasSong && <img src={song.album.picUrl} alt='playing-cover'></img>
-            }
-          </div>
-          <div className='pc-controller-info'>
-            {
-              hasSong && <div>{song.name}</div>
-            }
-            {
-              hasSong && <div> { song.artists.map(artist => artist.name).join('/') } </div>
-            }
-          </div>
-          <div className='pc-controller-controls'>
-            <i className='iconfont icon-bofangqi-xiayiji-copy' onClick={ this.prev }></i>
-            <i onClick={this.togglePlaying} className={`iconfont ${this.state.playing ? 'icon-bofangqi-zanting' : 'icon-bofangqi-bofang'}`}></i>
-            <i className='iconfont icon-bofangqi-xiayiji' onClick={ this.next }></i>
-          </div>
-          <div className="pc-controller-controls">
-            <span className="pc-controller-time">
-              { ` ${ formatDuration(this.state.currentTime * 1000) } / ${ formatDuration(song.duration) } ` }
-            </span>
-            <i className='iconfont icon-yinliang'></i>
-            <div className='pc-controller-volune'>
-              <div className='pc-controller-volune-inner'></div>  
+          <div className='pc-controller-cover-wrapper'>
+            <div className='pc-controller-cover' onClick={() => this.showCurrentSong(song.id)}>
+              {
+                hasSong && <img src={song.album.picUrl} alt='playing-cover'></img>
+              }
+            </div>
+            <div className='pc-controller-info'>
+              {
+                hasSong && <div>{song.name}</div>
+              }
+              {
+                hasSong && <div> { song.artists.map(artist => artist.name).join('/') } </div>
+              }
             </div>
           </div>
-          <div className='pc-controller-ops'>
-            <i className='iconfont icon-zhuifanshu'></i>
+          {/* <div className='pc-controller-ops'>
+           
+          </div> */}
+          <div className='pc-controller-controls'>
+            <i className='iconfont icon-iosheartoutline'></i>
             <i onClick={this.changeMode} className={`iconfont icon-${mode}`}></i>
+            <i className='iconfont icon-ios-rewind' onClick={ this.prev }></i>
+            <i onClick={this.togglePlaying} className={`iconfont ${this.state.playing ? 'icon-ios-pause' : 'icon-iosplay'}`}></i>
+            <i className='iconfont icon-ios-fastforward' onClick={ this.next }></i>
           </div>
         </div>
       </div>
