@@ -24,6 +24,7 @@
     justify-content: space-between;
     .pc-controller-cover-wrapper{
       display: flex;
+      flex: 1;
     }
     .pc-controller-cover{
       width: @controller-height;
@@ -53,6 +54,7 @@
     }
     .pc-controller-controls,.pc-controller-ops{
       display: flex;
+      flex: 1;
       align-items: center;
       justify-content: center;
       i{
@@ -64,41 +66,13 @@
         margin-right: 24px;
         white-space: nowrap;
       }
-      .pc-controller-volune{
-        margin-left: 8px;
-        width: 80px;
-        height: 2px;
-        background: rgba(170, 170, 170, .4);
-        border-radius: 2px;
-        position: relative;
-        cursor: pointer;
-        .pc-controller-volune-inner{
-          width: 80%;
-          height: 2px;
-          border-radius: 2px;
-          background: #aaa;
-        }
-      }
     }
     .pc-controller-controls{
-      padding-right: 36px;
-      i:nth-child(2){
-        margin-right: 36px;
-      }
+    
     }
     .pc-controller-ops{
       flex: 1;
-      padding-right: 24px;
-      justify-content: flex-end;
-      i{
-        font-size: 18px;
-      }
-    }
-    .pc-controller-VF{
-      margin-left: 36px;
-      width: 220px;
-      height: 46px;
-      opacity: .5;
+      justify-content: center;
     }
   }
 }

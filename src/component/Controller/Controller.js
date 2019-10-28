@@ -112,15 +112,17 @@ class Controller extends Component{
               }
             </div>
           </div>
-          {/* <div className='pc-controller-ops'>
-           
-          </div> */}
-          <div className='pc-controller-controls'>
-            <i className='iconfont icon-iosheartoutline'></i>
-            <i onClick={this.changeMode} className={`iconfont icon-${mode}`}></i>
+          <div className='pc-controller-ops'>
             <i className='iconfont icon-ios-rewind' onClick={ this.prev }></i>
             <i onClick={this.togglePlaying} className={`iconfont ${this.state.playing ? 'icon-ios-pause' : 'icon-iosplay'}`}></i>
             <i className='iconfont icon-ios-fastforward' onClick={ this.next }></i>
+          </div>
+          <div className='pc-controller-controls'>
+            <span className="pc-controller-time">
+              { ` ${ formatDuration(this.state.currentTime * 1000) } / ${ formatDuration(song.duration) } ` }
+            </span>
+            <i className='iconfont icon-iosheartoutline'></i>
+            <i onClick={this.changeMode} className={`iconfont icon-${mode}`}></i>
           </div>
         </div>
       </div>

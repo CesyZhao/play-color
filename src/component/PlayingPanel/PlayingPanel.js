@@ -276,8 +276,8 @@ class PlayingPanel extends Component{
                   // this.state.mode === '歌词模式' &&
                   <Lyric songId={ song.id }></Lyric>
                 } 
-                <i className={`iconfont ${song.starred ? 'icon-yizhuifan' : 'icon-zhuifanshu'}`}></i>
-                <i className="iconfont icon-xiayigexiayishou" onClick={ this.handleNext }></i>
+                <i className={`iconfont ${song.starred ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
+                <i className="iconfont icon-ios-fastforward" onClick={ this.handleNext }></i>
                 <i className="iconfont icon-aui-icon-comment"></i>
               </div>
               <div className="pc-playing-panel-info">
