@@ -8,6 +8,7 @@ import Login from './component/Login/Login'
 import RouteContainer from './component/RouteContainer/RouteContainer'
 import PlayingPanel from './component/PlayingPanel/PlayingPanel'
 import Search from './component/Search/Search'
+import WindowOperator from './component/WindowOperator/WindowOperator'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import {BrowserRouter} from 'react-router-dom'
@@ -42,6 +43,7 @@ class App extends Component {
     })
   }
   render() {
+    const UA = navigator.userAgent.toLowerCase()
     return (
       <BrowserRouter>
         <div className="play-color">
@@ -53,6 +55,10 @@ class App extends Component {
           <ToastContainer hideProgressBar/>
           <PlayingPanel />
           <Search />
+          {
+            UA.includes('windows') &&
+            <WindowOperator />
+          }
         </div>
       </BrowserRouter>
     );

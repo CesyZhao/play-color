@@ -1,0 +1,31 @@
+.pc-window-operators{
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  z-index: 99;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  -webkit-app-region: no-drag;
+  .pc-window-operator{
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    border-radius: 50%;
+    float: left;
+    margin-left: 8px;
+    &.disabled{
+      background: #aaa !important;
+    }
+    i{
+     font-size: 10px !important;
+     display: none;
+     color: #fff;
+    }
+    &:hover{
+      i{
+        display: block;
+      }
+    }
+  }
+}
