@@ -123,6 +123,9 @@ class Controller extends Component{
             </span>
             <i className='iconfont icon-iosheartoutline'></i>
             <i onClick={this.changeMode} className={`iconfont icon-${mode}`}></i>
+            <span>
+              热评
+            </span>
           </div>
         </div>
       </div>
