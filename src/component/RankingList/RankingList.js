@@ -30,7 +30,7 @@ class RankingList extends Component {
                 <div className="pc-ranking-list-item">
                   <img src={ item.coverImgUrl } alt="榜单封面"></img>
                   <span className="pc-ranking-list-item-count"> 
-                    <i className="iconfont icon-bofangqi-bofang"></i>
+                    <i className="iconfont icon-iosplay"></i>
                     <span> { Math.round(item.playCount / 10000).toFixed(0) }万 </span>
                   </span>
                   <span className="pc-ranking-list-item-name"> {item.name} </span>
