@@ -10,6 +10,7 @@ import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM} from '../../store/action/acti
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 import scripts from '../../config/scripts'
+import { updatePlayingSong } from '../../store/action/controller'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
@@ -37,10 +38,7 @@ class Home extends Component {
   }
 
   handleSongClick = (song) => {
-    this.props.dispatch({
-      type: UPDATE_PLAYING_SONG,
-      song
-    })
+    this.props.dispatch(updatePlayingSong(song))
     this.props.dispatch({
       type: UPDATE_PLAYING_ALBUM,
       playingAlbum: { tracks: this.state.newest, id: 'findMusic', name: '发现音乐' }
