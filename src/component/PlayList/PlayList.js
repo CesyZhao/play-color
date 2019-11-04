@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { formatDuration } from '../../util/audio'
 import './PlayList.less'
-import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM} from '../../store/action/actions'
 import {connect} from 'react-redux'
+import { updatePlayingSong, updatePlayingAlbum } from '../../store/action/controller'
 
 @connect(({controller}) => ({
   controller
@@ -25,14 +25,8 @@ class PlayList extends Component {
 
   handleSongClick = (song) => {
     const { id, name } =  this.props.album
-    this.props.dispatch({
-      type: UPDATE_PLAYING_SONG,
-      song: { ...song, fromId: id, from: name}
-    })
-    this.props.dispatch({
-      type: UPDATE_PLAYING_ALBUM,
-      playingAlbum: this.props.album
-    })
+    this.props.dispatch(updatePlayingSong({ ...song, fromId: id, from: name}))
+    this.props.dispatch(updatePlayingAlbum(this.props.album))
   }
 
   render () {

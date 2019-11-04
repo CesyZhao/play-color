@@ -6,6 +6,7 @@ import http from '../../config/http'
 import toaster from '../../util/toast'
 import { connect } from 'react-redux'
 import { SET_USER_PROFILE } from '../../store/action/actions'
+import { saveUserProfile } from '../../store/action/user'
 
 let WAVE_HEIGHT = 40 //波浪变化高度
 
@@ -112,10 +113,7 @@ class Login extends Component {
       let res = await http.get('/login/cellphone', {params: {phone, password}} )
       let { profile } = res.data
       const {dispatch} = this.props
-      dispatch({
-        type: SET_USER_PROFILE,
-        user: {profile, userAccount: this.state.username, userPassword: this.state.password}
-      })
+      dispatch(saveUserProfile({profile, userAccount: this.state.username, userPassword: this.state.password}))
 
     } catch (error) {
       toaster.error('Failed to login')

@@ -1,12 +1,34 @@
-import http from '../../config/http'
+import { UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, NEXT_SONG, PREV_SONG, UPDATE_PLAYING_MODE } from './actions'
 
-import { UPDATE_PLAYING_SONG } from './actions'
-
-export const updatePlayingSong = (song) => (dispatch) => {
-  const res = http.get(`/comment/music?id=${song.id}`)
-  console.log(res)
-  dispatch( {
+export const updatePlayingSong = (song) => {
+  return {
     type: UPDATE_PLAYING_SONG,
     song
-  } )
+  }
+}
+
+export const updatePlayingAlbum = (album) => {
+  return {
+    type: UPDATE_PLAYING_ALBUM,
+    playingAlbum: album
+  }
+}
+
+export const updatePlayingMode = (mode) => {
+  return {
+    type: UPDATE_PLAYING_MODE,
+    mode
+  }
+}
+
+export const nextSong = () => {
+  return {
+    type: NEXT_SONG
+  }
+}
+
+export const prevSong = () => {
+  return {
+    type: PREV_SONG
+  }
 }

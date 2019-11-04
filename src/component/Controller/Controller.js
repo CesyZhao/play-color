@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import './Controller.less'
 import {connect} from 'react-redux'
 import _ from 'lodash'
-import {UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../../store/action/actions'
 import toaster from '../../util/toast'
 import eventBus from '../../events'
 import { formatDuration } from '../../util/audio'
+import { updatePlayingMode, nextSong, prevSong } from '../../store/action/controller'
 /**
  * 下方控制器，包括当前播放信息、音量等信息
  * */
@@ -58,7 +58,7 @@ class Controller extends Component{
     let modeIndex = modeList.indexOf(mode)
     const nextModeIndex = ++modeIndex < modeList.length ? modeIndex : 0
     const nextMode = modeList[nextModeIndex]
-    this.props.dispatch({type: UPDATE_PLAYING_MODE, mode: nextMode})
+    this.props.dispatch(updatePlayingMode(nextMode))
   }
 
   handlePlaying = (e) => {
@@ -76,11 +76,11 @@ class Controller extends Component{
   }
 
   next = () => {
-    this.props.dispatch({type: NEXT_SONG})
+    this.props.dispatch(nextSong())
   }
 
   prev = () => {
-    this.props.dispatch({type: PREV_SONG})
+    this.props.dispatch(prevSong())
   }
 
   showCurrentSong = (id) => {

@@ -1,8 +1,8 @@
 import store from '../store/index'
 import http from '../config/http'
-import { UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_SONG } from '../store/action/actions'
 import { formatList } from '../util/audio'
 import toaster from '../util/toast'
+import { updatePlayingSong, updatePlayingAlbum } from '../store/action/controller'
 
 class FM {
   constructor () {
@@ -28,14 +28,8 @@ class FM {
   async initFM () {
     if (store.getState().controller.playingAlbum.id === 'personalFM') return
     await this.getPersonalFM()
-    store.dispatch({
-      type: UPDATE_PLAYING_SONG,
-      song: { ...this.currentAlbum.tracks[0], fromId: 'personalFM', from: '私人 FM' }
-    })
-    store.dispatch({
-      type: UPDATE_PLAYING_ALBUM,
-      playingAlbum: this.currentAlbum
-    })
+    store.dispatch(updatePlayingSong({ ...this.currentAlbum.tracks[0], fromId: 'personalFM', from: '私人 FM' }))
+    store.dispatch(updatePlayingAlbum(this.currentAlbum))
   }
 
   getNewAlbumInfo () {
