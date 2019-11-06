@@ -52,6 +52,10 @@ class Controller extends Component{
     this.setState({playing: true})
   }
 
+  toggleComment = () => {
+    eventBus.emit('toggleComment')
+  }
+
   changeMode = () => {
     const modeList = ['listCirculation', 'singleCirculation', 'shuffle']
     const { mode } = this.props.controller
@@ -123,9 +127,10 @@ class Controller extends Component{
             </span>
             <i className='iconfont icon-iosheartoutline'></i>
             <i onClick={this.changeMode} className={`iconfont icon-${mode}`}></i>
-            <span className="pc-controller-comments">
+            <i className='iconfont icon-aui-icon-comment' onClick={ this.toggleComment }></i>
+            {/* <span className="pc-controller-comments">
               3万 热评
-            </span>
+            </span> */}
           </div>
         </div>
       </div>
