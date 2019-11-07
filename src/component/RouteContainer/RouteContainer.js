@@ -5,6 +5,7 @@ import Album from '../Album/Album'
 import Albums from '../Albums/Albums'
 import Artist from '../Artist/Artist'
 import RankingList from '../RankingList/RankingList'
+import Comment from '../Comment/Comment'
 import './RouteContainer.less'
 import EventBus from '../../events'
 
@@ -52,6 +53,7 @@ class RouteContainer extends Component{
           <Route path="/albums" component={Albums} />
           <Route path="/artist/:id" component={Artist}></Route>
           <Route path="/rankingList" component={RankingList}></Route>
+          <Route path="/comment" component={Component}></Route>
         </div>
       </div>
     )

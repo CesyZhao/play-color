@@ -9,7 +9,6 @@ import RouteContainer from './component/RouteContainer/RouteContainer'
 import PlayingPanel from './component/PlayingPanel/PlayingPanel'
 import Search from './component/Search/Search'
 import WindowOperator from './component/WindowOperator/WindowOperator'
-import Comment from './component/Comment/Comment'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import {BrowserRouter} from 'react-router-dom'
@@ -63,7 +62,6 @@ class App extends Component {
           <ToastContainer hideProgressBar/>
           <PlayingPanel />
           <Search />
-          <Comment showComment={ this.state.showComment } />
           {
             UA.includes('windows') &&
             <WindowOperator />
