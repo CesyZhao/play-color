@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Comment.less'
 import http from '../../config/http'
 import { connect } from 'react-redux'
+import LazyImage from '../LazyImage/LazyImage'
 
 @connect(({controller}) => ({
   controller
@@ -30,9 +31,12 @@ class Comment extends Component {
     return comment
   }
   render () {
+    const { song } = this.props.controller
     return (
       <div className='pc-comment'>
-
+        <div className='pc-song-info'>
+          <LazyImage imgUrl={ song.album.picUrl }></LazyImage>
+        </div>
       </div>
     )
   }
