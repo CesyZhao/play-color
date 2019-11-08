@@ -6,6 +6,7 @@ import toaster from '../../util/toast'
 import eventBus from '../../events'
 import { formatDuration } from '../../util/audio'
 import { updatePlayingMode, nextSong, prevSong } from '../../store/action/controller'
+import { Link } from 'react-router-dom'
 /**
  * 下方控制器，包括当前播放信息、音量等信息
  * */
@@ -50,10 +51,6 @@ class Controller extends Component{
     }
     audio.play()
     this.setState({playing: true})
-  }
-
-  toggleComment = () => {
-    eventBus.emit('toggleComment')
   }
 
   changeMode = () => {
@@ -127,7 +124,9 @@ class Controller extends Component{
             </span>
             <i className='iconfont icon-iosheartoutline'></i>
             <i onClick={this.changeMode} className={`iconfont icon-${mode}`}></i>
-            <i className='iconfont icon-aui-icon-comment' onClick={ this.toggleComment }></i>
+            <Link to='/comment'>
+              <i className='iconfont icon-aui-icon-comment'></i>
+            </Link>
             {/* <span className="pc-controller-comments">
               3万 热评
             </span> */}

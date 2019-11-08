@@ -53,7 +53,7 @@ class RouteContainer extends Component{
           <Route path="/albums" component={Albums} />
           <Route path="/artist/:id" component={Artist}></Route>
           <Route path="/rankingList" component={RankingList}></Route>
-          <Route path="/comment" component={Component}></Route>
+          <Route path="/comment" component={Comment}></Route>
         </div>
       </div>
     )

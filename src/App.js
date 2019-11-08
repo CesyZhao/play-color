@@ -43,11 +43,6 @@ class App extends Component {
         EventBus.emit('toggleSearch', true)
       }
     })
-    EventBus.on('toggleComment', () => {
-      this.setState({
-        showComment: !this.state.showComment
-      })
-    })
   }
   render() {
     const UA = navigator.userAgent.toLowerCase()

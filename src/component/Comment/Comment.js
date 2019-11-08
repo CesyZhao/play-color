@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './Comment.less'
-import PropTypes from 'prop-types'
 import http from '../../config/http'
 import { connect } from 'react-redux'
 
@@ -8,9 +7,6 @@ import { connect } from 'react-redux'
   controller
 }))
 class Comment extends Component {
-  static propTypes = {
-    showComment: PropTypes.bool.isRequired
-  }
   state = {
     comment: {}
   }
@@ -27,7 +23,7 @@ class Comment extends Component {
     try {
       const { data } = await http.get(`/comment/music?id=${song.id}`)
       console.log(data, '---------')
-      comment = data.data
+      comment = data
     } catch (error) {
       comment.error = error
     }
