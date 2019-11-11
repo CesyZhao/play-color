@@ -123,7 +123,7 @@ class Controller extends Component{
               { ` ${ formatDuration(this.state.currentTime * 1000) } / ${ formatDuration(song.duration) } ` }
             </span>
             <i className='iconfont icon-iosheartoutline'></i>
-            <i onClick={this.changeMode} className={`iconfont icon-${mode}`}></i>
+            <i onClick={this.changeMode} className={`iconfont icon-ios-${mode}`}></i>
             <Link to='/comment'>
               <i className='iconfont icon-aui-icon-comment'></i>
             </Link>

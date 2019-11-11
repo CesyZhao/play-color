@@ -9,7 +9,11 @@ import LazyImage from '../LazyImage/LazyImage'
 }))
 class Comment extends Component {
   state = {
-    comment: {}
+    comment: {
+      total: 0,
+      hotComments: [],
+      comments: []
+    }
   }
   async componentWillMount () {
     const comment = await this.getComments(this.props.controller.song)
@@ -59,15 +63,40 @@ class Comment extends Component {
               <span> { comment.total } 条</span>
             </div>
             <div className='pc-comment-input'>
-              <input></input>
+              <input placeholder='发表你对这首歌的看法吧'></input>
               <span> 发布 </span>
             </div>
           </div>
           <div className='pc-comment-wrapper'>
             <div className='pc-comment-hot'>
-              
+              <div className='pc-comment-header'> 精彩评论 </div>
+              {
+                comment.hotComments.map(comment => {
+                  return (
+                    <div className='pc-comment-item'>
+                      <img src={ comment.user.avatarUrl}></img>
+                      <div className='pc-comment-content'>
+                        <div> { comment.user.nickname } </div>
+                        <pre>{ comment.content }</pre>
+                        <div className='pc-comment-item-footer'></div>
+                      </div>
+                    </div>
+                  )
+                })
+              }
             </div>
-            <div className='pc-comment-newest'></div>
+            <div className='pc-comment-newest'>
+            <div className='pc-comment-header'> 精彩评论 </div>
+              {
+                comment.comments.map(comment => {
+                  return (
+                    <div className='pc-comment-item'>
+                      <span> { new Date(comment.time).toLocaleDateString } </span>
+                    </div>
+                  )
+                })
+              }
+            </div>
           </div>
         </div>
       </div>
