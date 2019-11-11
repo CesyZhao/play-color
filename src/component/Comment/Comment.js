@@ -36,6 +36,14 @@ class Comment extends Component {
       <div className='pc-comment'>
         <div className='pc-song-info'>
           <LazyImage imgUrl={ song.album.picUrl }></LazyImage>
+          <div className='pc-song-info-detail'>
+            <span className='pc-song-info-tag name'> { song.name } </span>
+            <div> 
+              <span className='pc-song-info-tag'>歌手: { song.artists.map(artist => artist.name).join('/') } </span>
+              <span className='pc-song-info-tag'>专辑: { song.album.name } </span>
+            </div>
+            <div className='pc-song-info-tag'> { song.name } </div>
+          </div>
         </div>
       </div>
     )

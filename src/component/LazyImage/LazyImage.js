@@ -20,6 +20,13 @@ class LazyImage extends Component{
   state = {
     preImageUrl: `${this.props.imgUrl}?param=${this.props.width}y${this.props.height}`
   }
+  componentDidUpdate (prevProps, prevState) {
+    if (prevProps.imgUrl !== this.props.imgUrl) {
+      this.setState({
+        preImageUrl: `${this.props.imgUrl}?param=${this.props.width}y${this.props.height}`
+      })
+    }
+  }
   imageLoaded = () => {
     this.state.preImageUrl.includes('?param') && this.setState({ preImageUrl: this.props.imgUrl })
   }
