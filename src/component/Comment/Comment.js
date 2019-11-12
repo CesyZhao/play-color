@@ -77,8 +77,16 @@ class Comment extends Component {
                       <img src={ comment.user.avatarUrl}></img>
                       <div className='pc-comment-content'>
                         <div> { comment.user.nickname } </div>
-                        <pre>{ comment.content }</pre>
-                        <div className='pc-comment-item-footer'></div>
+                        <div>{ comment.content }</div>
+                        <div className='pc-comment-item-footer'>
+                          <span> { new Date(comment.time).toLocaleString() } </span>
+                          <span>
+                            <span>
+                              <i className='iconfont icon-zan'></i>
+                              { comment.likedCount }
+                            </span>
+                          </span>
+                        </div>
                       </div>
                     </div>
                   )
@@ -91,7 +99,6 @@ class Comment extends Component {
                 comment.comments.map(comment => {
                   return (
                     <div className='pc-comment-item'>
-                      <span> { new Date(comment.time).toLocaleDateString } </span>
                     </div>
                   )
                 })

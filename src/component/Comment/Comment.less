@@ -55,7 +55,7 @@
   }
   .pc-comment-wrapper{
     height: 300px;
-    overflow: auto;
+    overflow-y: auto;
     .pc-comment-header{
       text-align: left;
       font-size: 16px;
@@ -65,7 +65,7 @@
   }
   .pc-comment-item{
     padding: 16px 12px;
-    border-top: 1px solid rgba(255, 255, 255, .4);
+    border-top: 1px solid rgba(255, 255, 255, .2);
     display: flex;
     img{
       width: 50px;
@@ -74,6 +74,21 @@
     .pc-comment-content{
       text-align: left;
       margin-left: 24px;
+      word-break: break-all;
+      flex: 1;
+      div{
+        margin-bottom: 4px;
+        &:nth-child(1){
+          font-size: 16px;
+          color: #ddd;
+        }
+        &.pc-comment-item-footer{
+          margin-top: 8px;
+          color: #bbb;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
     }
   }
 }
