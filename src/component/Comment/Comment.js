@@ -73,7 +73,7 @@ class Comment extends Component {
               {
                 comment.hotComments.map(comment => {
                   return (
-                    <div className='pc-comment-item'>
+                    <div className='pc-comment-item' key={comment.commentId}>
                       <img src={ comment.user.avatarUrl}></img>
                       <div className='pc-comment-content'>
                         <div> { comment.user.nickname } </div>
@@ -92,17 +92,37 @@ class Comment extends Component {
                   )
                 })
               }
+              <div className='pc-comment-loadmore'>
+                加载更多
+              </div>
             </div>
             <div className='pc-comment-newest'>
-            <div className='pc-comment-header'> 精彩评论 </div>
+            <div className='pc-comment-header'> 最新评论 </div>
               {
                 comment.comments.map(comment => {
                   return (
-                    <div className='pc-comment-item'>
+                    <div className='pc-comment-item' key={comment.commentId}>
+                      <img src={ comment.user.avatarUrl}></img>
+                      <div className='pc-comment-content'>
+                        <div> { comment.user.nickname } </div>
+                        <div>{ comment.content }</div>
+                        <div className='pc-comment-item-footer'>
+                          <span> { new Date(comment.time).toLocaleString() } </span>
+                          <span>
+                            <span>
+                              <i className='iconfont icon-zan'></i>
+                              { comment.likedCount }
+                            </span>
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   )
                 })
               }
+              <div className='pc-comment-loadmore'>
+                加载更多
+              </div>
             </div>
           </div>
         </div>
