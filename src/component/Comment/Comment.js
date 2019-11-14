@@ -3,6 +3,7 @@ import './Comment.less'
 import http from '../../config/http'
 import { connect } from 'react-redux'
 import LazyImage from '../LazyImage/LazyImage'
+import { Link } from 'react-router-dom'
 
 @connect(({controller}) => ({
   controller
@@ -76,7 +77,8 @@ class Comment extends Component {
                     <div className='pc-comment-item' key={comment.commentId}>
                       <img src={ comment.user.avatarUrl}></img>
                       <div className='pc-comment-content'>
-                        <div> { comment.user.nickname } </div>
+                        <Link to={ `/user/${comment.user.userId}` }>{ comment.user.nickname }</Link>
+                        {/* <div> { comment.user.nickname } </div> */}
                         <div>{ comment.content }</div>
                         <div className='pc-comment-item-footer'>
                           <span> { new Date(comment.time).toLocaleString() } </span>
@@ -104,7 +106,8 @@ class Comment extends Component {
                     <div className='pc-comment-item' key={comment.commentId}>
                       <img src={ comment.user.avatarUrl}></img>
                       <div className='pc-comment-content'>
-                        <div> { comment.user.nickname } </div>
+                        <Link to={ `/user/${comment.user.userId}`}>{ comment.user.nickname }</Link>
+                        {/* <div>  </div> */}
                         <div>{ comment.content }</div>
                         <div className='pc-comment-item-footer'>
                           <span> { new Date(comment.time).toLocaleString() } </span>
