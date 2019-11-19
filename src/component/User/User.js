@@ -22,7 +22,15 @@ class User extends Component {
           <div className='pc-user-avatar'>
             <img src={ user.profile.avatarUrl }></img>
           </div>
-          <div className='pc-user-info'></div>
+          <div className='pc-user-info'>
+            <span className='pc-user-nickname'> 
+              { user.profile.nickname } 
+              <sup> <i className={ `iconfont ${ user.profile.gender === 1 ? 'icon-nan' : 'icon-nv' }` }></i> </sup>
+            </span>
+            <span> 
+              <span>Lv.{ user.level } </span>
+            </span>
+          </div>
         </div>
       </div>
       :
