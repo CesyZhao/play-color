@@ -25,11 +25,15 @@ class User extends Component {
           <div className='pc-user-info'>
             <span className='pc-user-nickname'> 
               { user.profile.nickname } 
-              <sup> <i className={ `iconfont ${ user.profile.gender === 1 ? 'icon-nan male' : 'icon-nv female' }` }></i> </sup>
+              <sup>  </sup>
             </span>
             <span> 
               <span className='pc-user-level'>Lv.{ user.level } </span>
+              <span className='pc-user-level'><i className={ `iconfont ${ user.profile.gender === 1 ? 'icon-nan male' : 'icon-nv female' }` }></i> </span>
             </span>
+            <div className=''>
+
+            </div>
           </div>
         </div>
       </div>
