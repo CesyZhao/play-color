@@ -45,6 +45,9 @@ class User extends Component {
                 <div>{ user.profile.followeds }</div>
               </div>
             </div>
+            <div className='pc-user-signature'>
+              { user.profile.signature }
+            </div>
           </div>
         </div>
       </div>
