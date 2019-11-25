@@ -8,7 +8,10 @@ class User extends Component {
     user: {}
   }
   async componentWillMount () {
-    const { data } = await http.get(`/user/detail?uid=${this.props.match.params.id}`)
+    const { id } = this.props.match.params
+    const { data } = await http.get(`/user/detail?uid=${id}`)
+    const { data: playlist } = await http.get(`/user/playlist?uid=${id}`)
+    console.log(playlist, '-----------')
     this.setState({ user: data})
   }
   render () {
@@ -49,6 +52,9 @@ class User extends Component {
               { user.profile.signature }
             </div>
           </div>
+        </div>
+        <div>
+
         </div>
       </div>
       :
