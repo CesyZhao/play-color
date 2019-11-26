@@ -10,8 +10,10 @@ class User extends Component {
   async componentWillMount () {
     const { id } = this.props.match.params
     const { data } = await http.get(`/user/detail?uid=${id}`)
-    const { data: playlist } = await http.get(`/user/playlist?uid=${id}`)
+    const { data: playlist } = await http.get(`/user/playlist?uid=${id}&limit=9999`)
+    const { data: sublist } = await http.get(`/user/subcount?uid=${id}`)
     console.log(playlist, '-----------')
+    console.log(sublist, '-----------')
     this.setState({ user: data})
   }
   render () {
