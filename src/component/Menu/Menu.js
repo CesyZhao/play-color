@@ -45,8 +45,8 @@ class Leftbar extends Component {
           <svg width="968" height="669" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="orange_red" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#4E8291" stop-opacity="1"/>
-              <stop offset="100%" stop-color="#51416B" stop-opacity="1"/>
+              <stop offset="0%" stopColor="#4E8291" stopOpacity="1"/>
+              <stop offset="100%" stopColor="#51416B" stopOpacity="1"/>
             </linearGradient>
             <filter id="blur-2px">
               <feOffset result="offOut" in="SourceAlpha" dx="-5" dy="0" />

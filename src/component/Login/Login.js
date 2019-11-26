@@ -112,8 +112,12 @@ class Login extends Component {
       this.setState({login: true})
       let res = await http.get('/login/cellphone', {params: {phone, password}} )
       let { profile } = res.data
-      const {dispatch} = this.props
-      dispatch(saveUserProfile({profile, userAccount: this.state.username, userPassword: this.state.password}))
+      const { dispatch } = this.props
+      dispatch(saveUserProfile({ 
+        profile, 
+        userAccount: this.state.username, 
+        userPassword: this.state.password
+      }))
 
     } catch (error) {
       toaster.error('Failed to login')
