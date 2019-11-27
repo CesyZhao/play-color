@@ -1,6 +1,8 @@
 .pc-user{
   flex: 1;
   padding: 8px;
+  display: flex;
+  flex-direction: column;
   .pc-user-profile{
     background: rgba(255, 255, 255, .1);
     padding: 8px;
@@ -38,6 +40,33 @@
       display: flex;
       width: 120px;
       justify-content: space-between;
+    }
+  }
+  .pc-user-list-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-top: 12px;
+    background: rgba(255, 255, 255, .1);
+  }
+  .pc-user-createdList{
+    flex: 1;
+    overflow: auto;
+  }
+  .pc-user-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .pc-user-list-item{
+    width: 180px;
+    height: 200px;
+    margin-bottom: 20px;
+    text-align: left;
+    img{
+      width: 180px;
+      height: 180px;
     }
   }
 }
