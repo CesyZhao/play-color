@@ -30,7 +30,7 @@ class User extends Component {
     this.setState({ user: data, createdList, subList})
   }
   render () {
-    const { user, createdList, subList } = this.state
+    const { user, createdList, subList, currentCreatedListPage, currentSubListPage } = this.state
     console.log(user)
     return (
       !_.isEmpty(user)
@@ -68,29 +68,44 @@ class User extends Component {
             </div>
           </div>
         </div>
-        <div className="pc-user-createdList">
-          <div className="pc-user-list-header">
-            <span> 歌单 { createdList.length } </span>
-            <Pagination pageSize={ createdListPageSize } jumpable={ false } total={createdList.length} onPageChange={ (page) => this.setState({currentCreatedListPage: page - 1}) }></Pagination>
+        <div className='pc-user-playlists'>
+          <div className="pc-user-createdList">
+            <div className="pc-user-list-header">
+              <span> 歌单 { createdList.length } </span>
+              <Pagination pageSize={ createdListPageSize } jumpable={ false } total={createdList.length} onPageChange={ (page) => this.setState({currentCreatedListPage: page - 1}) }></Pagination>
+            </div>
+            <div className="pc-user-list">
+              {
+                createdList.slice(currentCreatedListPage * createdListPageSize, (currentCreatedListPage + 1) * createdListPageSize ).map(item => {
+                  return (
+                    <div className="pc-user-list-item">
+                      <img src={ item.coverImgUrl } alt="歌单封面"></img>
+                      <div> { item.name } </div>
+                      <div> { item.trackCount } </div>
+                    </div>
+                  )
+                })
+              }
+            </div>
           </div>
-          <div className="pc-user-list">
-            {
-              createdList.map(item => {
-                return (
-                  <div className="pc-user-list-item">
-                    <img src={ item.coverImgUrl } alt="歌单封面"></img>
-                    <div> { item.name } </div>
-                    <div> { item.trackCount } </div>
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>
-        <div className="pc-user-subList">
-          <div className="pc-user-list-header">
-            <span> 收藏 { subList.length } </span>
-            <Pagination pageSize={ subListPageSize } jumpable={ false } total={subList.length} onPageChange={ (page) => this.setState({currentSubListPage: page - 1}) }></Pagination>
+          <div className="pc-user-subList">
+            <div className="pc-user-list-header">
+              <span> 收藏 { subList.length } </span>
+              <Pagination pageSize={ subListPageSize } jumpable={ false } total={subList.length} onPageChange={ (page) => this.setState({currentSubListPage: page - 1}) }></Pagination>
+            </div>
+            <div className="pc-user-list">
+              {
+                subList.slice(currentSubListPage * subListPageSize, (currentSubListPage + 1) * subListPageSize ).map(item => {
+                  return (
+                    <div className="pc-user-list-item">
+                      <img src={ item.coverImgUrl } alt="歌单封面"></img>
+                      <div> { item.name } </div>
+                      <div> { item.trackCount } </div>
+                    </div>
+                  )
+                })
+              }
+            </div>
           </div>
         </div>
       </div>
