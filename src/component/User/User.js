@@ -3,6 +3,7 @@ import './User.less'
 import http from '../../config/http'
 import _ from 'lodash'
 import Pagination from '../Pagination/Pagination'
+import { Link } from 'react-router-dom'
 
 const createdListPageSize = 20
 const subListPageSize = 20
@@ -78,11 +79,13 @@ class User extends Component {
               {
                 createdList.slice(currentCreatedListPage * createdListPageSize, (currentCreatedListPage + 1) * createdListPageSize ).map(item => {
                   return (
-                    <div className="pc-user-list-item">
-                      <img src={ item.coverImgUrl } alt="歌单封面"></img>
-                      <div> { item.name } </div>
-                      <div> { item.trackCount } </div>
-                    </div>
+                    <Link to={ `/album/${item.id}` }>
+                       <div className="pc-user-list-item">
+                        <img src={ item.coverImgUrl } alt="歌单封面"></img>
+                        <div> { item.name } </div>
+                        <div> { item.trackCount } </div>
+                      </div>
+                    </Link>
                   )
                 })
               }
@@ -97,11 +100,13 @@ class User extends Component {
               {
                 subList.slice(currentSubListPage * subListPageSize, (currentSubListPage + 1) * subListPageSize ).map(item => {
                   return (
-                    <div className="pc-user-list-item">
-                      <img src={ item.coverImgUrl } alt="歌单封面"></img>
-                      <div> { item.name } </div>
-                      <div> { item.trackCount } </div>
-                    </div>
+                    <Link to={`/album/${item.id}`}>
+                      <div className="pc-user-list-item">
+                        <img src={ item.coverImgUrl } alt="歌单封面"></img>
+                        <div> { item.name } </div>
+                        <div> { item.trackCount } </div>
+                      </div>
+                    </Link>
                   )
                 })
               }
