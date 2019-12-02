@@ -7,6 +7,7 @@ import Artist from '../Artist/Artist'
 import User from '../User/User'
 import RankingList from '../RankingList/RankingList'
 import Comment from '../Comment/Comment'
+import Moments from '../Moments/Moments'
 import './RouteContainer.less'
 import EventBus from '../../events'
 
@@ -56,6 +57,7 @@ class RouteContainer extends Component{
           <Route path="/user/:id" component={User}></Route>
           <Route path="/rankingList" component={RankingList}></Route>
           <Route path="/comment" component={Comment}></Route>
+          <Route path="/moments" component={Moments}></Route>
         </div>
       </div>
     )

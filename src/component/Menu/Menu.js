@@ -41,7 +41,7 @@ class Leftbar extends Component {
     const {profile}  = this.props.user
     return (
       <CSSTransition in={this.state.showMenu} timeout={300} unmountOnExit classNames="pc-leftbar">
-        <div className='pc-leftbar'>
+        <div className='pc-leftbar' onClick={ this.toggleMenu }>
           <svg width="968" height="669" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="orange_red" x1="0%" y1="0%" x2="100%" y2="100%">

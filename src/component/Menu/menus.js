@@ -19,7 +19,7 @@ export default [
       {
         name: '朋友',
         icon: 'icon-friend_light',
-        link: '/'
+        link: '/moments'
       },
       {
         name: '搜索',
