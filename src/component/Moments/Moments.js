@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import http from '../../config/http'
 import './Moments.less'
 
@@ -16,6 +17,7 @@ class Moments extends Component {
   getMoments = () => {
     http.get('/event')
     .then(({ data }) => {
+      console.log(data)
       this.setState({
         moments: data.event,
         lastTime: data.lasttime
@@ -28,10 +30,21 @@ class Moments extends Component {
       <div className="pc-moments">
         <ul className="pc-moments-list">
           {
-            this.moments.map(moment =>{
+            this.state.moments.map(moment =>{
               return (
                 <li className="pc-moments-item">
-                  
+                  <Link to={ `/user/${moment.user.userId}` }>{ moment.user.nickname }</Link>
+                  {/* <div> { comment.user.nickname } </div> */}
+                  {/* <div>{ JSON.parse(moment.json).msg }</div>
+                  <div className='pc-comment-item-footer'>
+                    <span> { new Date(moment.showTime).toLocaleString() } </span>
+                    <span>
+                      <span>
+                        <i className='iconfont icon-zan'></i>
+                        { moment.info.likedCount }
+                      </span>
+                    </span>
+                  </div> */}
                 </li>
               )
             })
