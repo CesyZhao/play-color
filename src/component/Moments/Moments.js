@@ -34,9 +34,8 @@ class Moments extends Component {
               return (
                 <li className="pc-moments-item">
                   <Link to={ `/user/${moment.user.userId}` }>{ moment.user.nickname }</Link>
-                  {/* <div> { comment.user.nickname } </div> */}
-                  {/* <div>{ JSON.parse(moment.json).msg }</div>
-                  <div className='pc-comment-item-footer'>
+                  <div>{ JSON.parse(moment.json).msg }</div>
+                  {/* <div className='pc-comment-item-footer'>
                     <span> { new Date(moment.showTime).toLocaleString() } </span>
                     <span>
                       <span>
