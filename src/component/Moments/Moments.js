@@ -33,17 +33,20 @@ class Moments extends Component {
             this.state.moments.map(moment =>{
               return (
                 <li className="pc-moments-item">
-                  <Link to={ `/user/${moment.user.userId}` }>{ moment.user.nickname }</Link>
-                  <div>{ JSON.parse(moment.json).msg }</div>
-                  {/* <div className='pc-comment-item-footer'>
-                    <span> { new Date(moment.showTime).toLocaleString() } </span>
-                    <span>
+                  <img src={ moment.user.avatarUrl }></img>
+                  <div className="pc-moments-item-content">
+                    <Link to={ `/user/${moment.user.userId}` }>{ moment.user.nickname }</Link>
+                    <div>{ JSON.parse(moment.json).msg }</div>
+                    {/* <div className='pc-comment-item-footer'>
+                      <span> { new Date(moment.showTime).toLocaleString() } </span>
                       <span>
-                        <i className='iconfont icon-zan'></i>
-                        { moment.info.likedCount }
+                        <span>
+                          <i className='iconfont icon-zan'></i>
+                          { moment.info.likedCount }
+                        </span>
                       </span>
-                    </span>
-                  </div> */}
+                    </div> */}
+                  </div>
                 </li>
               )
             })

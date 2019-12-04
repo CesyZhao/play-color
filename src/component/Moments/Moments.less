@@ -2,8 +2,23 @@
 .pc-moments{
   flex: 1;
   overflow: auto;
+  padding: 8px 12px;
   .pc-moments-list{
     list-style: none;
+    margin: 0;
+    padding: 0;
+    .pc-moments-item{
+      display: flex;
+      margin-bottom: 8px;
+      img{
+        width: 48px;
+        height: 48px;
+      }
+      .pc-moments-item-content{
+        margin-left: 8px;
+        text-align: left;
+      }
+    }
   }
   .no-scroll-bar
 }
