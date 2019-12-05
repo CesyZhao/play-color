@@ -36,7 +36,15 @@ class Moments extends Component {
                   <img src={ moment.user.avatarUrl }></img>
                   <div className="pc-moments-item-content">
                     <Link to={ `/user/${moment.user.userId}` }>{ moment.user.nickname }</Link>
+                    <div>{ new Date(moment.eventTime).toLocaleString() }</div>
                     <div>{ JSON.parse(moment.json).msg }</div>
+                    <div>
+                      {
+                         moment.pics.map(pic => {
+                          return <img src={ pic.originUrl } className="moment-image"></img> 
+                        })
+                      }
+                    </div>
                     {/* <div className='pc-comment-item-footer'>
                       <span> { new Date(moment.showTime).toLocaleString() } </span>
                       <span>
