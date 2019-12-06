@@ -37,7 +37,7 @@ class Moments extends Component {
                   <div className="pc-moments-item-content">
                     <Link to={ `/user/${moment.user.userId}` }>{ moment.user.nickname }</Link>
                     <div className="pc-moment-time">{ new Date(moment.eventTime).toLocaleString() }</div>
-                    <div>{ JSON.parse(moment.json).msg }</div>
+                    <div className="pc-moment-message">{ JSON.parse(moment.json).msg }</div>
                     <div>
                       {
                          moment.pics.map(pic => {
