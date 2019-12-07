@@ -12,6 +12,26 @@
       padding-bottom: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, .1);
       margin-bottom: 16px;
+      .moment-user{
+        color: #57E1E7;
+      }
+      .pc-moment-content{
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, .1);
+        padding: 4px;
+        margin-bottom: 8px;
+        img{
+          width: 48px;
+          height: 48px;
+        }
+        .pc-moment-content-info{
+          margin-left: 12px;
+          .pc-moment-content-name{
+            margin-bottom: 8px;
+          }
+        }
+      }
       .avatar{
         width: 48px;
         height: 48px;
@@ -23,11 +43,21 @@
         margin-right: 8px;
       }
       .pc-moments-item-content{
+        flex: 1;
         margin-left: 8px;
         text-align: left;
       }
       .pc-moment-time, .pc-moment-message{
         margin-bottom: 8px;
+      }
+      .pc-moment-item-footer{
+        display: flex;
+        justify-content: space-between;
+        .pc-moment-options{
+          i{
+            margin:0 4px 0 8px;
+          }
+        }
       }
     }
   }
