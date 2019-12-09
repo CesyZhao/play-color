@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 import React, {Component} from 'react'
 import './PlayingPanel.less'
 import eventBus from '../../events'
@@ -5,7 +6,6 @@ import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import Lyric from './Lyric/Lyric'
 import _ from 'lodash'
-import LazyImage from '../LazyImage/LazyImage'
 import { Link } from 'react-router-dom'
 
 const CANVAS_WIDTH = 690
@@ -25,12 +25,6 @@ class PlayingPanel extends Component{
     progress: 0
   }
 
-  setStateAsync = (state) => {
-    return new Promise((resolve) => {
-      this.setState(state, resolve)
-    })
-  }
-
   componentDidMount() {
     eventBus.on('togglePlayingPanel', () => {
       this.setState(prevState => ({
@@ -41,13 +35,19 @@ class PlayingPanel extends Component{
     })
   }
 
+  setStateAsync = (state) => {
+    return new Promise((resolve) => {
+      this.setState(state, resolve)
+    })
+  }
+
   destroyVisualizor = () => {
     cancelAnimationFrame(this.state.animation)
   }
 
-   initVisualizor = async() => {
-    let wrap = document.getElementById("wrap")
-    let cxt = wrap.getContext("2d")
+   initVisualizor = async () => {
+    let wrap = document.getElementById('wrap')
+    let cxt = wrap.getContext('2d')
     const screenHeight = document.body.clientHeight, screenWidth = document.body.clientWidth
      //获取API
     let AudioContext = window.AudioContext || window.webkitAudioContext
@@ -77,11 +77,11 @@ class PlayingPanel extends Component{
     this.state.analyser.fftSize = BYTE_ARRAY_LENGTH
     const self = this
     let gradient = cxt.createLinearGradient(0, 100, 480, 100)
-		gradient.addColorStop("0", "#f500d8")
-    gradient.addColorStop("1.0", "#ceaf11")
+		gradient.addColorStop('0', '#f500d8')
+    gradient.addColorStop('1.0', '#ceaf11')
     let gradientRight = cxt.createLinearGradient(886, 100, 1366, 100)
-    gradientRight.addColorStop("0", "#0ee7f7")
-    gradientRight.addColorStop("1.0", "#2ce672")
+    gradientRight.addColorStop('0', '#0ee7f7')
+    gradientRight.addColorStop('1.0', '#2ce672')
     const audio = document.querySelector('#audio')
     const _this = this
     function draw() {
@@ -151,7 +151,7 @@ class PlayingPanel extends Component{
       cxt.fillStyle = '#21dd13'
   
       cxt.shadowBlur = 20
-      cxt.shadowColor = "#21dd13"
+      cxt.shadowColor = '#21dd13'
       cxt.fill()
       cxt.closePath()
       cxt.shadowBlur = 0
@@ -216,7 +216,7 @@ class PlayingPanel extends Component{
       cxt.fillStyle = '#21dd13'
   
       cxt.shadowBlur = 20
-      cxt.shadowColor = "#21dd13"
+      cxt.shadowColor = '#21dd13'
       cxt.fill()
       cxt.closePath()
       cxt.shadowBlur = 0
@@ -240,7 +240,7 @@ class PlayingPanel extends Component{
 
   getFromUrl = (song) => {
     const map = {
-      findMusic: '/',
+      findMusic: '/'
     }
     let url = map[song.fromId] || `/album/${song.fromId}`
     return url
@@ -252,36 +252,36 @@ class PlayingPanel extends Component{
     return (
       !_.isEmpty(song) && 
       <CSSTransition in={this.state.showPlayingPanel} timeout={300} unmountOnExit classNames="pc-playing-panel">
-        <div className='pc-playing-panel'>
+        <div className="pc-playing-panel">
           <div className={`pc-current-song-wrapper ${this.state.mode === '歌词模式' && 'lyricMode'}`}>
-            <div className='iconfont icon-fanhui icon-dismiss' onClick={ this.dismiss }></div>
+            <div className="iconfont icon-fanhui icon-dismiss" onClick={this.dismiss}></div>
             <div className="pc-visualizor-wrapper">
-              <canvas id="wrap" width={ CANVAS_WIDTH * 2 } height={ CANVAS_HEIGHT * 2 } />
+              <canvas id="wrap" width={CANVAS_WIDTH * 2} height={CANVAS_HEIGHT * 2} />
               <svg viewBox="0 0 250 250">
                 <path d="
                   M 125 125
                   m 0 -123
                   a 123 123 0 1 1 0 246
                   a 123 123 0 1 1 0 -246"
-                  stroke="#9B30FF" strokeWidth="4.5" fill="none" 
-                  style={{strokeDasharray: `${perimeter}px, ${perimeter}px`, strokeDashoffset: (1 - this.state.progress) * perimeter + 'px', transition: 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'}}></path>
+                    stroke="#9B30FF" strokeWidth="4.5" fill="none" 
+                    style={{strokeDasharray: `${perimeter}px, ${perimeter}px`, strokeDashoffset: (1 - this.state.progress) * perimeter + 'px', transition: 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'}}></path>
               </svg>
               <div className="img-wrapper">
                 <div className="img" >
-                  <img src={song.album.picUrl.replace('100y100','240y240')} alt="ablum"/>
+                  <img src={song.album.picUrl.replace('100y100', '240y240')} alt="ablum"/>
                 </div>
               </div>
               <div className="pc-playing-panel-toolbar">
                 {
                   // this.state.mode === '歌词模式' &&
-                  <Lyric songId={ song.id }></Lyric>
+                  <Lyric songId={song.id}></Lyric>
                 } 
                 <i className={`iconfont ${song.starred ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
-                <i className="iconfont icon-ios-fastforward" onClick={ this.handleNext }></i>
+                <i className="iconfont icon-ios-fastforward" onClick={this.handleNext}></i>
                 <i className="iconfont icon-aui-icon-comment"></i>
               </div>
               <div className="pc-playing-panel-info">
-                <Link to={ this.getFromUrl(song) } onClick={ this.dismiss }> 来源: { song.from } </Link>
+                <Link to={this.getFromUrl(song)} onClick={this.dismiss}> 来源: {song.from} </Link>
               </div>
             </div>
           </div>

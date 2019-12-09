@@ -20,7 +20,7 @@ class LazyImage extends Component{
   state = {
     preImageUrl: `${this.props.imgUrl}?param=${this.props.width}y${this.props.height}`
   }
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, ) {
     if (prevProps.imgUrl !== this.props.imgUrl) {
       this.setState({
         preImageUrl: `${this.props.imgUrl}?param=${this.props.width}y${this.props.height}`
@@ -33,7 +33,7 @@ class LazyImage extends Component{
 
   render() {
     return (
-      <img src={this.state.preImageUrl} alt="lazyImage" onLoad={ this.imageLoaded }/>
+      <img alt="lazyImage" onLoad={ this.imageLoaded } src={this.state.preImageUrl}/>
     )
   }
 }

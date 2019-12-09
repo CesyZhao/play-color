@@ -1,15 +1,14 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './Pagination.less'
 
-const PAGE_OFFSET = 3
 class Pagination extends Component {
   static propTypes = {
     total: PropTypes.number.isRequired,
     onPageChange: PropTypes.func.isRequired,
     pageSize: PropTypes.number,
     showTotal: PropTypes.bool,
-    jumpable:  PropTypes.bool,
+    jumpable: PropTypes.bool,
     pagerCount: PropTypes.number
   }
   state = {
@@ -29,7 +28,7 @@ class Pagination extends Component {
   handleInput = (e) => {
     this.handlePageClick(e, +e.target.value)
   }
-  render () {
+  render() {
     const { current } = this.state
     const { total, pageSize = 5, showTotal = false, jumpable = true, pagerCount = 5 } = this.props
     const totalPage = total % pageSize === 0 ? total / pageSize : Math.floor(total / pageSize) + 1
@@ -69,10 +68,10 @@ class Pagination extends Component {
     return (
       <div className="pc-pagination">
         {
-          showTotal && <span className="pc-pagination-total"> 共 { total } 条</span>
+          showTotal && <span className="pc-pagination-total"> 共 {total} 条</span>
         }
-        <i className={`iconfont icon-fanhui pc-pagination-option ${current === 1 ? 'disabled' : ''}`} onClick={ (e) => this.handlePageClick(e, current - 1) }></i>
-        <i className={ `pc-pagination-option ${ current === 1 ? 'current-page' : '' }` } onClick={ (e) => this.handlePageClick(e, 1) }>1</i>
+        <i className={`iconfont icon-fanhui pc-pagination-option ${current === 1 ? 'disabled' : ''}`} onClick={(e) => this.handlePageClick(e, current - 1)}></i>
+        <i className={`pc-pagination-option ${ current === 1 ? 'current-page' : '' }`} onClick={(e) => this.handlePageClick(e, 1)}>1</i>
         {
           showPrevMore &&
           <i className="iconfont icon-diandiandianshu icon-more pc-pagination-option"></i>
@@ -80,7 +79,7 @@ class Pagination extends Component {
         {
           pagers.map(pager => {
             return (
-              <i className={ `pc-pagination-option ${ current === pager ? 'current-page' : '' }` } onClick={ (e) => this.handlePageClick(e, pager) }> { pager } </i>
+              <i key={pager} className={`pc-pagination-option ${ current === pager ? 'current-page' : '' }`} onClick={(e) => this.handlePageClick(e, pager)}> {pager} </i>
             )
           })
         }
@@ -88,10 +87,10 @@ class Pagination extends Component {
           showNextMore &&
           <i className="iconfont icon-diandiandianshu icon-more pc-pagination-option"></i>
         }
-        <i className={ `pc-pagination-option ${ current === totalPage ? 'current-page' : '' }` } onClick={ (e) => this.handlePageClick(e, totalPage) }> { totalPage } </i>
-        <i className={`iconfont icon-gengduo pc-pagination-option ${current === totalPage ? 'disabled' : ''}`} onClick={ (e) => this.handlePageClick(e, current + 1) }></i>
+        <i className={`pc-pagination-option ${ current === totalPage ? 'current-page' : '' }`} onClick={(e) => this.handlePageClick(e, totalPage)}> {totalPage} </i>
+        <i className={`iconfont icon-gengduo pc-pagination-option ${current === totalPage ? 'disabled' : ''}`} onClick={(e) => this.handlePageClick(e, current + 1)}></i>
         {
-          jumpable && <span className="pc-pagination-to"> 前往第 <input onInput={ this.handleInput }></input> 页 </span>
+          jumpable && <span className="pc-pagination-to"> 前往第 <input onInput={this.handleInput}></input> 页 </span>
         }
       </div>
     )

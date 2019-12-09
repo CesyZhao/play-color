@@ -26,7 +26,7 @@ const categories = [
     type: 'desc',
     url: '/artist/desc',
     dataset: 'briefDesc'
-  },
+  }
 ]
 const fields = [
   {
@@ -65,12 +65,12 @@ class Artist extends Component {
     currentMvPage: 0
   }
 
-  async componentWillMount () {
+  async componentWillMount() {
     let [songRes, mvRes, albumRes, desRes] = await this.getResultByType()
     this.setState({
       hotSongs: songRes.data ? formatList(songRes.data.hotSongs) : [],
       mvs: mvRes.data ? mvRes.data.mvs : [],
-      hotAlbums:  albumRes.data ? albumRes.data.hotAlbums : [],
+      hotAlbums: albumRes.data ? albumRes.data.hotAlbums : [],
       artist: {
         info: songRes.data ? songRes.data.artist : '',
         desc: desRes.data ? desRes.data.briefDesc : ''
@@ -86,7 +86,7 @@ class Artist extends Component {
   }
 
 
-  render () {
+  render() {
     const { info } = this.state.artist
     const { hotSongs, currentSongPage, currentAlbumPage, currentMvPage, hotAlbums, mvs } = this.state
     const songPageSize = 10
@@ -95,19 +95,19 @@ class Artist extends Component {
     return (
       <div className="pc-artist">
         {
-          info && 
+          info &&
           <div className="pc-artist-info-wrapper">
-            <img src={ info.img1v1Url } alt="歌手照片"></img>
+            <img alt="歌手照片" src={info.img1v1Url}></img>
             <div className="pc-artist-info">
-              <h2> { info.name } </h2>
+              <h2> {info.name} </h2>
               <div className="pc-artist-sub-info">
-                <span>中文名: { info.transNames } </span>
-                <span>单曲数: { info.musicSize }</span>
-                <span>专辑数: { info.albumSize } </span>
-                <span>MV 数: { info.mvSize } </span>
+                <span>中文名: {info.transNames} </span>
+                <span>单曲数: {info.musicSize}</span>
+                <span>专辑数: {info.albumSize} </span>
+                <span>MV 数: {info.mvSize} </span>
               </div>
               <p className="pa-artist-desc">
-                { info.briefDesc }
+                {info.briefDesc}
               </p>
             </div>
           </div>
@@ -116,20 +116,20 @@ class Artist extends Component {
           <Fragment>
             <div className="pc-artist-hot-songs-header">
               <span>热门歌曲</span>
-              <Pagination pageSize={ songPageSize } jumpable={ false } total={hotSongs.length} onPageChange={ (page) => this.setState({currentSongPage: page - 1}) }></Pagination>
+              <Pagination jumpable={false} onPageChange={(page) => this.setState({currentSongPage: page - 1})} pageSize={songPageSize} total={hotSongs.length}></Pagination>
             </div>
-            <PlayList fields={ fields } album={ { tracks: hotSongs.slice(currentSongPage * songPageSize, (currentSongPage + 1) * songPageSize ) } } className></PlayList>
+            <PlayList album={{ tracks: hotSongs.slice(currentSongPage * songPageSize, (currentSongPage + 1) * songPageSize ) }} fields={fields} ></PlayList>
           </Fragment>
           <Fragment>
             <div className="pc-artist-hot-songs-header">
               <span>专辑</span>
-              <Pagination pageSize={ albumPageSize } jumpable={ false } total={hotAlbums.length} onPageChange={ (page) => this.setState({currentAlbumPage: page - 1}) }></Pagination>
+              <Pagination jumpable={false} onPageChange={(page) => this.setState({currentAlbumPage: page - 1})} pageSize={albumPageSize} total={hotAlbums.length}></Pagination>
             </div>
             <div className="pc-artist-albums-wrapper">
             {
               hotAlbums.slice(currentAlbumPage * albumPageSize, (currentAlbumPage + 1) * albumPageSize ).map(album => {
                 return (
-                  <div className="pc-artist-album" data-name={album.name} key={ album.id }>
+                  <div className="pc-artist-album" data-name={album.name} key={album.id}>
                     <LazyImage imgUrl={album.picUrl}></LazyImage>
                   </div>
                 )
@@ -140,13 +140,13 @@ class Artist extends Component {
           <Fragment>
             <div className="pc-artist-hot-songs-header">
               <span>MV</span>
-              <Pagination pageSize={ mvPageSize } jumpable={ false } total={mvs.length} onPageChange={ (page) => this.setState({currentMvPage: page - 1}) }></Pagination>
+              <Pagination jumpable={false} onPageChange={(page) => this.setState({currentMvPage: page - 1})} pageSize={mvPageSize} total={mvs.length} ></Pagination>
             </div>
             <div className="pc-artist-mv-wrapper">
             {
               mvs.slice(currentMvPage * mvPageSize, (currentMvPage + 1) * mvPageSize ).map(mv => {
                 return (
-                  <div className="pc-artist-mv" data-name={mv.name} key={ mv.id }>
+                  <div className="pc-artist-mv" data-name={mv.name} key={mv.id}>
                     <LazyImage imgUrl={mv.imgurl16v9}></LazyImage>
                   </div>
                 )

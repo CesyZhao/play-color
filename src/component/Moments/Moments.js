@@ -11,55 +11,55 @@ class Moments extends Component {
     lastTime: -1
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.getMoments()
   }
 
   getMoments = () => {
     http.get('/event')
-    .then(({ data }) => {
-      console.log(data)
-      this.setState({
-        moments: data.event,
-        lastTime: data.lasttime
+      .then(({ data }) => {
+        console.log(data)
+        this.setState({
+          moments: data.event,
+          lastTime: data.lasttime
+        })
       })
-    })
   }
 
   renderContent = (message) => {
-    function renderContent ({ img, name, author }) {
+    function renderContent({ img, name, author }) {
       return (
         <div className="pc-moment-content">
-          <img src={ img }></img>
+          <img src={img}></img>
           <div className="pc-moment-content-info">
-            <div className="pc-moment-content-name">{ name }</div>
-            <div>{ author }</div>
+            <div className="pc-moment-content-name">{name}</div>
+            <div>{author}</div>
           </div>
         </div>
       )
     }
-    function renderSong (song) {
+    function renderSong(song) {
       return renderContent({
         img: song.album.picUrl,
         name: song.name,
         author: song.artists.map(artist => artist.name).join('/')
       })
     }
-    function renderPlaylist (playlist) {
+    function renderPlaylist(playlist) {
       return renderContent({
         img: playlist.coverImgUrl,
         name: playlist.name,
         author: playlist.creator.nickname
       })
     }
-    function renderVideo (video) {
+    function renderVideo(video) {
       return renderContent({
         img: video.coverUrl,
         name: video.title,
         author: video.creator.nickname
       })
     }
-    function renderTopic (topic) {
+    function renderTopic(topic) {
       return renderContent({
         img: topic.rectanglePicUrl,
         name: topic.title,
@@ -79,7 +79,7 @@ class Moments extends Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <div className="pc-moments">
         <ul className="pc-moments-list">
@@ -89,33 +89,33 @@ class Moments extends Component {
               const { resourceTitle } = commentThread
               const [eventName, targetName] = resourceTitle ? resourceTitle.split('：') : []
               return (
-                <li className="pc-moments-item">
-                  <img className="avatar" src={ moment.user.avatarUrl }></img>
+                <li className="pc-moments-item" key={moment.id}>
+                  <img className="avatar" src={moment.user.avatarUrl}></img>
                   <div className="pc-moments-item-content">
                     <div>
-                      <Link to={ `/user/${moment.user.userId}` } className="moment-user">{ moment.user.nickname }</Link>
-                      <span> { eventName } </span>
+                      <Link to={`/user/${moment.user.userId}`} className="moment-user">{moment.user.nickname}</Link>
+                      <span> {eventName} </span>
                     </div>
-                    <div className="pc-moment-time">{ new Date(moment.eventTime).toLocaleString() }</div>
-                    <div className="pc-moment-message">{ emojiConverter(JSON.parse(moment.json).msg) }</div>
+                    <div className="pc-moment-time">{new Date(moment.eventTime).toLocaleString()}</div>
+                    <div className="pc-moment-message">{emojiConverter(JSON.parse(moment.json).msg)}</div>
                     {
                       this.renderContent(JSON.parse(moment.json))
                     }
                     <div>
                       {
-                         moment.pics.map(pic => {
-                          return <img src={ pic.pcSquareUrl } className="moment-image"></img> 
+                        moment.pics.map(pic => {
+                          return <img src={pic.pcSquareUrl} key={pic.id} className="moment-image"></img> 
                         })
                       }
                     </div>
-                    <div className='pc-moment-item-footer'>
+                    <div className="pc-moment-item-footer">
                       <span></span>
                       <span>
                         <span className="pc-moment-options">
-                          <i className='iconfont icon-zan'></i>
-                          { moment.info.likedCount }
-                          <i className='iconfont icon-share_icon'></i>
-                          { moment.info.shareCount }
+                          <i className="iconfont icon-zan"></i>
+                          {moment.info.likedCount}
+                          <i className="iconfont icon-share_icon"></i>
+                          {moment.info.shareCount}
                         </span>
                       </span>
                     </div>

@@ -1,4 +1,4 @@
-import React, { Component } from  'react'
+import React, { Component } from 'react'
 import './User.less'
 import http from '../../config/http'
 import _ from 'lodash'
@@ -15,7 +15,7 @@ class User extends Component {
     currentCreatedListPage: 0,
     currentSubListPage: 0
   }
-  async componentWillMount () {
+  async componentWillMount() {
     const { id } = this.props.match.params
     const { data } = await http.get(`/user/detail?uid=${id}`)
     const { data: playlist } = await http.get(`/user/playlist?uid=${id}&limit=9999`)
@@ -30,60 +30,60 @@ class User extends Component {
     })
     this.setState({ user: data, createdList, subList})
   }
-  render () {
+  render() {
     const { user, createdList, subList, currentCreatedListPage, currentSubListPage } = this.state
     console.log(user)
     return (
       !_.isEmpty(user)
       ?
-      <div className='pc-user'>
-        <div className='pc-user-profile'>
-          <div className='pc-user-avatar'>
-            <img src={ user.profile.avatarUrl }></img>
+      <div className="pc-user">
+        <div className="pc-user-profile">
+          <div className="pc-user-avatar">
+            <img src={user.profile.avatarUrl}></img>
           </div>
-          <div className='pc-user-info'>
-            <span className='pc-user-nickname'> 
-              { user.profile.nickname } 
+          <div className="pc-user-info">
+            <span className="pc-user-nickname"> 
+              {user.profile.nickname} 
               <sup>  </sup>
             </span>
             <span> 
-              <span className='pc-user-level'>Lv.{ user.level } </span>
-              <span className='pc-user-level'><i className={ `iconfont ${ user.profile.gender === 1 ? 'icon-nan male' : 'icon-nv female' }` }></i> </span>
+              <span className="pc-user-level">Lv.{user.level} </span>
+              <span className="pc-user-level"><i className={`iconfont ${ user.profile.gender === 1 ? 'icon-nan male' : 'icon-nv female' }`}></i> </span>
             </span>
-            <div className='pc-user-social-info'>
+            <div className="pc-user-social-info">
               <div>
                 <div>动态</div>
-                <div>{ user.profile.eventCount }</div>
+                <div>{user.profile.eventCount}</div>
               </div>
               <div>
                 <div>关注</div>
-                <div>{ user.profile.follows }</div>
+                <div>{user.profile.follows}</div>
               </div>
               <div>
                 <div>粉丝</div>
-                <div>{ user.profile.followeds }</div>
+                <div>{user.profile.followeds}</div>
               </div>
             </div>
-            <div className='pc-user-signature'>
-              { user.profile.signature }
+            <div className="pc-user-signature">
+              {user.profile.signature}
             </div>
           </div>
         </div>
-        <div className='pc-user-playlists'>
+        <div className="pc-user-playlists">
           <div className="pc-user-createdList">
             <div className="pc-user-list-header">
-              <span> 歌单 { createdList.length } </span>
-              <Pagination pageSize={ createdListPageSize } jumpable={ false } total={createdList.length} onPageChange={ (page) => this.setState({currentCreatedListPage: page - 1}) }></Pagination>
+              <span> 歌单 {createdList.length} </span>
+              <Pagination pageSize={createdListPageSize} jumpable={false} total={createdList.length} onPageChange={(page) => this.setState({currentCreatedListPage: page - 1})}></Pagination>
             </div>
             <div className="pc-user-list">
               {
                 createdList.slice(currentCreatedListPage * createdListPageSize, (currentCreatedListPage + 1) * createdListPageSize ).map(item => {
                   return (
-                    <Link to={ `/album/${item.id}` }>
+                    <Link to={`/album/${item.id}`} key={item.id}>
                        <div className="pc-user-list-item">
-                        <img src={ item.coverImgUrl } alt="歌单封面"></img>
-                        <div> { item.name } </div>
-                        <div> { item.trackCount } </div>
+                        <img src={item.coverImgUrl} alt="歌单封面"></img>
+                        <div> {item.name} </div>
+                        <div> {item.trackCount} </div>
                       </div>
                     </Link>
                   )
@@ -93,18 +93,18 @@ class User extends Component {
           </div>
           <div className="pc-user-subList">
             <div className="pc-user-list-header">
-              <span> 收藏 { subList.length } </span>
-              <Pagination pageSize={ subListPageSize } jumpable={ false } total={subList.length} onPageChange={ (page) => this.setState({currentSubListPage: page - 1}) }></Pagination>
+              <span> 收藏 {subList.length} </span>
+              <Pagination pageSize={subListPageSize} jumpable={false} total={subList.length} onPageChange={(page) => this.setState({currentSubListPage: page - 1})}></Pagination>
             </div>
             <div className="pc-user-list">
               {
                 subList.slice(currentSubListPage * subListPageSize, (currentSubListPage + 1) * subListPageSize ).map(item => {
                   return (
-                    <Link to={`/album/${item.id}`}>
+                    <Link to={`/album/${item.id}`} key={item.id}>
                       <div className="pc-user-list-item">
-                        <img src={ item.coverImgUrl } alt="歌单封面"></img>
-                        <div> { item.name } </div>
-                        <div> { item.trackCount } </div>
+                        <img src={item.coverImgUrl} alt="歌单封面"></img>
+                        <div> {item.name} </div>
+                        <div> {item.trackCount} </div>
                       </div>
                     </Link>
                   )

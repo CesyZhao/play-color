@@ -5,12 +5,12 @@ import toaster from '../util/toast'
 import { updatePlayingSong, updatePlayingAlbum } from '../store/action/controller'
 
 class FM {
-  constructor () {
+  constructor() {
     this.currentAlbum = {}
     this.currentSong = {}
   }
 
-  async getPersonalFM () {
+  async getPersonalFM() {
     try {
       const { data } = await http.get('/personal_fm')
       let playlist = {
@@ -25,14 +25,14 @@ class FM {
     }
   }
 
-  async initFM () {
+  async initFM() {
     if (store.getState().controller.playingAlbum.id === 'personalFM') return
     await this.getPersonalFM()
     store.dispatch(updatePlayingSong({ ...this.currentAlbum.tracks[0], fromId: 'personalFM', from: '私人 FM' }))
     store.dispatch(updatePlayingAlbum(this.currentAlbum))
   }
 
-  getNewAlbumInfo () {
+  getNewAlbumInfo() {
     return { playingAlbum: this.currentAlbum, song: this.currentSong }
   }
 }

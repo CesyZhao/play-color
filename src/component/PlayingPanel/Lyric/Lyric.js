@@ -24,16 +24,16 @@ class Lyric extends Component {
     nolyric: true
   }
 
-  componentDidMount () {
+  componentDidMount() {
     scroller = new betterScroller(this.refs.lyric)
     this.getLyrics(this.props.controller.song)
   }
 
-  componentWillReceiveProps (props) {
+  componentWillReceiveProps(props) {
     this.getLyrics(props.controller.song)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     scroller = null
     clearInterval(timer)
   }
@@ -82,20 +82,20 @@ class Lyric extends Component {
     })
   }
 
-  render () {
+  render() {
     const { song } = this.props.controller
     return (
       <div className="pc-lyric-wrapper">
         <div className="pc-lyric-song-info">
-          <h3> { song.name } </h3>
-          <span>歌手: { song.artists.map(artist => artist.name).join('/') } </span>
+          <h3> {song.name} </h3>
+          <span>歌手: {song.artists.map(artist => artist.name).join('/')} </span>
         </div>
         <div className="pc-lyric" ref="lyric">
           <ul className="lyric-scroller">
             {
               Object.entries(this.state.lyrics).map(([key, lyric], index) => {
                 return (
-                  <li key={ key } data-lyric-line={ index } className={`lyric-scroll-item ${this.state.nextIndex - 1 === this.state.times.indexOf(key) && 'active'}`}>
+                  <li key={key} data-lyric-line={index} className={`lyric-scroll-item ${this.state.nextIndex - 1 === this.state.times.indexOf(key) && 'active'}`}>
                     <div className="lyric-row">{lyric}</div>
                     {
                       this.state.tlyrics && 

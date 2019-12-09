@@ -20,7 +20,7 @@ class Controller extends Component{
     currentTime: 0
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const electron = window.require('electron')
     const {ipcRenderer} = electron
     const events = ['next', 'prev', 'togglePlaying']
@@ -34,7 +34,7 @@ class Controller extends Component{
     }
   }
 
-  handleMusicReady = (e) => {
+  handleMusicReady = () => {
     this.setState({playing: true})
   }
 
@@ -47,7 +47,7 @@ class Controller extends Component{
     if (!audio.paused) {
       audio.pause()
       this.setState({playing: false})
-      return 
+      return
     }
     audio.play()
     this.setState({playing: true})
@@ -92,40 +92,40 @@ class Controller extends Component{
     const { song, mode } = this.props.controller
     const hasSong = !_.isEmpty(song)
     return (
-      <div className='pc-controller'>
-        <div className='pc-controller-progress-bar' style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
-        <div className='pc-controller-contents'>
+      <div className="pc-controller">
+        <div className="pc-controller-progress-bar" style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
+        <div className="pc-controller-contents">
           {
-            hasSong &&  <audio id="audio" crossOrigin="anonymous" ref='audio' src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`} onError={this.handleError} onEnded={this.handlePlayEnded} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} autoPlay></audio>
+            hasSong && <audio autoPlay crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`}></audio>
           }
-          <div className='pc-controller-cover-wrapper'>
-            <div className='pc-controller-cover' onClick={() => this.showCurrentSong(song.id)}>
+          <div className="pc-controller-cover-wrapper">
+            <div className="pc-controller-cover" onClick={() => this.showCurrentSong(song.id)}>
               {
-                hasSong && <img src={song.album.picUrl} alt='playing-cover'></img>
+                hasSong && <img alt="playing-cover" src={song.album.picUrl}></img>
               }
             </div>
-            <div className='pc-controller-info'>
+            <div className="pc-controller-info">
               {
                 hasSong && <div>{song.name}</div>
               }
               {
-                hasSong && <div> { song.artists.map(artist => artist.name).join('/') } </div>
+                hasSong && <div> {song.artists.map(artist => artist.name).join('/')} </div>
               }
             </div>
           </div>
-          <div className='pc-controller-ops'>
-            <i className='iconfont icon-ios-rewind' onClick={ this.prev }></i>
-            <i onClick={this.togglePlaying} className={`iconfont ${this.state.playing ? 'icon-ios-pause' : 'icon-iosplay'}`}></i>
-            <i className='iconfont icon-ios-fastforward' onClick={ this.next }></i>
+          <div className="pc-controller-ops">
+            <i className="iconfont icon-ios-rewind" onClick={this.prev}></i>
+            <i className={`iconfont ${this.state.playing ? 'icon-ios-pause' : 'icon-iosplay'}`} onClick={this.togglePlaying}></i>
+            <i className="iconfont icon-ios-fastforward" onClick={this.next}></i>
           </div>
-          <div className='pc-controller-controls'>
+          <div className="pc-controller-controls">
             <span className="pc-controller-time">
-              { ` ${ formatDuration(this.state.currentTime * 1000) } / ${ formatDuration(song.duration) } ` }
+              {` ${ formatDuration(this.state.currentTime * 1000) } / ${ formatDuration(song.duration) } `}
             </span>
-            <i className='iconfont icon-iosheartoutline'></i>
-            <i onClick={this.changeMode} className={`iconfont icon-ios-${mode}`}></i>
-            <Link to='/comment'>
-              <i className='iconfont icon-aui-icon-comment'></i>
+            <i className="iconfont icon-iosheartoutline"></i>
+            <i className={`iconfont icon-ios-${mode}`} onClick={this.changeMode}></i>
+            <Link to="/comment">
+              <i className="iconfont icon-aui-icon-comment"></i>
             </Link>
             {/* <span className="pc-controller-comments">
               3万 热评

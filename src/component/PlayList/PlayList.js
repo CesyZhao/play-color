@@ -24,20 +24,21 @@ class PlayList extends Component {
   }
 
   handleSongClick = (song) => {
-    const { id, name } =  this.props.album
+    const { id, name } = this.props.album
     this.props.dispatch(updatePlayingSong({ ...song, fromId: id, from: name}))
     this.props.dispatch(updatePlayingAlbum(this.props.album))
   }
 
-  render () {
+  render() {
     return (
       <div className="pc-playlist-wrapper">
         <div className="pc-playlist-song pc-playlist-header">
             <div style={{width: '36px', textAlign: 'center'}}> # </div>
             {
               this.props.fields.map(field => {
-                return <div style={{ flex: field.flex }}>
-                  { field.title }
+                // eslint-disable-next-line react/jsx-key
+                return <div style={{ flex: field.flex }} >
+                  {field.title}
                 </div>
               })
             }
@@ -45,7 +46,7 @@ class PlayList extends Component {
         <div className="pc-playlist-songs">
           {
             this.props.album.tracks.map((song, index) => {
-              return <div className="pc-playlist-song" onClick={() => this.handleSongClick(song)}>
+              return <div className="pc-playlist-song" onClick={() => this.handleSongClick(song)} key={song.id}>
                 <div style={{width: '36px', textAlign: 'center', display: 'flex', justifyContent: 'center'}}>
                   {
                     this.props.controller.song.id === song.id
@@ -61,7 +62,8 @@ class PlayList extends Component {
                 </div>
                 {
                   this.props.fields.map(field => {
-                    return <div style={{ flex: field.flex }}> { this.getContent(song, field.name, field.alias)} </div>
+                    // eslint-disable-next-line react/jsx-key
+                    return <div style={{ flex: field.flex }}> {this.getContent(song, field.name, field.alias)} </div>
                   })
                 }
               </div>

@@ -26,7 +26,7 @@ class Search extends Component {
     showSearch: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     EventBus.on('toggleSearch', (status) => {
       this.setState({
         showSearch: status
@@ -48,7 +48,7 @@ class Search extends Component {
     this.setState({ showSearch: false })
   }
 
-  handleSearch = _.debounce(async (e) => {
+  handleSearch = _.debounce(async () => {
     const keyword = this.refs.searchInput.value.trim()
     if (!keyword) {
       this.setState({
@@ -65,7 +65,7 @@ class Search extends Component {
   }, 500)
 
   handlePageChange = (page, key) => {
-    this.doSearch(this.refs.searchInput.value, typeMap[key].type, key,  page - 1)
+    this.doSearch(this.refs.searchInput.value, typeMap[key].type, key, page - 1)
   }
 
   doSearch = async (keyword, type = 1, key, page = 0) => {
@@ -73,7 +73,7 @@ class Search extends Component {
       const { data } = await http.get(`/search?keywords=${keyword}&type=${type}&limit=5&offset=${page}`)
       this.setState({
         [key]: data.result[key],
-        [`${key}Total`]: data.result[`${key.substring(0, key.length - 1)}Count`],
+        [`${key}Total`]: data.result[`${key.substring(0, key.length - 1)}Count`]
       })
     } catch (error) {
       console.log(error)
@@ -93,36 +93,36 @@ class Search extends Component {
     }
     return this.state[type].map(item => {
       return (
-        <Link onClick={ this.handleItemClick } to={{pathname: `/${typeMap[type].route}/${item.id || item.userId}`}} key={ item.id || item.userId }>
+        <Link onClick={this.handleItemClick} to={{pathname: `/${typeMap[type].route}/${item.id || item.userId}`}} key={item.id || item.userId}>
           <div className="pc-search-results-item">
-            <img src={ type === 'songs' ? logo : item[coverUrlMap[type]]} alt="" className="pc-search-songs-cover"></img>
-            <span className="pc-search-item-name"> { item.name || item.nickname } </span>
-            <span className="pc-search-item-extra"> { extraInfoMap[type] && extraInfoMap[type](item) } </span>
+            <img src={type === 'songs' ? logo : item[coverUrlMap[type]]} alt="" className="pc-search-songs-cover"></img>
+            <span className="pc-search-item-name"> {item.name || item.nickname} </span>
+            <span className="pc-search-item-extra"> {extraInfoMap[type] && extraInfoMap[type](item)} </span>
           </div>
         </Link>
       )
     })
   }
 
-  render () {
+  render() {
     const { songs, playlists, artists, userprofiles, showSearch } = this.state
     return (
       showSearch &&
       <div className="pc-search">
         <div className="pc-search-input-wrapper">
-          <input className="pc-search-input" placeholder="输入搜索关键字" onInput={ this.handleSearch } ref="searchInput"></input>
+          <input className="pc-search-input" placeholder="输入搜索关键字" onInput={this.handleSearch} ref="searchInput"></input>
           <i className="iconfont icon-sousuo1"></i>
         </div>
-        <div className={ `pc-search-results-wrapper
-         ${ (songs.length || playlists.length || artists.length || userprofiles.length) ? 'hasResult' : '' }` }>
+        <div className={`pc-search-results-wrapper
+         ${ (songs.length || playlists.length || artists.length || userprofiles.length) ? 'hasResult' : '' }`}>
           <div className="pc-search-results">
             {
               Object.keys(typeMap).map(type => {
                 return (
-                  <div className="pc-search-results-category" key={ type }>
+                  <div className="pc-search-results-category" key={type}>
                     <div className="pc-search-results-category-title">
-                      <span>{ typeMap[type].title }</span>
-                      <Pagination total={ this.state[`${type}Total`] } onPageChange={ page => this.handlePageChange(page, type) }/>
+                      <span>{typeMap[type].title}</span>
+                      <Pagination total={this.state[`${type}Total`]} onPageChange={page => this.handlePageChange(page, type)}/>
                     </div>
                     <div>
                       {

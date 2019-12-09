@@ -19,13 +19,13 @@ const operators = [
   }
 ]
 class WindowOperator extends Component {
-  render () {
+  render() {
     return(
      <ul className="pc-window-operators">
        {
          operators.map(operator => {
            return (
-             <li className={`${operator.name} pc-window-operator ${operator.disabeld ? 'disabled' : ''}`} style={{backgroundColor: operator.color}}>
+             <li key={operator.name} className={`${operator.name} pc-window-operator ${operator.disabeld ? 'disabled' : ''}`} style={{backgroundColor: operator.color}}>
                <i className={`iconfont ${operator.icon}`}></i>
              </li>
            )

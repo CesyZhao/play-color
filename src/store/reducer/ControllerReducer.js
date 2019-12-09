@@ -1,6 +1,5 @@
 
 import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../action/actions'
-import logo from '../../asset/daydream.png'
 import _ from 'lodash'
 import FM from '../../entity/FM'
 import toaster from '../../util/toast'
@@ -13,21 +12,12 @@ const initState = {
   mode: 'listCirculation'
 }
 
-export default function ControllerReducer (state = initState, action) {
-  switch (action.type) {
-    case UPDATE_PLAYING_SONG:
-      return Object.assign({}, state, { song: action.song, history: state.history.concat(action.song) })
-    case UPDATE_PLAYING_ALBUM:
-      return updatePlayingList(state, action)
-    case UPDATE_PLAYING_MODE:
-      return updatePlayingMode(state, action)
-    case NEXT_SONG:
-      return nextSong(state)
-    case PREV_SONG:
-      return prevSong(state)
-    default: 
-      return state
-  }
+function pushNotification(song) {
+  new Notification(song.name, {
+    // icon: logo,
+    body: song.artists.map(artist => artist.name).join('/'),
+    silent: true
+  })
 }
 
 function updatePlayingList(state, action) {
@@ -58,7 +48,7 @@ function updatePlayingMode(state, action) {
 }
 
 function nextSong(state) {
-  const { mode, playingAlbum, song, history } = state
+  const { playingAlbum, song } = state
   let nextIndex, nextSong
   let index = playingAlbum.tracks.findIndex(e => e.id === song.id)
   nextIndex = ++index < playingAlbum.tracks.length ? index : 0
@@ -78,8 +68,8 @@ function nextSong(state) {
 }
 
 function prevSong(state) {
-  const { mode, song, playingAlbum, history } = state
-  let prevSong,prevIndex
+  const { song, playingAlbum } = state
+  let prevSong, prevIndex
   let index = playingAlbum.tracks.findIndex(e => e.id === song.id)
   // 由于存在用来辨别歌单的对象 {name:***} 所以歌单长度减二
   prevIndex = --index >= 0 ? index : playingAlbum.tracks.length - 1
@@ -103,10 +93,19 @@ function prevSong(state) {
   return Object.assign({}, state, { song: { ...prevSong, fromId: id, from: name } })
 }
 
-function pushNotification (song) {
-  new Notification(song.name, {
-    // icon: logo,
-    body: song.artists.map(artist => artist.name).join('/'),
-    silent: true
-  })
+export default function ControllerReducer(state = initState, action) {
+  switch (action.type) {
+    case UPDATE_PLAYING_SONG:
+      return Object.assign({}, state, { song: action.song, history: state.history.concat(action.song) })
+    case UPDATE_PLAYING_ALBUM:
+      return updatePlayingList(state, action)
+    case UPDATE_PLAYING_MODE:
+      return updatePlayingMode(state, action)
+    case NEXT_SONG:
+      return nextSong(state)
+    case PREV_SONG:
+      return prevSong(state)
+    default: 
+      return state
+  }
 }

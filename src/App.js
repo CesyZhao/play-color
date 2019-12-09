@@ -33,7 +33,7 @@ class App extends Component {
         http.get('/login/refresh')
       }
     })
-    .catch(err => {
+    .catch(() => {
       this.props.dispatch({type: SET_USER_PROFILE, user: {}})
     })
     document.addEventListener('keydown', e => {

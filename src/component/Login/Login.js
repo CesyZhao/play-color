@@ -5,7 +5,6 @@ import {CSSTransition} from 'react-transition-group'
 import http from '../../config/http'
 import toaster from '../../util/toast'
 import { connect } from 'react-redux'
-import { SET_USER_PROFILE } from '../../store/action/actions'
 import { saveUserProfile } from '../../store/action/user'
 
 let WAVE_HEIGHT = 40 //波浪变化高度
@@ -24,6 +23,15 @@ class Login extends Component {
     password: ''
   }
 
+  componentDidMount() {
+    EventBus.on('toggleLogin', async () => {
+      await this.setStateAsync({
+        show: !this.state.show
+      })
+      this.state.show && this.initCanvas()
+    })
+  }
+
   setStateAsync = (state) => {
     return new Promise((resolve) => {
       this.setState(state, resolve)
@@ -35,7 +43,7 @@ class Login extends Component {
     const c = this.refs.canvas
     const width = 320
     const height = 100
-    const ctx = c.getContext("2d")
+    const ctx = c.getContext('2d')
     c.width = width
     c.height = height
     window.requestAnimationFrame(() => {
@@ -44,6 +52,9 @@ class Login extends Component {
   }
 
   draw = (ctx, width, height, TIME) => {
+    function distance(height, currAngle, diffAngle) {
+      return height * Math.cos((((currAngle - diffAngle) % 360) * Math.PI) / 180)
+    }
 
     ctx.clearRect(0, 0, width, height)
 
@@ -61,7 +72,7 @@ class Login extends Component {
       width,
       height * 0.5 + distance(WAVE_HEIGHT, angle, 3 * dAngle)
     )
-    ctx.strokeStyle = "#57E1E7"
+    ctx.strokeStyle = '#57E1E7'
     ctx.shadowColor = '#57E1E7'
     ctx.stroke()
 
@@ -75,7 +86,7 @@ class Login extends Component {
       width,
       height * 0.5 + distance(WAVE_HEIGHT, angle, 3 * dAngle - 30)
     )
-    ctx.strokeStyle = "#7BA3FF"
+    ctx.strokeStyle = '#7BA3FF'
     ctx.shadowBlur = 20
     ctx.shadowColor = '#7BA3FF'
     ctx.stroke()
@@ -90,14 +101,10 @@ class Login extends Component {
       width,
       height * 0.5 + distance(WAVE_HEIGHT, angle, 3 * dAngle - 60)
     )
-    ctx.strokeStyle = "#9B30FF"
+    ctx.strokeStyle = '#9B30FF'
     ctx.shadowBlur = 20
     ctx.shadowColor = '#9B30FF'
     ctx.stroke()
-
-    function distance(height, currAngle, diffAngle) {
-      return height * Math.cos((((currAngle - diffAngle) % 360) * Math.PI) / 180)
-    }
 
     window.requestAnimationFrame(() => {
       this.draw(ctx, width, height, TIME)
@@ -125,29 +132,20 @@ class Login extends Component {
     this.setState({login: false, show: false})
   }
 
-  componentDidMount() {
-    EventBus.on('toggleLogin', async () => {
-      await this.setStateAsync({
-        show: !this.state.show
-      })
-      this.state.show && this.initCanvas()
-    })
-  }
-
   render() {
     return (
       <CSSTransition in={this.state.show} timeout={600} unmountOnExit classNames="pc-login" >
-        <div className='pc-login'>
-          <canvas className='pc-login-canvas' ref='canvas' />
-          <div className='pc-login-form-wrapper'>
+        <div className="pc-login">
+          <canvas className="pc-login-canvas" ref="canvas" />
+          <div className="pc-login-form-wrapper">
             <form>
               <input type="text" placeholder="请输入手机号" ref="phone" />
               <input type="password" placeholder="请输入密码" ref="password"/>
-              <button  onClick={this.login} className={this.state.login ? 'pc-login-button-loading' : ''}>
+              <button onClick={this.login} className={this.state.login ? 'pc-login-button-loading' : ''}>
                 {
                   !this.state.login ?
                     'Login'
-                    : <div className='pc-login-spin'></div>
+                    : <div className="pc-login-spin"></div>
                 }
               </button>
             </form>

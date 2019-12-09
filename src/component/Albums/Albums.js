@@ -10,7 +10,7 @@ class Albums extends Component {
     hotList: []
   }
 
-  async componentWillMount () {
+  async componentWillMount() {
     try {
       const { data: catList } = await http.get('/playlist/catlist')
       const { data: hotList } = await http.get('/playlist/hot')
@@ -21,7 +21,7 @@ class Albums extends Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <div className="pc-albums">
         <div className="pc-albums-tool-bar">
@@ -29,7 +29,7 @@ class Albums extends Component {
             <span></span>
             {
               this.state.hotList.map(tag => {
-                return <span key={tag.id} className='pc-albums-hot-category'>
+                return <span className="pc-albums-hot-category" key={tag.id}>
                   {tag.name}
                 </span>
               })

@@ -7,11 +7,11 @@ const instance = axios.create({
     withCredentials: true
   },
   baseURL: BASE_URL,
-  timeout:50000
+  timeout: 50000
 })
 instance.interceptors.response.use((resp) => {
   return resp
-},(error) => {
+}, (error) => {
   if(error.response){
     // eslint-disable-next-line default-case
     switch(error.response.status){

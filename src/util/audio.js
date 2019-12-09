@@ -24,7 +24,7 @@ export function formatDuration(duration){
   return `${pad(minutes)}:${pad(second)}`;
 }
 
-export function formatList (list) {
+export function formatList(list) {
   let playlist
   try{
     playlist = list.map(e => {
@@ -48,7 +48,7 @@ export function formatList (list) {
             id: e.id.toString(),
             name: e.name,
             // Broken link
-            link: e.id ? `/artist/${e.id}` : '',
+            link: e.id ? `/artist/${e.id}` : ''
         }))
       }
     })
