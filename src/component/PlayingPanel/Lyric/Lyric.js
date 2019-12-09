@@ -75,9 +75,9 @@ class Lyric extends Component {
     }, () => {
       if (nextIndex > this.state.num) {
         let lineEl = document.querySelector(`[data-lyric-line='${nextIndex - 1}']`)
-        scroller.scrollToElement(lineEl, 500)  
-      } else {  
-        scroller.scrollToElement(0, 0, 500)  
+        scroller.scrollToElement(lineEl, 500)
+      } else {
+        scroller.scrollToElement(0, 0, 500)
       }
     })
   }
@@ -98,7 +98,7 @@ class Lyric extends Component {
                   <li key={key} data-lyric-line={index} className={`lyric-scroll-item ${this.state.nextIndex - 1 === this.state.times.indexOf(key) && 'active'}`}>
                     <div className="lyric-row">{lyric}</div>
                     {
-                      this.state.tlyrics && 
+                      this.state.tlyrics &&
                       <div className="tlyric-row">{this.state.tlyrics[key]}</div>
                     }
                   </li>

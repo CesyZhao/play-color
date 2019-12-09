@@ -63,7 +63,7 @@ module.exports = {
     "no-var": 0, //对var警告
     "semi": 0, //不强制使用分号
     "no-irregular-whitespace": 0, //不规则的空白不允许
-    "no-trailing-spaces": 1, //一行结束后面有空格就发出警告
+    "no-trailing-spaces": 2, //一行结束后面有空格就发出警告
     "eol-last": 0, //文件以单一的换行符结束
     "no-unused-vars": [2, {"vars": "all", "args": "after-used"}], //不能有声明后未被使用的变量或参数
     "no-underscore-dangle": 0, //标识符不能以_开头或结尾
@@ -94,7 +94,7 @@ module.exports = {
     "react/jsx-curly-spacing": [2, {"when": "never", "children": true}], //在JSX属性和表达式中加强或禁止大括号内的空格。
     "react/jsx-indent-props": [2, 4], //验证JSX中的props缩进
     "react/jsx-key": 2, //在数组或迭代器中验证JSX具有key属性
-    "react/jsx-max-props-per-line": [1, {"maximum": 1}], // 限制JSX中单行上的props的最大数量
+    "react/jsx-max-props-per-line": [0, {"maximum": 1}], // 限制JSX中单行上的props的最大数量
     "react/jsx-no-bind": 0, //JSX中不允许使用箭头函数和bind
     "react/jsx-no-duplicate-props": 2, //防止在JSX中重复的props
     "react/jsx-no-literals": 0, //防止使用未包装的JSX字符串

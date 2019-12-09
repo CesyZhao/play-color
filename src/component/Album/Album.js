@@ -47,7 +47,7 @@ class Album extends Component {
       console.log(error)
     }
   }
-  
+
   render() {
     const { album } = this.state
     return (
@@ -58,8 +58,8 @@ class Album extends Component {
             <LazyImage imgUrl={album.coverImgUrl}></LazyImage>
           </div>
           <div className="pc-album-detail">
-            <div className="pc-album-text"> {album.name} </div>  
-            <div className="pc-album-text pc-album-creator"> 
+            <div className="pc-album-text"> {album.name} </div>
+            <div className="pc-album-text pc-album-creator">
               <span className="pc-album-creator-avatar">
                 <LazyImage imgUrl={album.creator.avatarUrl}></LazyImage>
               </span>

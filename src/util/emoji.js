@@ -58,11 +58,11 @@ const emojiMap = {
   '[蛋糕]': '🎂',
   '[18]': '🔞',
   '[圈]': '⭕️',
-  '[叉]': '❌',
+  '[叉]': '❌'
 }
 
 
-export default function emojiCoverter (message) {
+export default function emojiCoverter(message) {
   for (let key in emojiMap) {
     message = message.replace(key, emojiMap[key])
   }

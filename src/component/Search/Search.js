@@ -114,7 +114,8 @@ class Search extends Component {
           <i className="iconfont icon-sousuo1"></i>
         </div>
         <div className={`pc-search-results-wrapper
-         ${ (songs.length || playlists.length || artists.length || userprofiles.length) ? 'hasResult' : '' }`}>
+         ${ (songs.length || playlists.length || artists.length || userprofiles.length) ? 'hasResult' : '' }`}
+        >
           <div className="pc-search-results">
             {
               Object.keys(typeMap).map(type => {
@@ -136,7 +137,7 @@ class Search extends Component {
           </div>
         </div>
       </div>
-    ) 
+    )
   }
 }
 

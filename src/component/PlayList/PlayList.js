@@ -57,7 +57,7 @@ class PlayList extends Component {
                       <div className="pc-playing-indicator-item"></div>
                       <div className="pc-playing-indicator-item"></div>
                     </div>
-                    : index + 1 
+                    : index + 1
                   }
                 </div>
                 {

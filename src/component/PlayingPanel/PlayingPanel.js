@@ -69,7 +69,7 @@ class PlayingPanel extends Component{
     }
     // audio.play()
     //创建数据
-    let output = new Uint8Array(BYTE_ARRAY_LENGTH) 
+    let output = new Uint8Array(BYTE_ARRAY_LENGTH)
     const { width, height }= wrap
     var scaleX = (screenWidth/width).toPrecision(5),
 		scaleY = (screenHeight/height).toPrecision(5)
@@ -92,7 +92,7 @@ class PlayingPanel extends Component{
       })
       self.state.analyser.getByteFrequencyData(output)//获取频域数据
       cxt.clearRect(0, 0, width, height)
-  
+
       //左填充
       cxt.beginPath()
       cxt.moveTo(0, height - 200)
@@ -111,10 +111,10 @@ class PlayingPanel extends Component{
       cxt.fillStyle = gradient
       cxt.fill()
       cxt.closePath()
-  
-  
-  
-  
+
+
+
+
       //左线条
       cxt.beginPath()
       cxt.moveTo(0, height - 200)
@@ -133,9 +133,9 @@ class PlayingPanel extends Component{
       cxt.strokeStyle = gradient
       cxt.stroke()
       cxt.closePath()
-  
+
       cxt.clearRect(0, height - 300, 690, 101)
-  
+
       //左倒影
       cxt.beginPath()
       cxt.moveTo(0, height - 299)
@@ -149,17 +149,17 @@ class PlayingPanel extends Component{
       }
       cxt.lineTo(x - 12, height - 299)
       cxt.fillStyle = '#21dd13'
-  
+
       cxt.shadowBlur = 20
       cxt.shadowColor = '#21dd13'
       cxt.fill()
       cxt.closePath()
       cxt.shadowBlur = 0
-  
-  
-  
+
+
+
       //右
-  
+
       //右填充
       cxt.beginPath()
       cxt.fillStyle = gradientRight
@@ -178,7 +178,7 @@ class PlayingPanel extends Component{
       }
       cxt.fill()
       cxt.closePath()
-  
+
       //右线条
       cxt.beginPath()
       cxt.moveTo(width, height - 200)
@@ -197,10 +197,10 @@ class PlayingPanel extends Component{
       cxt.strokeStyle = gradientRight
       cxt.stroke()
       cxt.closePath()
-  
+
       cxt.clearRect(width - 690, height - 300, 690, 100)
-  
-  
+
+
       //右倒影
       cxt.beginPath()
       cxt.moveTo(width, height - 299)
@@ -214,13 +214,13 @@ class PlayingPanel extends Component{
       }
       cxt.lineTo(x + 12, height - 299)
       cxt.fillStyle = '#21dd13'
-  
+
       cxt.shadowBlur = 20
       cxt.shadowColor = '#21dd13'
       cxt.fill()
       cxt.closePath()
       cxt.shadowBlur = 0
-  
+
     }
     draw()
     // drawSpectrum()
@@ -250,7 +250,7 @@ class PlayingPanel extends Component{
     const { song } = this.props.controller
     const perimeter = 2 * Math.PI * 122.5
     return (
-      !_.isEmpty(song) && 
+      !_.isEmpty(song) &&
       <CSSTransition in={this.state.showPlayingPanel} timeout={300} unmountOnExit classNames="pc-playing-panel">
         <div className="pc-playing-panel">
           <div className={`pc-current-song-wrapper ${this.state.mode === '歌词模式' && 'lyricMode'}`}>
@@ -263,7 +263,7 @@ class PlayingPanel extends Component{
                   m 0 -123
                   a 123 123 0 1 1 0 246
                   a 123 123 0 1 1 0 -246"
-                    stroke="#9B30FF" strokeWidth="4.5" fill="none" 
+                    stroke="#9B30FF" strokeWidth="4.5" fill="none"
                     style={{strokeDasharray: `${perimeter}px, ${perimeter}px`, strokeDashoffset: (1 - this.state.progress) * perimeter + 'px', transition: 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'}}></path>
               </svg>
               <div className="img-wrapper">
@@ -275,7 +275,7 @@ class PlayingPanel extends Component{
                 {
                   // this.state.mode === '歌词模式' &&
                   <Lyric songId={song.id}></Lyric>
-                } 
+                }
                 <i className={`iconfont ${song.starred ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
                 <i className="iconfont icon-ios-fastforward" onClick={this.handleNext}></i>
                 <i className="iconfont icon-aui-icon-comment"></i>

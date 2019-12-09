@@ -65,7 +65,7 @@ class Leftbar extends Component {
           <div className="menuWrapper">
             {
               menu.map((category, index) => {
-                const item = category.list.map(item => 
+                const item = category.list.map(item =>
                   <Link to={item.link} key={item.name} onClick={() => this.toggleMenu(item.name)}>
                     <div className="pc-leftbar-category-item">
                       <i className={`iconfont ${item.icon}`} />
@@ -74,21 +74,21 @@ class Leftbar extends Component {
                   </Link> )
                 return (
                   <div className="pc-leftbar-category" key={index}>
-                    {category.name && <div className="pc-leftbar-category-label">{category.name}</div>} 
+                    {category.name && <div className="pc-leftbar-category-label">{category.name}</div>}
                     {item}
                   </div>
                 )
               })
             }
             <div className="pc-leftbar-logo">
-              {profile ? 
+              {profile ?
                 <React.Fragment>
                   <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar" onClick={this.toggleLogin}/>
                   <span onClick={this.toggleLogin}>{profile.nickname}</span>
                 </React.Fragment>
                 : <React.Fragment>
                     <img src={logo} alt="logo" onClick={this.toggleLogin}/>
-                    <span onClick={this.toggleLogin}>PLAY COLOR</span> 
+                    <span onClick={this.toggleLogin}>PLAY COLOR</span>
                   </React.Fragment>
               }
             </div>

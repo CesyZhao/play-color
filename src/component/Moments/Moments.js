@@ -87,7 +87,7 @@ class Moments extends Component {
             this.state.moments.map(moment =>{
               const { commentThread } = moment.info
               const { resourceTitle } = commentThread
-              const [eventName, targetName] = resourceTitle ? resourceTitle.split('：') : []
+              const [eventName] = resourceTitle ? resourceTitle.split('：') : []
               return (
                 <li className="pc-moments-item" key={moment.id}>
                   <img className="avatar" src={moment.user.avatarUrl}></img>
@@ -104,7 +104,7 @@ class Moments extends Component {
                     <div>
                       {
                         moment.pics.map(pic => {
-                          return <img src={pic.pcSquareUrl} key={pic.id} className="moment-image"></img> 
+                          return <img src={pic.pcSquareUrl} key={pic.id} className="moment-image"></img>
                         })
                       }
                     </div>

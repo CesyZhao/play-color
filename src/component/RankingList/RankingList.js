@@ -7,7 +7,7 @@ class RankingList extends Component {
   state = {
     rankingList: []
   }
-  
+
   componentWillMount() {
     http.get('/toplist/detail')
     .then(({data}) => {
@@ -29,7 +29,7 @@ class RankingList extends Component {
               <Link to={`/album/${item.id}`} key={item.id}>
                 <div className="pc-ranking-list-item">
                   <img src={item.coverImgUrl} alt="榜单封面"></img>
-                  <span className="pc-ranking-list-item-count"> 
+                  <span className="pc-ranking-list-item-count">
                     <i className="iconfont icon-iosplay"></i>
                     <span> {Math.round(item.playCount / 10000).toFixed(0)}万 </span>
                   </span>
