@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import betterScroller from 'better-scroll'
 import http from '../../../config/http'
 import toaster from '../../../util/toast'
 import { formatLyric } from '../../../util/audio'
 import './Lyric.less'
 
 
-let scroller, timer
+let timer
 
 
 @connect(({controller}) => ({
@@ -25,7 +24,6 @@ class Lyric extends Component {
   }
 
   componentDidMount() {
-    scroller = new betterScroller(this.refs.lyric)
     this.getLyrics(this.props.controller.song)
   }
 
@@ -34,7 +32,6 @@ class Lyric extends Component {
   }
 
   componentWillUnmount() {
-    scroller = null
     clearInterval(timer)
   }
 
@@ -75,9 +72,9 @@ class Lyric extends Component {
     }, () => {
       if (nextIndex > this.state.num) {
         let lineEl = document.querySelector(`[data-lyric-line='${nextIndex - 1}']`)
-        scroller.scrollToElement(lineEl, 500)
+        lineEl.scrollIntoView({behavior: 'smooth'})
       } else {
-        scroller.scrollToElement(0, 0, 500)
+        document.querySelector('[data-lyric-line=\'0\']').scrollIntoView({behavior: 'smooth'})
       }
     })
   }

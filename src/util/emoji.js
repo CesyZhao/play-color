@@ -63,6 +63,7 @@ const emojiMap = {
 
 
 export default function emojiCoverter(message) {
+  if (!message) return
   for (let key in emojiMap) {
     message = message.replace(key, emojiMap[key])
   }
