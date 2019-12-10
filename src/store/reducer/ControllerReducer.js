@@ -1,4 +1,3 @@
-
 import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../action/actions'
 import _ from 'lodash'
 import FM from '../../entity/FM'
@@ -79,7 +78,6 @@ function prevSong(state) {
     return state
   }
   // if (mode === 'listCirculation' || mode === 'singleCirculation') {
-
   // } else {
   //   //随机模式的上一首，从播放历史列表中取，假如历史中上一首不存在于当前播放列表，则开始新一轮的随机
   //   let prevIndexInHistory = history.findIndex(i =>  i.id === song.id)
