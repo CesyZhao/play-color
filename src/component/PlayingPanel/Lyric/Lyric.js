@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import http from '../../../config/http'
 import toaster from '../../../util/toast'
 import { formatLyric } from '../../../util/audio'
 import './Lyric.less'
+import api from '../../../config/api'
 
 
 let timer
@@ -37,7 +37,7 @@ class Lyric extends Component {
 
   getLyrics = async (song) => {
     try {
-      const res = await http.get(`/lyric?id=${song.id}`)
+      const res = await api.song.getLyrics({ id: song.id })
       let { lrc, tlyric, nolyric, uncollected } = res.data
       if (nolyric || uncollected) {
         this.setState({

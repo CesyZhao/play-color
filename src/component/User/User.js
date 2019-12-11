@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import './User.less'
-import http from '../../config/http'
 import _ from 'lodash'
 import Pagination from '../Pagination/Pagination'
 import { Link } from 'react-router-dom'
+import api from '../../config/api'
 
 const createdListPageSize = 20
 const subListPageSize = 20
@@ -17,8 +17,8 @@ class User extends Component {
   }
   async componentWillMount() {
     const { id } = this.props.match.params
-    const { data } = await http.get(`/user/detail?uid=${id}`)
-    const { data: playlist } = await http.get(`/user/playlist?uid=${id}&limit=9999`)
+    const { data } = await api.user.getUserDetail({ uid: id })
+    const { data: playlist } = await api.user.getUserPlaylist({ uid: id })
     const createdList = []
     const subList = []
     playlist.playlist.forEach(album => {

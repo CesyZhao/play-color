@@ -12,10 +12,10 @@ import WindowOperator from './component/WindowOperator/WindowOperator'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import {BrowserRouter} from 'react-router-dom'
-import http from './config/http'
 import {connect} from 'react-redux'
 import {SET_USER_PROFILE} from './store/action/actions'
 import EventBus from './events'
+import api from './config/api'
 
 @connect(({user}) => ({
   user
@@ -24,18 +24,13 @@ class App extends Component {
   state = {
     showComment: false
   }
-  componentDidMount() {
-    http.get('/login/status')
-    .then(({data}) => {
-      if (!data.profile) {
-        this.props.dispatch({type: SET_USER_PROFILE, user: {}})
-      } else {
-        http.get('/login/refresh')
-      }
-    })
-    .catch(() => {
+  async componentDidMount() {
+    try {
+      const { data } = await api.user.getLoginStatus()
+      data.profile ? api.user.refreshLoginStatus() : this.props.dispatch({type: SET_USER_PROFILE, user: {}})
+    } catch (error) {
       this.props.dispatch({type: SET_USER_PROFILE, user: {}})
-    })
+    }
     document.addEventListener('keydown', e => {
       const {ctrlKey, metaKey, key, shiftKey} = e
       const isControlOrCommand = ctrlKey || metaKey

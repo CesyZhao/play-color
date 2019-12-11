@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
 import './RankingList.less'
 import {Link} from 'react-router-dom'
-import http from '../../config/http'
+import api from '../../config/api'
 
 class RankingList extends Component {
   state = {
     rankingList: []
   }
 
-  componentWillMount() {
-    http.get('/toplist/detail')
-    .then(({data}) => {
+  async componentWillMount() {
+    try {
+      const { data } = await api.home.getRankingList()
       this.setState({
         rankingList: data.list
       })
-    })
-    .catch(error => {
+    } catch (error) {
       console.log(error)
-    })
+    }
   }
 
   render() {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import './Comment.less'
-import http from '../../config/http'
 import { connect } from 'react-redux'
 import LazyImage from '../LazyImage/LazyImage'
 import { Link } from 'react-router-dom'
+import api from '../../config/api'
 
 @connect(({controller}) => ({
   controller
@@ -33,8 +33,7 @@ class Comment extends Component {
   getComments = async (song) => {
     let comment = {}
     try {
-      const { data } = await http.get(`/comment/music?id=${song.id}`)
-      console.log(data, '---------')
+      const { data } = await api.song.getComments({ id: song.id })
       comment = data
     } catch (error) {
       comment.error = error

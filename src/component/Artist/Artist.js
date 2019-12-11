@@ -1,30 +1,30 @@
 import React, { Component, Fragment } from 'react'
 import './Artist.less'
-import http from '../../config/http'
 import Pagination from '../Pagination/Pagination'
 import PlayList from '../PlayList/PlayList'
 import { formatList } from '../../util/audio'
 import LazyImage from '../LazyImage/LazyImage'
+import api from '../../config/api'
 
 const categories = [
   {
     type: 'song',
-    url: '/artists',
+    method: api.artist.getArtistSong,
     dataset: 'hotSongs'
   },
   {
     type: 'mv',
-    url: '/artist/mv',
+    method: api.artist.getArtistMv,
     dataset: 'mvs'
   },
   {
     type: 'album',
-    url: '/artist/album',
+    method: api.artist.getArtistAlbum,
     dataset: 'hotAlbums'
   },
   {
     type: 'desc',
-    url: '/artist/desc',
+    method: api.artist.getArtistDescription,
     dataset: 'briefDesc'
   }
 ]
@@ -81,7 +81,7 @@ class Artist extends Component {
   getResultByType = () => {
     const { id } = this.props.match.params
     return Promise.all(categories.map(category => {
-      return http.get(`${category.url}?id=${id}`)
+      return category.method({ id })
     }))
   }
 

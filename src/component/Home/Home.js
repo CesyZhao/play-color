@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import './Home.less'
-import http from '../../config/http'
 // eslint-disable-next-line no-unused-vars
 import LazyImage from '../LazyImage/LazyImage'
 import SwipeableViews from 'react-swipeable-views'
@@ -10,6 +9,7 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 import scripts from '../../config/scripts'
 import { updatePlayingSong, updatePlayingAlbum } from '../../store/action/controller'
+import api from '../../config/api'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
@@ -24,9 +24,9 @@ class Home extends Component {
   }
 
   async componentWillMount() {
-    let albumRes = await http.get('/personalized')
-    let bannerRes = await http.get('/banner')
-    let topRes = await http.get('/top/song?type=0')
+    let albumRes = await api.home.getPersonalized()
+    let bannerRes = await api.home.getBanner()
+    let topRes = await api.home.getTopSong()
     this.setState({
       albumList: _.take(albumRes.data.result, 12),
       banners: bannerRes.data.banners,

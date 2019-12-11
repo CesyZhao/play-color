@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import http from '../../config/http'
 import './Moments.less'
 import emojiConverter from '../../util/emoji'
+import api from '../../config/api'
 
 class Moments extends Component {
 
@@ -15,15 +15,16 @@ class Moments extends Component {
     this.getMoments()
   }
 
-  getMoments = () => {
-    http.get('/event')
-      .then(({ data }) => {
-        console.log(data)
-        this.setState({
-          moments: data.event,
-          lastTime: data.lasttime
-        })
+  getMoments = async () => {
+    try {
+      const { data } = await api.home.getMomments()
+      this.setState({
+        moments: data.event,
+        lastTime: data.lasttime
       })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   renderContent = (message) => {

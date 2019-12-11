@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import './Search.less'
 import _ from 'lodash'
-import http from '../../config/http'
 import EventBus from '../../events'
 import Pagination from '../Pagination/Pagination'
 import logo from '../../asset/daydream.png'
 import { Link } from 'react-router-dom'
+import api from '../../config/api'
 
 const typeMap = {
   songs: { type: 1, title: '单曲' },
@@ -70,7 +70,7 @@ class Search extends Component {
 
   doSearch = async (keyword, type = 1, key, page = 0) => {
     try {
-      const { data } = await http.get(`/search?keywords=${keyword}&type=${type}&limit=5&offset=${page}`)
+      const { data } = await api.home.search({ keyword, type, page })
       this.setState({
         [key]: data.result[key],
         [`${key}Total`]: data.result[`${key.substring(0, key.length - 1)}Count`]

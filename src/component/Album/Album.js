@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import http from '../../config/http'
 import LazyImage from '../LazyImage/LazyImage'
 import './Album.less'
 import Playlist from '../PlayList/PlayList'
 import {formatList} from '../../util/audio'
 import AlbumLoader from '../Loaders/AlbumLoader'
+import api from '../../config/api'
 
 const fields = [
   {
@@ -38,7 +38,7 @@ class Album extends Component {
 
   async componentDidMount() {
     try {
-      const { data } = await http.get(`/playlist/detail?id=${this.props.match.params.id}`)
+      const { data } = await api.song.getPlayList({ id: this.props.match.params.id })
       let { playlist } = data
       let songs = formatList(playlist.tracks)
       playlist.tracks = songs

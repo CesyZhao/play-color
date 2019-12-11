@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import './Login.less'
 import EventBus from '../../events'
 import {CSSTransition} from 'react-transition-group'
-import http from '../../config/http'
 import toaster from '../../util/toast'
 import { connect } from 'react-redux'
 import { saveUserProfile } from '../../store/action/user'
+import api from '../../config/api'
 
 let WAVE_HEIGHT = 40 //波浪变化高度
 
@@ -117,7 +117,7 @@ class Login extends Component {
     const password = this.refs.password.value
     try {
       this.setState({login: true})
-      let res = await http.get('/login/cellphone', {params: {phone, password}} )
+      let res = await api.user.login({phone, password})
       let { profile } = res.data
       const { dispatch } = this.props
       dispatch(saveUserProfile({
