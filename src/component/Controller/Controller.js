@@ -77,6 +77,7 @@ class Controller extends Component{
   }
 
   next = () => {
+    if (this.state.playing) return
     this.props.dispatch(nextSong())
   }
 
