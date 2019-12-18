@@ -73,11 +73,13 @@ class Controller extends Component{
 
   handleError = () => {
     this.setState({playing: false})
-    toaster.error('Bad audio!', this.next)
+    toaster.error('Bad audio!', () => {
+      if (this.state.playing) return
+      this.next()
+    })
   }
 
   next = () => {
-    if (this.state.playing) return
     this.props.dispatch(nextSong())
   }
 
