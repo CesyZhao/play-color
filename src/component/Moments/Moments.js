@@ -13,6 +13,12 @@ class Moments extends Component {
 
   componentDidMount() {
     this.getMoments()
+    const observer = new IntersectionObserver(this.ioObserverCallback, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    })
+    observer.observe(this.refs.loadmore)
   }
 
   getMoments = async () => {
@@ -125,6 +131,7 @@ class Moments extends Component {
               )
             })
           }
+          <li className="pc-moments-loadmore" ref="loadmore">记载中...</li>
         </ul>
       </div>
     )
