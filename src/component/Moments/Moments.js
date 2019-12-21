@@ -21,11 +21,19 @@ class Moments extends Component {
     observer.observe(this.refs.loadmore)
   }
 
-  getMoments = async () => {
+  ioObserverCallback = (entries) => {
+    entries.forEach(entry => {
+      if (entry.intersectionRatio > 0) {
+        this.getMoments({ lasttime: this.state.lastTime })
+      }
+    })
+  }
+
+  getMoments = async (param) => {
     try {
-      const { data } = await api.home.getMomments()
+      const { data } = await api.home.getMomments(param)
       this.setState({
-        moments: data.event,
+        moments: [...this.state.moments, ...data.event],
         lastTime: data.lasttime
       })
     } catch (error) {
