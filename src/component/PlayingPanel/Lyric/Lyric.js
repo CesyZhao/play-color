@@ -37,7 +37,7 @@ class Lyric extends Component {
 
   getLyrics = async (song) => {
     try {
-      const res = await api.song.getLyrics({ id: song.id })
+      const res = await api.song.getLyric({ id: song.id })
       let { lrc, tlyric, nolyric, uncollected } = res.data
       if (nolyric || uncollected) {
         this.setState({
@@ -59,6 +59,7 @@ class Lyric extends Component {
         this.findNextIndex(Math.round(audio.currentTime * 1000))
       }, 1000)
     } catch (error) {
+      console.log(error)
       toaster.error('Fail to load lyrics')
     }
   }
