@@ -7,6 +7,7 @@ import eventBus from '../../events'
 import { formatDuration } from '../../util/audio'
 import { updatePlayingMode, nextSong, prevSong } from '../../store/action/controller'
 import { Link } from 'react-router-dom'
+import api from '../../config/api'
 /**
  * 下方控制器，包括当前播放信息、音量等信息
  * */
@@ -54,11 +55,26 @@ class Controller extends Component{
   }
 
   changeMode = () => {
-    const modeList = ['listCirculation', 'singleCirculation', 'shuffle']
+    const modeList = ['listCirculation', 'singleCirculation', 'shuffle', 'heartbeat']
     const { mode } = this.props.controller
     let modeIndex = modeList.indexOf(mode)
     const nextModeIndex = ++modeIndex < modeList.length ? modeIndex : 0
-    const nextMode = modeList[nextModeIndex]
+    let nextMode = modeList[nextModeIndex]
+    if (nextMode === 'heartbeat') {
+      try {
+        const { controller } = this.props
+        const { song, playingAlbum } = controller
+        console.log(playingAlbum, '-----------------')
+        const index = playingAlbum.tracks.indexOf(song) + 1
+        const nextSong = playingAlbum.tracks[index]
+        const data = api.song.getHeartbeatList({ id: song.id, pid: playingAlbum.id, sid: nextSong.id })
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+        nextMode = 'listCirculation'
+        toaster.error('无法切换至心动模式')
+      }
+    }
     this.props.dispatch(updatePlayingMode(nextMode))
   }
 
