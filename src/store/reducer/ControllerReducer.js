@@ -14,7 +14,7 @@ const initState = {
 function pushNotification(song) {
   new Notification(song.name, {
     // icon: logo,
-    body: song.artists.map(artist => artist.name).join('/'),
+    body: `${song.artists.map(artist => artist.name).join('/')} —— ${song.album.name}`,
     silent: true
   })
 }
