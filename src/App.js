@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import {BrowserRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {SET_USER_PROFILE} from './store/action/actions'
+import { saveUserProfile } from './store/action/user'
 import EventBus from './events'
 import api from './config/api'
 
@@ -27,9 +27,9 @@ class App extends Component {
   async componentDidMount() {
     try {
       const { data } = await api.user.getLoginStatus()
-      data.profile ? api.user.refreshLoginStatus() : this.props.dispatch({type: SET_USER_PROFILE, user: {}})
+      data.profile ? api.user.refreshLoginStatus() : this.props.dispatch(saveUserProfile({}))
     } catch (error) {
-      this.props.dispatch({type: SET_USER_PROFILE, user: {}})
+      this.props.dispatch(saveUserProfile({}))
     }
     document.addEventListener('keydown', e => {
       const {ctrlKey, metaKey, key, shiftKey} = e
