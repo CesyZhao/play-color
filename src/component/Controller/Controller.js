@@ -11,8 +11,9 @@ import api from '../../config/api'
 /**
  * 下方控制器，包括当前播放信息、音量等信息
  * */
-@connect(({controller}) => ({
-  controller
+@connect(({controller, user}) => ({
+  controller,
+  user
 }))
 class Controller extends Component{
 
@@ -109,6 +110,9 @@ class Controller extends Component{
 
   render() {
     const { song, mode } = this.props.controller
+    let { favorites } = this.props.user
+    _.isEmpty(favorites) && (favorites = new Map())
+    console.log(song)
     const hasSong = !_.isEmpty(song)
     return (
       <div className="pc-controller">
@@ -141,7 +145,7 @@ class Controller extends Component{
             <span className="pc-controller-time">
               {` ${ formatDuration(this.state.currentTime * 1000) } / ${ formatDuration(song.duration) } `}
             </span>
-            <i className="iconfont icon-iosheartoutline"></i>
+            <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
             <i className={`iconfont icon-ios-${mode}`} onClick={this.changeMode}></i>
             <Link to="/comment">
               <i className="iconfont icon-aui-icon-comment"></i>

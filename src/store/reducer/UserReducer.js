@@ -7,7 +7,7 @@ export default function UserReducer(state = initState, action) {
     case SET_USER_PROFILE:
       return Object.assign({}, state, action.user)
     case SET_USER_FAVORITES:
-      return Object.assign({}, state, action.favorites)
+      return Object.assign({}, state, {favorites: action.favorites })
     default:
       return state
   }

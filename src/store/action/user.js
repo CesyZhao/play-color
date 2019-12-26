@@ -7,9 +7,10 @@ export const saveUserProfile = (user) => {
   }
 }
 
-export const saveUserFavorites = (idList) => {
+export const saveUserFavorites = (favorites) => {
+  console.log(favorites, '+++++++++++++')
   return {
     type: SET_USER_FAVORITES,
-    favorites: idList
+    favorites
   }
 }

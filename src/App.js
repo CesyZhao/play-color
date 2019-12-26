@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import {BrowserRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import { saveUserProfile } from './store/action/user'
+import { saveUserProfile, saveUserFavorites } from './store/action/user'
 import EventBus from './events'
 import api from './config/api'
 
@@ -24,13 +24,10 @@ class App extends Component {
   state = {
     showComment: false
   }
-  async componentDidMount() {
-    try {
-      const { data } = await api.user.getLoginStatus()
-      data.profile ? api.user.refreshLoginStatus() : this.props.dispatch(saveUserProfile({}))
-    } catch (error) {
-      this.props.dispatch(saveUserProfile({}))
-    }
+
+  componentDidMount() {
+    this.refreshLoginStatus()
+    this.getUserFavorites()
     document.addEventListener('keydown', e => {
       const {ctrlKey, metaKey, key, shiftKey} = e
       const isControlOrCommand = ctrlKey || metaKey
@@ -39,6 +36,32 @@ class App extends Component {
       }
     })
   }
+
+  refreshLoginStatus = async () => {
+    try {
+      const { data } = await api.user.getLoginStatus()
+      data.profile ? api.user.refreshLoginStatus() : this.props.dispatch(saveUserProfile({}))
+    } catch (error) {
+      this.props.dispatch(saveUserProfile({}))
+    }
+  }
+
+  getUserFavorites = async () => {
+    try {
+      const { data } = await api.user.getUserPlaylist({uid: this.props.user.profile.userId})
+      const list = data.playlist[0]
+      const { data: playlist } = await api.song.getPlayList({id: list.id})
+      console.log(playlist)
+      const favorites = new Map()
+      for (let song of playlist.playlist.tracks) {
+        favorites.set(song.id + '', true)
+      }
+      this.props.dispatch(saveUserFavorites(favorites))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   render() {
     const UA = navigator.userAgent.toLowerCase()
     return (
