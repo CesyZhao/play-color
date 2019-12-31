@@ -6,6 +6,7 @@ import toaster from '../../util/toast'
 import eventBus from '../../events'
 import { formatDuration } from '../../util/audio'
 import { updatePlayingMode, nextSong, prevSong } from '../../store/action/controller'
+import { likeSong } from '../../store/action/user'
 import { Link } from 'react-router-dom'
 import api from '../../config/api'
 /**
@@ -104,6 +105,18 @@ class Controller extends Component{
     this.props.dispatch(prevSong())
   }
 
+  likeSong = (id) => {
+    const status = !this.props.user.favorites.get(id)
+    try {
+      const { code } = api.user.likeSong({id, status})
+      if (code === 200) {
+        this.props.dispatch(likeSong(id, status))
+      }
+    } catch (error) {
+      toaster.error('操作失败')
+    }
+  }
+
   showCurrentSong = (id) => {
     eventBus.emit('togglePlayingPanel', id)
   }
@@ -145,7 +158,7 @@ class Controller extends Component{
             <span className="pc-controller-time">
               {` ${ formatDuration(this.state.currentTime * 1000) } / ${ formatDuration(song.duration) } `}
             </span>
-            <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
+            <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`} onClick={() => this.likeSong(song.id)}></i>
             <i className={`iconfont icon-ios-${mode}`} onClick={this.changeMode}></i>
             <Link to="/comment">
               <i className="iconfont icon-aui-icon-comment"></i>
