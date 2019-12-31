@@ -35,6 +35,7 @@ class Controller extends Component{
         this[event]()
       })
     }
+    eventBus.on('likeSong', this.likeSong)
   }
 
   handleMusicReady = () => {
@@ -105,11 +106,12 @@ class Controller extends Component{
     this.props.dispatch(prevSong())
   }
 
-  likeSong = (id) => {
+  likeSong = async (song) => {
+    const { id } = song
     const status = !this.props.user.favorites.get(id)
     try {
-      const { code } = api.user.likeSong({id, status})
-      if (code === 200) {
+      const { data } = await api.user.likeSong({id, status})
+      if (data.code === 200) {
         this.props.dispatch(likeSong(id, status))
       }
     } catch (error) {
@@ -125,7 +127,6 @@ class Controller extends Component{
     const { song, mode } = this.props.controller
     let { favorites } = this.props.user
     _.isEmpty(favorites) && (favorites = new Map())
-    console.log(song)
     const hasSong = !_.isEmpty(song)
     return (
       <div className="pc-controller">
@@ -158,7 +159,7 @@ class Controller extends Component{
             <span className="pc-controller-time">
               {` ${ formatDuration(this.state.currentTime * 1000) } / ${ formatDuration(song.duration) } `}
             </span>
-            <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`} onClick={() => this.likeSong(song.id)}></i>
+            <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`} onClick={() => this.likeSong(song)}></i>
             <i className={`iconfont icon-ios-${mode}`} onClick={this.changeMode}></i>
             <Link to="/comment">
               <i className="iconfont icon-aui-icon-comment"></i>

@@ -4,9 +4,11 @@ import { formatDuration } from '../../util/audio'
 import './PlayList.less'
 import {connect} from 'react-redux'
 import { updatePlayingSong, updatePlayingAlbum } from '../../store/action/controller'
+import _ from 'lodash'
+import eventBus from '../../events'
 
-@connect(({controller}) => ({
-  controller
+@connect(({controller, user}) => ({
+  controller, user
 }))
 class PlayList extends Component {
   static propTypes = {
@@ -29,17 +31,20 @@ class PlayList extends Component {
     this.props.dispatch(updatePlayingAlbum(this.props.album))
   }
 
+  likeSong = (song) => {
+    eventBus.emit('likeSong', song)
+  }
+
   render() {
+    let { favorites } = this.props.user
+    _.isEmpty(favorites) && (favorites = new Map())
     return (
       <div className="pc-playlist-wrapper">
         <div className="pc-playlist-song pc-playlist-header">
             <div style={{width: '36px', textAlign: 'center'}}> # </div>
             {
               this.props.fields.map(field => {
-                // eslint-disable-next-line react/jsx-key
-                return <div style={{ flex: field.flex }} >
-                  {field.title}
-                </div>
+                return <div style={{ flex: field.flex }} key={field.title}>{field.title}</div>
               })
             }
         </div>
@@ -62,8 +67,11 @@ class PlayList extends Component {
                 </div>
                 {
                   this.props.fields.map(field => {
-                    // eslint-disable-next-line react/jsx-key
-                    return <div style={{ flex: field.flex }}> {this.getContent(song, field.name, field.alias)} </div>
+                    return field.name === 'operation'
+                    ? <div style={{ flex: field.flex }} key={field.name}>
+                         <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`} onClick={() => this.likeSong(song.id)}></i>
+                      </div>
+                    : <div style={{ flex: field.flex }} key={field.name}> {this.getContent(song, field.name, field.alias)} </div>
                   })
                 }
               </div>

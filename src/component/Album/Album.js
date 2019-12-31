@@ -29,6 +29,12 @@ const fields = [
     alias: 'duration',
     title: '时长',
     flex: 1
+  },
+  {
+    name: 'operation',
+    alias: 'operation',
+    title: '操作',
+    flex: 1
   }
 ]
 class Album extends Component {
@@ -66,7 +72,7 @@ class Album extends Component {
               <span className="pc-album-creator-nickname">{album.creator.nickname}</span>
             </div>
             <div className="pc-album-tags">
-              <div className="pc-album-text"> {album.tags.join('/')} </div>
+              <div className="pc-album-text"> {album.tags.join('/') || '无标签'} </div>
               <div className="pc-album-text"> 播放量: {(album.playCount / 10000).toFixed(2)} 万</div>
               <div className="pc-album-text"> {album.tracks.length} 首</div>
             </div>

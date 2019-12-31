@@ -1,4 +1,4 @@
-import { SET_USER_PROFILE, SET_USER_FAVORITES, LIKE_SONG, UNLIKE_SONG } from './actions'
+import { SET_USER_PROFILE, SET_USER_FAVORITES, UPDATE_USER_FAVORITES } from './actions'
 
 export const saveUserProfile = (user) => {
   return {
@@ -16,7 +16,8 @@ export const saveUserFavorites = (favorites) => {
 
 export const likeSong = (id, like) => {
   return {
-    type: like ? LIKE_SONG : UNLIKE_SONG,
-    id
+    type: UPDATE_USER_FAVORITES,
+    id,
+    like
   }
 }
