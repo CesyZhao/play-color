@@ -5,7 +5,7 @@ import _ from 'lodash'
 import toaster from '../../util/toast'
 import eventBus from '../../events'
 import { formatDuration } from '../../util/audio'
-import { updatePlayingMode, nextSong, prevSong } from '../../store/action/controller'
+import { updatePlayingMode, nextSong, prevSong, updatePlayingAlbum } from '../../store/action/controller'
 import { likeSong } from '../../store/action/user'
 import { Link } from 'react-router-dom'
 import api from '../../config/api'
@@ -111,8 +111,16 @@ class Controller extends Component{
     const status = !this.props.user.favorites.get(id)
     try {
       const { data } = await api.user.likeSong({id, status})
+      console.log(data)
       if (data.code === 200) {
         this.props.dispatch(likeSong(id, status))
+      }
+      const { playingAlbum } = this.props.controller
+      if (data.playlistId === playingAlbum.id) {
+        _.remove(playingAlbum.tracks, (song) => {
+          return song.id === id
+        })
+        this.props.dispatch(updatePlayingAlbum(playingAlbum))
       }
     } catch (error) {
       toaster.error('操作失败')
