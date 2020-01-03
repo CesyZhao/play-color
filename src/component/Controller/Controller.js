@@ -115,11 +115,17 @@ class Controller extends Component{
       if (data.code === 200) {
         this.props.dispatch(likeSong(id, status))
       }
-      const { playingAlbum } = this.props.controller
+      const { controller } = this.props
+      const { playingAlbum } = controller
       if (data.playlistId === playingAlbum.id) {
-        _.remove(playingAlbum.tracks, (song) => {
-          return song.id === id
-        })
+        console.log('---------------')
+        if (status) {
+          playingAlbum.tracks.push(song)
+        } else {
+          _.remove(playingAlbum.tracks, (song) => {
+            return song.id === id
+          })
+        }
         this.props.dispatch(updatePlayingAlbum(playingAlbum))
       }
     } catch (error) {
