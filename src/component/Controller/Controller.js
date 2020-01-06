@@ -117,8 +117,10 @@ class Controller extends Component{
       }
       const { controller } = this.props
       const { playingAlbum } = controller
+      if (status) {
+        eventBus.emit('add-like-song', song)
+      }
       if (data.playlistId === playingAlbum.id) {
-        console.log('---------------')
         if (status) {
           playingAlbum.tracks.push(song)
         } else {
@@ -129,6 +131,7 @@ class Controller extends Component{
         this.props.dispatch(updatePlayingAlbum(playingAlbum))
       }
     } catch (error) {
+      console.log(error)
       toaster.error('操作失败')
     }
   }

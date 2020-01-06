@@ -5,6 +5,8 @@ import Playlist from '../PlayList/PlayList'
 import {formatList} from '../../util/audio'
 import AlbumLoader from '../Loaders/AlbumLoader'
 import api from '../../config/api'
+import eventBus from '../../events'
+import { connect } from 'react-redux'
 
 const fields = [
   {
@@ -37,6 +39,7 @@ const fields = [
     flex: 1
   }
 ]
+@connect(({user}) => ({ user }))
 class Album extends Component {
   state = {
     album: null
@@ -51,6 +54,17 @@ class Album extends Component {
       this.setState({ album: playlist })
     } catch (error) {
       console.log(error)
+    }
+    eventBus.on('add-like-song', this.addLikeSong)
+  }
+
+  addLikeSong = (song) => {
+    const { user } = this.props
+    const { album } = this.state
+    if (album.creator.userId === user.profile.userId) {
+      album.tracks.unshift(song)
+      console.log(album)
+      this.setState({ album })
     }
   }
 
