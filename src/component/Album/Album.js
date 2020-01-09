@@ -7,6 +7,7 @@ import AlbumLoader from '../Loaders/AlbumLoader'
 import api from '../../config/api'
 import eventBus from '../../events'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 const fields = [
   {
@@ -58,13 +59,18 @@ class Album extends Component {
     eventBus.on('add-like-song', this.addLikeSong)
   }
 
-  addLikeSong = (song) => {
+  addLikeSong = (song, status) => {
     const { user } = this.props
     const { album } = this.state
     if (album.creator.userId === user.profile.userId) {
-      album.tracks.unshift(song)
-      console.log(album)
-      this.setState({ album })
+      if (status) {
+        album.tracks.unshift(song)
+      } else {
+        _.remove(album.tracks, (s) => {
+          return s.id === song.id
+        })
+      }
+      this.setState({ album: { ...album } })
     }
   }
 

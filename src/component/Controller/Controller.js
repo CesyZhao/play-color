@@ -117,9 +117,7 @@ class Controller extends Component{
       }
       const { controller } = this.props
       const { playingAlbum } = controller
-      if (status) {
-        eventBus.emit('add-like-song', song)
-      }
+      eventBus.emit('add-like-song', song, status)
       if (data.playlistId === playingAlbum.id) {
         if (status) {
           playingAlbum.tracks.push(song)

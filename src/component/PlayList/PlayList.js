@@ -31,9 +31,9 @@ class PlayList extends Component {
     this.props.dispatch(updatePlayingAlbum(this.props.album))
   }
 
-  likeSong = (e, song) => {
+  likeSong = (e, song, status) => {
     e.stopPropagation()
-    eventBus.emit('likeSong', song)
+    eventBus.emit('likeSong', song, status)
   }
 
   render() {
@@ -70,7 +70,7 @@ class PlayList extends Component {
                   this.props.fields.map(field => {
                     return field.name === 'operation'
                     ? <div style={{ flex: field.flex }} key={field.name}>
-                         <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`} onClick={(e) => this.likeSong(e, song)}></i>
+                         <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`} onClick={(e) => this.likeSong(e, song, !favorites.get(song.id))}></i>
                       </div>
                     : <div style={{ flex: field.flex }} key={field.name}> {this.getContent(song, field.name, field.alias)} </div>
                   })
