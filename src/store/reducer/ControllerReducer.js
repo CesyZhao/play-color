@@ -30,34 +30,25 @@ function updatePlayingList(state, action) {
 
 function updatePlayingMode(state, action) {
   const { playingAlbum } = state
-  if (action.mode === 'shuffle') {
-    if (!playingAlbum.originTracks) {
-      playingAlbum.originTracks = playingAlbum.tracks
-      playingAlbum.tracks = _.shuffle(playingAlbum.originTracks)
-    } else {
-      const { tracks, originTracks } = _.cloneDeep(playingAlbum)
-      playingAlbum.originTracks = tracks
-      playingAlbum.tracks = _.shuffle(originTracks)
-    }
-  }
-  if (state.mode === 'shuffle') {
-    playingAlbum.tracks = playingAlbum.originTracks
+  if (action.mode === 'shuffle' && !playingAlbum.playingTracks) {
+    playingAlbum.shuffledTracks = _.shuffle(playingAlbum.tracks)
   }
   return Object.assign({}, state, action)
 }
 
 function nextSong(state) {
-  const { playingAlbum, song } = state
+  const { playingAlbum, song, mode } = state
   let nextIndex, nextSong
-  let index = playingAlbum.tracks.findIndex(e => e.id === song.id)
-  nextIndex = ++index < playingAlbum.tracks.length ? index : 0
-  nextSong = playingAlbum.tracks[nextIndex]
+  let tracks = mode === 'shuffle' ? playingAlbum.shuffledTracks : playingAlbum.tracks
+  let index = tracks.findIndex(e => e.id === song.id)
+  nextIndex = ++index < tracks.length ? index : 0
+  nextSong = tracks[nextIndex]
   console.log(nextSong)
   if (playingAlbum.id === 'personalFM') {
-    if (index === playingAlbum.tracks.length) {
+    if (index === tracks.length) {
       const newAlbumInfo = FM.getNewAlbumInfo()
       return Object.assign({}, state, newAlbumInfo)
-    } else if (index === playingAlbum.tracks.length - 1) {
+    } else if (index === tracks.length - 1) {
       FM.getPersonalFM()
     }
   }
@@ -67,12 +58,13 @@ function nextSong(state) {
 }
 
 function prevSong(state) {
-  const { song, playingAlbum } = state
+  const { song, playingAlbum, mode } = state
   let prevSong, prevIndex
-  let index = playingAlbum.tracks.findIndex(e => e.id === song.id)
+  let tracks = mode === 'shuffle' ? playingAlbum.shuffledTracks : playingAlbum.tracks
+  let index = tracks.findIndex(e => e.id === song.id)
   // 由于存在用来辨别歌单的对象 {name:***} 所以歌单长度减二
-  prevIndex = --index >= 0 ? index : playingAlbum.tracks.length - 1
-  prevSong = playingAlbum.tracks[prevIndex]
+  prevIndex = --index >= 0 ? index : tracks.length - 1
+  prevSong = tracks[prevIndex]
   if (index === 0) {
     toaster.error('没有上一首了~')
     return state
