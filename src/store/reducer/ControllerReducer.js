@@ -22,8 +22,7 @@ function pushNotification(song) {
 function updatePlayingList(state, action) {
   if (state.mode === 'shuffle') {
     const { playingAlbum } = action
-    playingAlbum.originTracks = playingAlbum.tracks
-    playingAlbum.tracks = _.shuffle(playingAlbum.tracks)
+    playingAlbum.shuffledTracks = _.shuffle(playingAlbum.tracks)
   }
   return Object.assign({}, state, { playingAlbum: action.playingAlbum })
 }
