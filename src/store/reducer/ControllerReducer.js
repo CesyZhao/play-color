@@ -29,7 +29,7 @@ function updatePlayingList(state, action) {
 
 function updatePlayingMode(state, action) {
   const { playingAlbum } = state
-  if (action.mode === 'shuffle' && !playingAlbum.playingTracks) {
+  if (action.mode === 'shuffle' && !playingAlbum.shuffledTracks) {
     playingAlbum.shuffledTracks = _.shuffle(playingAlbum.tracks)
   }
   return Object.assign({}, state, action)
