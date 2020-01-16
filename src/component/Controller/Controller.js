@@ -12,6 +12,7 @@ import api from '../../config/api'
 /**
  * 下方控制器，包括当前播放信息、音量等信息
  * */
+const PLAYING_MODES = ['listCirculation', 'singleCirculation', 'shuffle']
 @connect(({controller, user}) => ({
   controller,
   user
@@ -58,7 +59,11 @@ class Controller extends Component{
   }
 
   changeMode = () => {
-    const modeList = ['listCirculation', 'singleCirculation', 'shuffle', 'heartbeat']
+    const { controller, user } = this.props
+    const { song } = controller
+    const { id } = song
+    const status = user.favorites.get(id)
+    const modeList = status ? [...PLAYING_MODES, 'heartbeat'] : PLAYING_MODES
     const { mode } = this.props.controller
     let modeIndex = modeList.indexOf(mode)
     const nextModeIndex = ++modeIndex < modeList.length ? modeIndex : 0
@@ -67,7 +72,6 @@ class Controller extends Component{
       try {
         const { controller } = this.props
         const { song, playingAlbum } = controller
-        console.log(playingAlbum, '-----------------')
         const index = playingAlbum.tracks.indexOf(song) + 1
         const nextSong = playingAlbum.tracks[index]
         const data = api.song.getHeartbeatList({ id: song.id, pid: playingAlbum.id, sid: nextSong.id })
