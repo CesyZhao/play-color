@@ -26,8 +26,14 @@ class PlayList extends Component {
   }
 
   handleSongClick = (song) => {
-    const { id, name } = this.props.album
+    const { user, album } = this.props
+    const { id, name, userId } = album
+    const { nickname, userId: uid } = user.profile
     this.props.dispatch(updatePlayingSong({ ...song, fromId: id, from: name}))
+    console.log(userId === uid)
+    if (userId === uid && nickname + '喜欢的音乐' === album.name) {
+      eventBus.emit('changeMode', 'heartbeat')
+    }
     this.props.dispatch(updatePlayingAlbum(this.props.album))
   }
 
@@ -52,7 +58,7 @@ class PlayList extends Component {
         <div className="pc-playlist-songs">
           {
             this.props.album.tracks.map((song, index) => {
-              return <div className="pc-playlist-song" onClick={() => this.handleSongClick(song)} key={song.id}>
+              return <div className="pc-playlist-song" onDoubleClick={() => this.handleSongClick(song)} key={song.id}>
                 <div style={{width: '36px', textAlign: 'center', display: 'flex', justifyContent: 'center'}}>
                   {
                     this.props.controller.song.id === song.id

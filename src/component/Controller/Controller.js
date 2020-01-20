@@ -37,6 +37,7 @@ class Controller extends Component{
       })
     }
     eventBus.on('likeSong', this.likeSong)
+    eventBus.on('changeMode', this.changeMode)
   }
 
   handleMusicReady = () => {
@@ -58,7 +59,7 @@ class Controller extends Component{
     this.setState({playing: true})
   }
 
-  changeMode = () => {
+  changeMode = (targetMode) => {
     const { controller, user } = this.props
     const { song } = controller
     const { id } = song
@@ -67,11 +68,10 @@ class Controller extends Component{
     const { mode } = this.props.controller
     let modeIndex = modeList.indexOf(mode)
     const nextModeIndex = ++modeIndex < modeList.length ? modeIndex : 0
-    let nextMode = modeList[nextModeIndex]
+    let nextMode = targetMode || modeList[nextModeIndex]
     if (nextMode === 'heartbeat') {
       try {
-        const { controller } = this.props
-        const { song, playingAlbum } = controller
+        const { playingAlbum } = controller
         const index = playingAlbum.tracks.indexOf(song) + 1
         const nextSong = playingAlbum.tracks[index]
         const data = api.song.getHeartbeatList({ id: song.id, pid: playingAlbum.id, sid: nextSong.id })
