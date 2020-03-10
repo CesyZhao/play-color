@@ -43,6 +43,7 @@ class Lyric extends Component {
         this.setState({
           nolyric: true
         })
+        clearInterval(timer)
         return
       }
       let lyrics = formatLyric(lrc.lyric)
@@ -88,23 +89,27 @@ class Lyric extends Component {
           <h3> {song.name} </h3>
           <span>歌手: {song.artists.map(artist => artist.name).join('/')} </span>
         </div>
-        <div className="pc-lyric" ref="lyric">
-          <ul className="lyric-scroller">
-            {
-              Object.entries(this.state.lyrics).map(([key, lyric], index) => {
-                return (
-                  <li key={key} data-lyric-line={index} className={`lyric-scroll-item ${this.state.nextIndex - 1 === this.state.times.indexOf(key) && 'active'}`}>
-                    <div className="lyric-row">{lyric}</div>
-                    {
-                      this.state.tlyrics &&
-                      <div className="tlyric-row">{this.state.tlyrics[key]}</div>
-                    }
-                  </li>
-                )
-              })
-            }
-          </ul>
-        </div>
+        {
+          this.state.nolyric
+          ? <div> 暂无歌词 </div>
+          : <div className="pc-lyric" ref="lyric">
+              <ul className="lyric-scroller">
+                {
+                  Object.entries(this.state.lyrics).map(([key, lyric], index) => {
+                    return (
+                      <li key={key} data-lyric-line={index} className={`lyric-scroll-item ${this.state.nextIndex - 1 === this.state.times.indexOf(key) && 'active'}`}>
+                        <div className="lyric-row">{lyric}</div>
+                        {
+                          this.state.tlyrics &&
+                          <div className="tlyric-row">{this.state.tlyrics[key]}</div>
+                        }
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
+        }
       </div>
     )
   }
