@@ -91,7 +91,7 @@ class Lyric extends Component {
         </div>
         {
           this.state.nolyric
-          ? <div> 暂无歌词 </div>
+          ? <div className="pc-lyric"> 暂无歌词 </div>
           : <div className="pc-lyric" ref="lyric">
               <ul className="lyric-scroller">
                 {

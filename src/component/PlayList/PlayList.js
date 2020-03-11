@@ -28,7 +28,8 @@ class PlayList extends Component {
   handleSongClick = (song) => {
     const { user, album } = this.props
     const { id, name, userId } = album
-    const { nickname, userId: uid } = user.profile
+    const { profile = {} } = user
+    const { nickname, userId: uid } = profile
     this.props.dispatch(updatePlayingSong({ ...song, fromId: id, from: name}))
     console.log(userId === uid)
     if (userId === uid && nickname + '喜欢的音乐' === album.name) {

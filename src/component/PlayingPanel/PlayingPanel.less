@@ -27,12 +27,15 @@
   background: rgba(4, 4, 4, .8);
   overflow: hidden;
   z-index: 3;
-  display: flex;
+  // display: flex;
   .pc-visualizor-wrapper{
+    position: absolute;
+    top: 0;
     width: 100%;
-    position: relative;
     z-index: 5;
     transition: all .3s ease-in-out;
+    max-height: 100%;
+    overflow: hidden;
   }
   &.lyricMode{
     &::before, &::after{
@@ -44,15 +47,14 @@
   }
   .pc-playing-panel-toolbar{
     position: absolute;
-    top: 55%;
+    top: 60%;
     left: 50%;
     transform: translateX(-50%);
     .pc-lyric-wrapper{
-      position: relative;
-      z-index: 5;
       text-align: center;
       font-size: 16px;
-      height: 280px;
+      width: 600px;
+      height: 240px;
       margin-bottom: 16px;
     }
     i{
@@ -78,14 +80,14 @@
     height: 250px;
   }
   .img-wrapper{
-    width: 240px;
-    height: 240px;
+    width: 200px;
+    height: 200px;
     z-index: 6;
     transform: translate(-50%, -70.8%);
   }
   .img{
-    width: 240px;
-    height: 240px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background: #fff;
     z-index: 3;
