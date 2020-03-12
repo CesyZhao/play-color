@@ -6,6 +6,11 @@
   transition: all .3s ease-in-out;
   z-index: 44;
 }
+canvas{
+  position: absolute;
+  left: 0;
+  top: 0;
+}
 .pc-playing-panel-enter {
   top: 608px;
 }
@@ -34,7 +39,7 @@
     width: 100%;
     z-index: 5;
     transition: all .3s ease-in-out;
-    max-height: 100%;
+    height: 100%;
     overflow: hidden;
   }
   &.lyricMode{
@@ -51,10 +56,8 @@
     left: 50%;
     transform: translateX(-50%);
     .pc-lyric-wrapper{
-      text-align: center;
       font-size: 16px;
-      width: 600px;
-      height: 240px;
+      height: 180px;
       margin-bottom: 16px;
     }
     i{
@@ -116,7 +119,7 @@
 .icon-dismiss{
   position: absolute;
   left: 80px;
-  top: 80px;
+  top: 4px;
   transform: rotate(-90deg);
   cursor: pointer;
   z-index: 6;

@@ -90,9 +90,8 @@ class Lyric extends Component {
           <span>歌手: {song.artists.map(artist => artist.name).join('/')} </span>
         </div>
         {
-          this.state.nolyric
-          ? <div className="pc-lyric"> 暂无歌词 </div>
-          : <div className="pc-lyric" ref="lyric">
+          !this.state.nolyric
+          && <div className="pc-lyric" ref="lyric">
               <ul className="lyric-scroller">
                 {
                   Object.entries(this.state.lyrics).map(([key, lyric], index) => {

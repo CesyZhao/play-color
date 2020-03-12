@@ -73,7 +73,7 @@ class PlayingPanel extends Component{
     const { width, height }= wrap
     var scaleX = (screenWidth/width).toPrecision(5),
 		scaleY = (screenHeight/height).toPrecision(5)
-		wrap.style = 'transform-origin:0% 0%; transform:scale('+scaleX+','+scaleY+') translateY(-8%);'
+		wrap.style = 'transform-origin:0% 0%; transform:scale('+scaleX+','+scaleY+') translateY(-10%);'
     this.state.analyser.fftSize = BYTE_ARRAY_LENGTH
     const self = this
     let gradient = cxt.createLinearGradient(0, 100, 480, 100)
