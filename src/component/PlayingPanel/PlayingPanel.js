@@ -11,8 +11,9 @@ import { Link } from 'react-router-dom'
 const CANVAS_WIDTH = 690
 const CANVAS_HEIGHT = 340
 const BYTE_ARRAY_LENGTH = 4096
-@connect(({controller}) => ({
-  controller
+@connect(({controller, user}) => ({
+  controller,
+  user
 }))
 class PlayingPanel extends Component{
 
@@ -251,6 +252,8 @@ class PlayingPanel extends Component{
 
   render() {
     const { song } = this.props.controller
+    let { favorites } = this.props.user
+    _.isEmpty(favorites) && (favorites = new Map())
     return (
       !_.isEmpty(song) &&
       <CSSTransition in={this.state.showPlayingPanel} timeout={300} unmountOnExit classNames="pc-playing-panel">
@@ -269,7 +272,7 @@ class PlayingPanel extends Component{
                   // this.state.mode === '歌词模式' &&
                   <Lyric songId={song.id}></Lyric>
                 }
-                <i className={`iconfont ${song.starred ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
+                <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
                 <i className="iconfont icon-ios-fastforward" onClick={this.handleNext}></i>
                 <i className="iconfont icon-aui-icon-comment"></i>
               </div>

@@ -1,6 +1,6 @@
 import http from '../http'
 
-const login = param => http.get('/login/cellphone', { param: param })
+const login = param => http.get('/login/cellphone', { params: param })
 
 const getLoginStatus = param => http.get('/login/status')
 
