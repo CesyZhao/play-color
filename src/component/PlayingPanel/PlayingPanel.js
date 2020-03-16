@@ -73,7 +73,7 @@ class PlayingPanel extends Component{
     const { width, height }= wrap
     var scaleX = (screenWidth/width).toPrecision(5),
 		scaleY = (screenHeight/height).toPrecision(5)
-		wrap.style = 'transform-origin:0% 0%; transform:scale('+scaleX+','+scaleY+') translateY(-10%);'
+		wrap.style = 'transform-origin:0% 0%; transform:scale('+scaleX+','+scaleY+') translateY(-18%);'
     this.state.analyser.fftSize = BYTE_ARRAY_LENGTH
     const self = this
     let gradient = cxt.createLinearGradient(0, 100, 480, 100)
@@ -221,6 +221,9 @@ class PlayingPanel extends Component{
       cxt.closePath()
       cxt.shadowBlur = 0
 
+
+      cxt.clearRect(_this.state.progress * width, height - 299, width, height)
+
     }
     draw()
     // drawSpectrum()
@@ -248,7 +251,6 @@ class PlayingPanel extends Component{
 
   render() {
     const { song } = this.props.controller
-    // const perimeter = 2 * Math.PI * 122.5
     return (
       !_.isEmpty(song) &&
       <CSSTransition in={this.state.showPlayingPanel} timeout={300} unmountOnExit classNames="pc-playing-panel">
@@ -257,15 +259,6 @@ class PlayingPanel extends Component{
             <div className="iconfont icon-fanhui icon-dismiss" onClick={this.dismiss}></div>
             <div className="pc-visualizor-wrapper">
               <canvas id="wrap" width={CANVAS_WIDTH * 2} height={CANVAS_HEIGHT * 2} />
-              {/* <svg viewBox="0 0 250 250">
-                <path d="
-                  M 125 125
-                  m 0 -123
-                  a 123 123 0 1 1 0 246
-                  a 123 123 0 1 1 0 -246"
-                    stroke="#9B30FF" strokeWidth="4.5" fill="none"
-                    style={{strokeDasharray: `${perimeter}px, ${perimeter}px`, strokeDashoffset: (1 - this.state.progress) * perimeter + 'px', transition: 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'}}></path>
-              </svg> */}
               <div className="img-wrapper">
                 <div className="img" >
                   <img src={song.album.picUrl.replace('100y100', '200y200')} alt="ablum"/>
