@@ -68,7 +68,7 @@ class Controller extends Component{
     const { mode } = this.props.controller
     let modeIndex = modeList.indexOf(mode)
     const nextModeIndex = ++modeIndex < modeList.length ? modeIndex : 0
-    let nextMode = targetMode || modeList[nextModeIndex]
+    let nextMode = typeof targetMode === 'string' || modeList[nextModeIndex]
     if (nextMode === 'heartbeat') {
       try {
         const { playingAlbum } = controller
@@ -144,6 +144,7 @@ class Controller extends Component{
 
   render() {
     const { song, mode } = this.props.controller
+    console.log(mode, '---------------')
     let { favorites } = this.props.user
     _.isEmpty(favorites) && (favorites = new Map())
     const hasSong = !_.isEmpty(song)
