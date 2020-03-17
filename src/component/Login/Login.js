@@ -125,7 +125,7 @@ class Login extends Component {
         userAccount: this.state.username,
         userPassword: this.state.password
       }))
-
+      EventBus.emit('getUserFavorites')
     } catch (error) {
       toaster.error('Failed to login')
     }

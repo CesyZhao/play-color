@@ -35,6 +35,7 @@ class App extends Component {
         EventBus.emit('toggleSearch', true)
       }
     })
+    EventBus.on('getUserFavorites', this.getUserFavorites)
   }
 
   refreshLoginStatus = async () => {
