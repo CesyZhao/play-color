@@ -9,6 +9,7 @@ import { updatePlayingMode, nextSong, prevSong, updatePlayingAlbum } from '../..
 import { likeSong } from '../../store/action/user'
 import { Link } from 'react-router-dom'
 import api from '../../config/api'
+import { formatList } from '../../util/audio'
 /**
  * 下方控制器，包括当前播放信息、音量等信息
  * */
@@ -59,7 +60,7 @@ class Controller extends Component{
     this.setState({playing: true})
   }
 
-  changeMode = (targetMode) => {
+  changeMode = async (targetMode) => {
     const { controller, user } = this.props
     const { song } = controller
     const { id } = song
@@ -74,7 +75,9 @@ class Controller extends Component{
         const { playingAlbum } = controller
         const index = playingAlbum.tracks.indexOf(song) + 1
         const nextSong = playingAlbum.tracks[index]
-        const data = api.song.getHeartbeatList({ id: song.id, pid: playingAlbum.id, sid: nextSong.id })
+        const { data } = await api.song.getHeartbeatList({ id: song.id, pid: playingAlbum.id, sid: nextSong.id })
+        const list = formatList(data.data.map(song => song.songInfo))
+        this.props.dispatch(updatePlayingAlbum({ tracks: list, id: 0, name: '心动模式' }))
         console.log(data)
       } catch (error) {
         console.log(error)
@@ -144,7 +147,6 @@ class Controller extends Component{
 
   render() {
     const { song, mode } = this.props.controller
-    console.log(mode, '---------------')
     let { favorites } = this.props.user
     _.isEmpty(favorites) && (favorites = new Map())
     const hasSong = !_.isEmpty(song)
