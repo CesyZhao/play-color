@@ -70,6 +70,7 @@ class Controller extends Component{
     let modeIndex = modeList.indexOf(mode)
     const nextModeIndex = ++modeIndex < modeList.length ? modeIndex : 0
     let nextMode = typeof targetMode === 'string' || modeList[nextModeIndex]
+    // TODO 从心动模式切回列表循环时需要更新列表至切换到心动模式之前的列表
     if (nextMode === 'heartbeat') {
       try {
         const { playingAlbum } = controller
