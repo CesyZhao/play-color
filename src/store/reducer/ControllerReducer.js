@@ -1,4 +1,4 @@
-import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG} from '../action/actions'
+import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG, UPDATE_HEARTBEAT_ALBUM} from '../action/actions'
 import _ from 'lodash'
 import FM from '../../entity/FM'
 import toaster from '../../util/toast'
@@ -6,6 +6,7 @@ import toaster from '../../util/toast'
 const initState = {
   song: {},
   playingAlbum: {},
+  heartbeatAlbum: {},
   history: [],
   currentPlaingHistory: [],
   mode: 'listCirculation'
@@ -27,6 +28,10 @@ function updatePlayingList(state, action) {
   return Object.assign({}, state, { playingAlbum: action.playingAlbum })
 }
 
+function updateHeartbeatAlbum(state, action) {
+  return Object.assign({}, state, { heartbeatAlbum: action.heartbeatAlbum })
+}
+
 function updatePlayingMode(state, action) {
   const { playingAlbum } = state
   if (action.mode === 'shuffle' && !playingAlbum.shuffledTracks) {
@@ -36,9 +41,9 @@ function updatePlayingMode(state, action) {
 }
 
 function nextSong(state) {
-  const { playingAlbum, song, mode } = state
+  const { playingAlbum, song, mode, heartbeatAlbum } = state
   let nextIndex, nextSong
-  let tracks = mode === 'shuffle' ? playingAlbum.shuffledTracks : playingAlbum.tracks
+  let tracks = mode === 'heartbeat' ? heartbeatAlbum.tracks :( mode === 'shuffle' ? playingAlbum.shuffledTracks : playingAlbum.tracks )
   let index = tracks.findIndex(e => e.id === song.id)
   nextIndex = ++index < tracks.length ? index : 0
   nextSong = tracks[nextIndex]
@@ -88,6 +93,8 @@ export default function ControllerReducer(state = initState, action) {
       return Object.assign({}, state, { song: action.song, history: state.history.concat(action.song) })
     case UPDATE_PLAYING_ALBUM:
       return updatePlayingList(state, action)
+    case UPDATE_HEARTBEAT_ALBUM:
+      return updateHeartbeatAlbum(state, action)
     case UPDATE_PLAYING_MODE:
       return updatePlayingMode(state, action)
     case NEXT_SONG:

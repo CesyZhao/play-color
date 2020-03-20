@@ -5,7 +5,7 @@ import _ from 'lodash'
 import toaster from '../../util/toast'
 import eventBus from '../../events'
 import { formatDuration } from '../../util/audio'
-import { updatePlayingMode, nextSong, prevSong, updatePlayingAlbum } from '../../store/action/controller'
+import { updatePlayingMode, nextSong, prevSong, updatePlayingAlbum, updateHeartbeatAlbum } from '../../store/action/controller'
 import { likeSong } from '../../store/action/user'
 import { Link } from 'react-router-dom'
 import api from '../../config/api'
@@ -69,7 +69,7 @@ class Controller extends Component{
     const { mode } = this.props.controller
     let modeIndex = modeList.indexOf(mode)
     const nextModeIndex = ++modeIndex < modeList.length ? modeIndex : 0
-    let nextMode = typeof targetMode === 'string' || modeList[nextModeIndex]
+    let nextMode = typeof targetMode === 'string' ? targetMode : modeList[nextModeIndex]
     // TODO 从心动模式切回列表循环时需要更新列表至切换到心动模式之前的列表
     if (nextMode === 'heartbeat') {
       try {
@@ -78,7 +78,7 @@ class Controller extends Component{
         const nextSong = playingAlbum.tracks[index]
         const { data } = await api.song.getHeartbeatList({ id: song.id, pid: playingAlbum.id, sid: nextSong.id })
         const list = formatList(data.data.map(song => song.songInfo))
-        this.props.dispatch(updatePlayingAlbum({ tracks: list, id: 0, name: '心动模式' }))
+        this.props.dispatch(updateHeartbeatAlbum({ tracks: list, id: 0, name: '心动模式' }))
         console.log(data)
       } catch (error) {
         console.log(error)
