@@ -57,7 +57,7 @@ class Lyric extends Component {
       })
       timer = setInterval(() => {
         const audio = document.getElementById('audio')
-        this.findNextIndex(Math.round(audio.currentTime * 1000))
+        audio && this.findNextIndex(Math.round(audio.currentTime * 1000))
       }, 1000)
     } catch (error) {
       console.log(error)
