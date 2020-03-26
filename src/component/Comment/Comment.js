@@ -22,6 +22,9 @@ class Comment extends Component {
       comment
     })
   }
+  componentDidMount() {
+    const { loadmore } = this.refs
+  }
   async componentDidUpdate(prevProps) {
     if (this.props.controller.song.id !== prevProps.controller.song.id) {
       const comment = await this.getComments(this.props.controller.song)
@@ -122,7 +125,7 @@ class Comment extends Component {
                   )
                 })
               }
-              <div className="pc-comment-loadmore">
+              <div className="pc-comment-loadmore" ref="loadmore">
                 加载更多
               </div>
             </div>
