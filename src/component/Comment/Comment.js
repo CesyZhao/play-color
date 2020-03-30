@@ -14,16 +14,14 @@ class Comment extends Component {
       total: 0,
       hotComments: [],
       comments: []
-    }
+    },
+    currentPage: 0
   }
   async componentWillMount() {
     const comment = await this.getComments(this.props.controller.song)
     this.setState({
       comment
     })
-  }
-  componentDidMount() {
-    const { loadmore } = this.refs
   }
   async componentDidUpdate(prevProps) {
     if (this.props.controller.song.id !== prevProps.controller.song.id) {
@@ -36,12 +34,18 @@ class Comment extends Component {
   getComments = async (song) => {
     let comment = {}
     try {
-      const { data } = await api.song.getComments({ id: song.id })
+      const LIMIT = 20
+      const { data } = await api.song.getComments({ id: song.id, offset: this.state.currentPage * LIMIT })
       comment = data
     } catch (error) {
       comment.error = error
     }
     return comment
+  }
+  loadmore = () => {
+    this.setState(state => {
+      return { currentPage: ++state.currentPage }
+    }, this.getComments)
   }
   render() {
     const { song } = this.props.controller
@@ -96,9 +100,6 @@ class Comment extends Component {
                   )
                 })
               }
-              <div className="pc-comment-loadmore">
-                加载更多
-              </div>
             </div>
             <div className="pc-comment-newest">
             <div className="pc-comment-header"> 最新评论 </div>
@@ -125,7 +126,7 @@ class Comment extends Component {
                   )
                 })
               }
-              <div className="pc-comment-loadmore" ref="loadmore">
+              <div className="pc-comment-loadmore" onClick={() => this.loadmore('new')}>
                 加载更多
               </div>
             </div>

@@ -4,7 +4,7 @@ const getHeartbeatList = param => http.get(`/playmode/intelligence/list?id=${par
 
 const getPlayList = param => http.get(`/playlist/detail?id=${param.id}`)
 
-const getComments = param => http.get(`/comment/music?id=${param.id}`)
+const getComments = param => http.get(`/comment/music?id=${param.id}&offset=${param.offset}`)
 
 const getLyric = param => http.get(`/lyric?id=${param.id}`)
 
