@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import LazyImage from '../LazyImage/LazyImage'
 import { Link } from 'react-router-dom'
 import api from '../../config/api'
+import emojiConverter from '../../util/emoji'
 
 @connect(({controller}) => ({
   controller
@@ -85,7 +86,7 @@ class Comment extends Component {
                       <div className="pc-comment-content">
                         <Link to={`/user/${comment.user.userId}`}>{comment.user.nickname}</Link>
                         {/* <div> { comment.user.nickname } </div> */}
-                        <div>{comment.content}</div>
+                        <div>{emojiConverter(comment.content)}</div>
                         <div className="pc-comment-item-footer">
                           <span> {new Date(comment.time).toLocaleString()} </span>
                           <span>
