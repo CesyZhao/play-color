@@ -46,7 +46,13 @@ class Comment extends Component {
   loadmore = () => {
     this.setState(state => {
       return { currentPage: ++state.currentPage }
-    }, this.getComments)
+    }, async () => {
+      const { comments } = await this.getComments(this.props.controller.song)
+      console.log(comments)
+      this.setState(state => {
+        return { comment: Object.assign(state.comment, { comments: state.comment.comments.concat(comments) }) }
+      })
+    })
   }
   render() {
     const { song } = this.props.controller
