@@ -43,6 +43,12 @@ class Comment extends Component {
     }
     return comment
   }
+  likeComment = (comment) => {
+    comment.liked = !comment.liked
+    this.setState(state => {
+      return { comment: state.comment }
+    })
+  }
   loadmore = () => {
     this.setState(state => {
       return { currentPage: ++state.currentPage }
@@ -96,7 +102,7 @@ class Comment extends Component {
                         <div className="pc-comment-item-footer">
                           <span> {new Date(comment.time).toLocaleString()} </span>
                           <span>
-                            <span>
+                            <span onClick={() => this.likeComment(comment, 'hotComments')}>
                               <i className="iconfont icon-zan"></i>
                               {comment.likedCount}
                             </span>
