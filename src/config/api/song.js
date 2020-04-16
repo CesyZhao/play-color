@@ -6,6 +6,8 @@ const getPlayList = param => http.get(`/playlist/detail?id=${param.id}`)
 
 const getComments = param => http.get(`/comment/music?id=${param.id}&offset=${param.offset}`)
 
+const likeComment = param => http.get(`/comment/like?id=${param.id}&cid=${param.cid}&t=${param.t}&type=${param.type}`)
+
 const getLyric = param => http.get(`/lyric?id=${param.id}`)
 
 
@@ -13,5 +15,6 @@ export default {
   getHeartbeatList,
   getPlayList,
   getComments,
+  likeComment,
   getLyric
 }

@@ -5,6 +5,7 @@ import LazyImage from '../LazyImage/LazyImage'
 import { Link } from 'react-router-dom'
 import api from '../../config/api'
 import emojiConverter from '../../util/emoji'
+import toaster from '../../util/toast'
 
 @connect(({controller}) => ({
   controller
@@ -43,11 +44,23 @@ class Comment extends Component {
     }
     return comment
   }
-  likeComment = (comment) => {
-    comment.liked = !comment.liked
-    this.setState(state => {
-      return { comment: state.comment }
-    })
+  likeComment = async (comment) => {
+    console.log(comment)
+    const { id } = this.props.controller.song
+    const cid = comment.commentId
+    const t = Number(!comment.liked)
+    const type = 0
+    try {
+      await api.song.likeComment({ id, cid, t, type })
+      comment.liked = t
+      comment.likedCount = comment.liked ? ++comment.likedCount : --comment.likedCount
+      this.setState(state => {
+        console.log(state.comment)
+        return { comment: Object.assign({}, state.comment) }
+      })
+    } catch (error) {
+      toaster.error('点赞失败')
+    }
   }
   loadmore = () => {
     this.setState(state => {
@@ -103,7 +116,7 @@ class Comment extends Component {
                           <span> {new Date(comment.time).toLocaleString()} </span>
                           <span>
                             <span onClick={() => this.likeComment(comment, 'hotComments')}>
-                              <i className="iconfont icon-zan"></i>
+                              <i className={`iconfont ${comment.liked ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
                               {comment.likedCount}
                             </span>
                           </span>
@@ -129,7 +142,7 @@ class Comment extends Component {
                           <span> {new Date(comment.time).toLocaleString()} </span>
                           <span>
                             <span>
-                              <i className="iconfont icon-zan"></i>
+                              <i className={`iconfont ${comment.liked ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
                               {comment.likedCount}
                             </span>
                           </span>
