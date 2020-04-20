@@ -8,6 +8,8 @@ const getComments = param => http.get(`/comment/music?id=${param.id}&offset=${pa
 
 const likeComment = param => http.get(`/comment/like?id=${param.id}&cid=${param.cid}&t=${param.t}&type=${param.type}`)
 
+const handleComment = param => http.get(`/comment?t=${param.type}&type=0&content=${param.content}`)
+
 const getLyric = param => http.get(`/lyric?id=${param.id}`)
 
 
@@ -16,5 +18,6 @@ export default {
   getPlayList,
   getComments,
   likeComment,
+  handleComment,
   getLyric
 }
