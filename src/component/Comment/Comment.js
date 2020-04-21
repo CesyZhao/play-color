@@ -45,7 +45,6 @@ class Comment extends Component {
     return comment
   }
   likeComment = async (comment) => {
-    console.log(comment)
     const { id } = this.props.controller.song
     const cid = comment.commentId
     const t = Number(!comment.liked)
@@ -60,6 +59,21 @@ class Comment extends Component {
       })
     } catch (error) {
       toaster.error('点赞失败')
+    }
+  }
+  handleComment = async () => {
+    const { id } = this.props.controller.song
+    const content = this.refs.comment.value
+    try {
+      await api.song.handleComment({id, type: 1, content})
+      toaster.success('评论成功')
+      this.refs.comment.value = ''
+      const comment = await this.getComments(this.props.controller.song)
+      this.setState({
+        comment
+      })
+    } catch (error) {
+      toaster.error('评论失败')
     }
   }
   loadmore = () => {
@@ -96,8 +110,8 @@ class Comment extends Component {
               <span> {comment.total} 条</span>
             </div>
             <div className="pc-comment-input">
-              <input placeholder="发表你对这首歌的看法吧"></input>
-              <span> 发布 </span>
+              <input placeholder="发表你对这首歌的看法吧" ref="comment"></input>
+              <span onClick={this.handleComment}> 发布 </span>
             </div>
           </div>
           <div className="pc-comment-wrapper">

@@ -6,6 +6,12 @@ const toaster = {
       className: 'play-color-toast error',
       onClose
     })
+  },
+  success(message, onClose) {
+    return toast(message, {
+      className: 'play-color-toast success',
+      onClose
+    })
   }
 }
 
