@@ -128,11 +128,9 @@ class Comment extends Component {
                         <div>{emojiConverter(comment.content)}</div>
                         <div className="pc-comment-item-footer">
                           <span> {new Date(comment.time).toLocaleString()} </span>
-                          <span>
-                            <span onClick={() => this.likeComment(comment, 'hotComments')}>
-                              <i className={`iconfont ${comment.liked ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
-                              {comment.likedCount}
-                            </span>
+                          <span className="pc-comment-like-count" onClick={() => this.likeComment(comment, 'hotComments')}>
+                            <i className={`icon-like iconfont ${comment.liked ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
+                            {comment.likedCount}
                           </span>
                         </div>
                       </div>
@@ -154,11 +152,9 @@ class Comment extends Component {
                         <div>{comment.content}</div>
                         <div className="pc-comment-item-footer">
                           <span> {new Date(comment.time).toLocaleString()} </span>
-                          <span>
-                            <span>
-                              <i className={`iconfont ${comment.liked ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
+                          <span className="pc-comment-like-count" onClick={() => this.likeComment(comment, 'hotComments')}>
+                              <i className={`icon-like iconfont ${comment.liked ? 'icon-iosheart' : 'icon-iosheartoutline'}`}></i>
                               {comment.likedCount}
-                            </span>
                           </span>
                         </div>
                       </div>
