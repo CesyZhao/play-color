@@ -104,7 +104,7 @@ class Comment extends Component {
           </div>
         </div>
         <div className="pc-comment-detail">
-          <div className="pc-comment-writer">
+          {/* <div className="pc-comment-writer">
             <div className="pc-comment-header">
               <span> 评论 </span>
               <span> {comment.total} 条</span>
@@ -113,7 +113,7 @@ class Comment extends Component {
               <input placeholder="发表你对这首歌的看法吧" ref="comment"></input>
               <span onClick={this.handleComment}> 发布 </span>
             </div>
-          </div>
+          </div> */}
           <div className="pc-comment-wrapper">
             <div className="pc-comment-hot">
               <div className="pc-comment-header"> 精彩评论 </div>
