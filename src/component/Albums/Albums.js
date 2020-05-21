@@ -12,10 +12,8 @@ class Albums extends Component {
 
   async componentWillMount() {
     try {
-      const { data: catList } = await http.get('/playlist/catlist')
       const { data: hotList } = await http.get('/playlist/hot')
-      console.log(hotList)
-      this.setState({ catList: _.groupBy(catList.sub, cat => cat.category), hotList: hotList.tags })
+      this.setState({ hotList: hotList.tags })
     } catch (error) {
       console.log(error)
     }
