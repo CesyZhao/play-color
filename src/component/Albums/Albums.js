@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import './Albums.less'
 import http from '../../config/http'
-import _ from 'lodash'
+// import _ from 'lodash'
 
 class Albums extends Component {
 
@@ -22,18 +22,14 @@ class Albums extends Component {
   render() {
     return (
       <div className="pc-albums">
-        <div className="pc-albums-tool-bar">
-          <div className="pc-albums-categories">
-            <span></span>
-            {
-              this.state.hotList.map(tag => {
-                return <span className="pc-albums-hot-category" key={tag.id}>
-                  {tag.name}
-                </span>
-              })
-            }
-          </div>
-          <div className="pc-albums-layout"></div>
+        <div className="pc-albums-categories">
+          {
+            this.state.hotList.map(tag => {
+              return <span className="pc-albums-hot-category" key={tag.id}>
+                {tag.name}
+              </span>
+            })
+          }
         </div>
       </div>
     )
