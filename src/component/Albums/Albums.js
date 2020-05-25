@@ -22,11 +22,11 @@ class Albums extends Component {
   }
 
   getPlaylistByCategory = (cate) => {
-
+    console.log(cate)
   }
 
   handleCategoryClick = (category) => {
-
+    console.log(category)
   }
 
   render() {

@@ -12,6 +12,8 @@ const handleComment = param => http.get(`/comment?t=${param.type}&type=0&id=${pa
 
 const getLyric = param => http.get(`/lyric?id=${param.id}`)
 
+const getSongDetail = param => http.get(`/song/detail?ids=${param.ids}`)
+
 
 export default {
   getHeartbeatList,
@@ -19,5 +21,6 @@ export default {
   getComments,
   likeComment,
   handleComment,
-  getLyric
+  getLyric,
+  getSongDetail
 }

@@ -50,7 +50,8 @@ class Album extends Component {
     try {
       const { data } = await api.song.getPlayList({ id: this.props.match.params.id })
       let { playlist } = data
-      let songs = formatList(playlist.tracks)
+      const { data: songArray } = await api.song.getSongDetail({ids: playlist.trackIds.map(item => item.id).join(',')})
+      let songs = formatList(songArray.songs)
       playlist.tracks = songs
       this.setState({ album: playlist })
     } catch (error) {
