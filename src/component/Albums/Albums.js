@@ -7,7 +7,9 @@ class Albums extends Component {
 
   state = {
     catList: [],
-    hotList: []
+    hotList: [],
+    category: '',
+    currentPage: 0
   }
 
   async componentWillMount() {
@@ -19,13 +21,21 @@ class Albums extends Component {
     }
   }
 
+  getPlaylistByCategory = (cate) => {
+
+  }
+
+  handleCategoryClick = (category) => {
+
+  }
+
   render() {
     return (
       <div className="pc-albums">
         <div className="pc-albums-categories">
           {
             this.state.hotList.map(tag => {
-              return <span className="pc-albums-hot-category" key={tag.id}>
+              return <span className="pc-albums-hot-category" key={tag.id} onClick={() => this.handleCategoryClick(tag.name)}>
                 {tag.name}
               </span>
             })
