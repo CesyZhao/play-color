@@ -14,6 +14,8 @@ const getLyric = param => http.get(`/lyric?id=${param.id}`)
 
 const getSongDetail = param => http.get(`/song/detail?ids=${param.ids}`)
 
+const getPlayLists = param => http.get(`/top/playlist/highquality?before=${param.before}&limit=30&cat=${param.category}`)
+
 
 export default {
   getHeartbeatList,
