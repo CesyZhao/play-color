@@ -9,7 +9,8 @@ class Albums extends Component {
     catList: [],
     hotList: [],
     category: '',
-    currentPage: 0
+    currentPage: 0,
+    currentCategory: '全部'
   }
 
   async componentWillMount() {
@@ -30,12 +31,16 @@ class Albums extends Component {
   }
 
   render() {
+    const { currentCategory } = this.state
     return (
       <div className="pc-albums">
         <div className="pc-albums-categories">
+          <span className={`pc-albums-hot-category ${currentCategory === '全部' && 'active'}`} onClick={() => this.handleCategoryClick('全部')}>
+            全部
+          </span>
           {
             this.state.hotList.map(tag => {
-              return <span className="pc-albums-hot-category" key={tag.id} onClick={() => this.handleCategoryClick(tag.name)}>
+              return <span className={`pc-albums-hot-category ${currentCategory === tag.name && 'active'}`} key={tag.id} onClick={() => this.handleCategoryClick(tag.name)}>
                 {tag.name}
               </span>
             })
