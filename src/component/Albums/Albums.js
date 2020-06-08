@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import './Albums.less'
-import http from '../../config/http'
+import api from '../../config/api'
+import toaster from '../../util/toast'
 // import _ from 'lodash'
 
 class Albums extends Component {
 
   state = {
     catList: [],
-    hotList: [],
+    list: [],
     category: '',
     currentPage: 0,
     currentCategory: '全部'
@@ -15,19 +16,31 @@ class Albums extends Component {
 
   async componentWillMount() {
     try {
-      const { data: hotList } = await http.get('/playlist/hot')
-      this.setState({ hotList: hotList.tags })
+      const { data } = await api.song.getPlayListCategories()
+      this.setState({ catList: data.tags })
+      this.getPlaylistByCategory()
     } catch (error) {
-      console.log(error)
+      toaster.error('获取歌单分类失败')
     }
   }
 
-  getPlaylistByCategory = (cate) => {
-    console.log(cate)
+  getPlaylistByCategory = async () => {
+    const {list, currentCategory} = this.state
+    const before = list.length ? list.pop().updateTime : undefined
+    try {
+      const { data } = await api.song.getPlayLists({ before, category: currentCategory })
+      this.setState({
+        list: data.playlists
+      })
+    } catch (e) {
+      toaster.error('获取歌单失败')
+    }
   }
 
   handleCategoryClick = (category) => {
-    console.log(category)
+    this.setState({
+      currentCategory: category
+    }, () => this.getPlaylistByCategory(this.state.currentCategory))
   }
 
   render() {
@@ -39,7 +52,7 @@ class Albums extends Component {
             全部
           </span>
           {
-            this.state.hotList.map(tag => {
+            this.state.catList.map(tag => {
               return <span className={`pc-albums-hot-category ${currentCategory === tag.name && 'active'}`} key={tag.id} onClick={() => this.handleCategoryClick(tag.name)}>
                 {tag.name}
               </span>
