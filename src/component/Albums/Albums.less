@@ -1,3 +1,4 @@
+@import '../../theme/common.less';
 .pc-albums{
   flex: 1;
   padding: 8px;
@@ -11,6 +12,47 @@
     background-color: rgba(255, 255, 255, .2);
     &.active{
       background-color: rgba(255, 255, 255, .4);
+    }
+  }
+  .pc-albums-lists{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 12px;
+    height: calc(100% - 26px);
+    overflow-y: scroll;
+    &>a{
+      max-width: 19%;
+    }
+
+    .no-scroll-bar
+  }
+  .pc-albums-album{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    img{
+      transition: .3s;
+    }
+    &:hover{
+      img{
+        transform: scale(1.2)
+      }
+      &::after{
+        content: attr(data-name);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, .5);
+        display: flex;
+        align-items: center;
+      }
     }
   }
 }
