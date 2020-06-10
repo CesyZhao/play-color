@@ -17,12 +17,15 @@
   .pc-albums-lists{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     margin-top: 12px;
     height: calc(100% - 26px);
     overflow-y: scroll;
     &>a{
-      max-width: 19%;
+      max-width: 16%;
+      margin-right: 7px;
+    }
+    &>a:nth-child(6n){
+      margin-right: 0;
     }
 
     .no-scroll-bar
