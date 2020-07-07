@@ -4,9 +4,13 @@ import _ from 'lodash'
 import Pagination from '../Pagination/Pagination'
 import { Link } from 'react-router-dom'
 import api from '../../config/api'
+import {connect} from 'react-redux'
+import { doLogout } from '../../store/action/user'
 
 const createdListPageSize = 20
 const subListPageSize = 20
+
+@connect()
 class User extends Component {
   state = {
     user: {},
@@ -30,6 +34,9 @@ class User extends Component {
     })
     this.setState({ user: data, createdList, subList})
   }
+  handleLogout = () => {
+    this.props.dispatch(doLogout())
+  }
   render() {
     const { user, createdList, subList, currentCreatedListPage, currentSubListPage } = this.state
     console.log(user)
@@ -43,8 +50,8 @@ class User extends Component {
           </div>
           <div className="pc-user-info">
             <span className="pc-user-nickname">
-              {user.profile.nickname}
-              <sup>  </sup>
+              <span>{user.profile.nickname}</span>
+              <span className="iconfont icon-tubiaozhizuomoban-" title="登出" onClick={this.handleLogout}></span>
             </span>
             <span>
               <span className="pc-user-level">Lv.{user.level} </span>
