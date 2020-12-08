@@ -93,7 +93,7 @@ class App extends Component {
                 <i className="iconfont icon-gengduo" onClick={() => this.handleHistory(1)} />
               </div>
               <div className="pc-tool-bar-tools" >
-                <i className={`iconfont icon-diandiandianshu ${this.state.menuDisplayed ? 'icon-you' : 'icon-menu'}`} onClick={this.toggleMenu}></i>
+                <i className={`iconfont ${this.state.menuDisplayed ? 'icon-you' : 'icon-diandiandianshu'}`} onClick={this.toggleMenu}></i>
               </div>
             </div>
           </header>
