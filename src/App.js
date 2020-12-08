@@ -22,7 +22,8 @@ import api from './config/api'
 }))
 class App extends Component {
   state = {
-    showComment: false
+    showComment: false,
+    menuDisplayed: false
   }
 
   componentDidMount() {
@@ -36,6 +37,11 @@ class App extends Component {
       }
     })
     EventBus.on('getUserFavorites', this.getUserFavorites)
+    EventBus.on('closeMenu', () => {
+      this.setState({
+        menuDisplayed: false
+      })
+    })
   }
 
   refreshLoginStatus = async () => {
@@ -63,12 +69,34 @@ class App extends Component {
     }
   }
 
+  handleHistory = (index) => {
+    window.history.go(index)
+  }
+
+  toggleMenu = () => {
+    EventBus.emit('toggleMenu')
+    this.setState({
+      menuDisplayed: !this.state.menuDisplayed
+    })
+  }
+
+
   render() {
     const UA = navigator.userAgent.toLowerCase()
     return (
       <BrowserRouter>
         <div className="play-color">
-          <header className="pc-header" />
+          <header className="pc-header" >
+            <div className="pc-tool-bar">
+              <div className="pc-tool-bar-tools">
+                <i className="iconfont icon-fanhui" onClick={() => this.handleHistory(-1)} />
+                <i className="iconfont icon-gengduo" onClick={() => this.handleHistory(1)} />
+              </div>
+              <div className="pc-tool-bar-tools" >
+                <i className={`iconfont icon-diandiandianshu ${this.state.menuDisplayed ? 'icon-you' : 'icon-menu'}`} onClick={this.toggleMenu}></i>
+              </div>
+            </div>
+          </header>
           <Menu />
           <RouteContainer />
           <Controller />

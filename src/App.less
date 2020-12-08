@@ -5,6 +5,7 @@
   background: @primary-color;
   position: relative;
   display: flex;
+  flex-direction: column;
   color: #eee;
   overflow: hidden;
   a{
@@ -17,11 +18,53 @@
   height: 48px;
   // background: #fff;
   -webkit-app-region: drag;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
 }
 .pc-loader{
   flex: 1;
 }
+.pc-tool-bar{
+    height: 100%;
+    display: flex;
+    padding-left: 72px;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    pointer-events: none;
+    .pc-tool-bar-tools{
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      pointer-events: auto;
+      i{ 
+        margin-right: 8px;
+         cursor: pointer; 
+         -webkit-app-region: no-drag;
+         padding: 2px 4px;
+         border: 1px solid rgba(170, 170, 170, .2);
+      }
+      i:nth-child(1){
+        border-top-left-radius: 45%;
+        border-bottom-left-radius: 45%;
+      }
+      i:nth-child(2){
+        border-top-right-radius: 45%;
+        border-bottom-right-radius: 45%;
+      }
+      &:nth-last-child(1){
+        i{font-size: 18px; border: none; position: relative; z-index: 33;}
+        .pc-user-avatar{
+          font-size: 24px;
+        }
+        .icon-menu{
+          font-size: 20px;
+          z-index: 99;
+        }
+        img.pc-user-avatar{
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
