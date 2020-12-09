@@ -22,7 +22,10 @@ import api from './config/api'
 }))
 class App extends Component {
   state = {
-    showComment: false
+    showComment: false,
+    menuDisplayed: false,
+    showToolbar: false,
+    timestamp: new Date().valueOf()
   }
 
   componentDidMount() {
@@ -36,6 +39,16 @@ class App extends Component {
       }
     })
     EventBus.on('getUserFavorites', this.getUserFavorites)
+    EventBus.on('closeMenu', () => {
+      this.setState({
+        menuDisplayed: false
+      })
+    })
+    EventBus.on('content-loaded', () => {
+      this.setState({
+        showToolbar: true
+      })
+    })
   }
 
   refreshLoginStatus = async () => {
@@ -63,12 +76,43 @@ class App extends Component {
     }
   }
 
+  handleHistory = (index) => {
+    window.history.go(index)
+  }
+
+  toggleMenu = () => {
+    const now = new Date().valueOf()
+    // 防止连续点击菜单
+    if (now - this.state.timestamp > 400) {
+      EventBus.emit('toggleMenu')
+      this.setState({
+        menuDisplayed: !this.state.menuDisplayed,
+        timestamp: now
+      })
+    }
+  }
+
+
   render() {
     const UA = navigator.userAgent.toLowerCase()
+    console.log(this.props.history)
     return (
       <BrowserRouter>
         <div className="play-color">
-          <header className="pc-header" />
+          <header className="pc-header" >
+            {
+              this.state.showToolbar &&
+              <div className="pc-tool-bar">
+                <div className="pc-tool-bar-tools">
+                  <i className="iconfont icon-fanhui" onClick={() => this.handleHistory(-1)} />
+                  <i className="iconfont icon-gengduo" onClick={() => this.handleHistory(1)} />
+                </div>
+                <div className="pc-tool-bar-tools" >
+                  <i className={`iconfont ${this.state.menuDisplayed ? 'icon-you' : 'icon-diandiandianshu'}`} onClick={this.toggleMenu}></i>
+                </div>
+              </div>
+            }
+          </header>
           <Menu />
           <RouteContainer />
           <Controller />

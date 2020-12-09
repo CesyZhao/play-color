@@ -152,6 +152,7 @@ class Controller extends Component{
     _.isEmpty(favorites) && (favorites = new Map())
     const hasSong = !_.isEmpty(song)
     return (
+      hasSong &&
       <div className="pc-controller">
         <div className="pc-controller-progress-bar" style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
         <div className="pc-controller-contents">
