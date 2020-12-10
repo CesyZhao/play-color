@@ -11,7 +11,7 @@ import Search from './component/Search/Search'
 import WindowOperator from './component/WindowOperator/WindowOperator'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
-import {BrowserRouter} from 'react-router-dom'
+import { HashRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import { saveUserProfile, saveUserFavorites } from './store/action/user'
 import EventBus from './events'
@@ -30,7 +30,7 @@ class App extends Component {
 
   componentDidMount() {
     this.refreshLoginStatus()
-    this.getUserFavorites()
+    this.props.user.profile && this.getUserFavorites()
     document.addEventListener('keydown', e => {
       const {ctrlKey, metaKey, key, shiftKey} = e
       const isControlOrCommand = ctrlKey || metaKey
@@ -61,8 +61,9 @@ class App extends Component {
   }
 
   getUserFavorites = async () => {
+    const { userId } = this.props.user.profile
     try {
-      const { data } = await api.user.getUserPlaylist({uid: this.props.user.profile.userId})
+      const { data } = await api.user.getUserPlaylist({uid: userId})
       const list = data.playlist[0]
       const { data: playlist } = await api.song.getPlayList({id: list.id})
       console.log(playlist)
@@ -97,7 +98,7 @@ class App extends Component {
     const UA = navigator.userAgent.toLowerCase()
     console.log(this.props.history)
     return (
-      <BrowserRouter>
+      <HashRouter>
         <div className="play-color">
           <header className="pc-header" >
             {
@@ -125,7 +126,7 @@ class App extends Component {
             <WindowOperator />
           }
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }

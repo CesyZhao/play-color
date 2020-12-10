@@ -1,6 +1,8 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, globalShortcut} = require('electron')
 const os = require('os')
+const path = require('path')
+const url = require('url')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -40,10 +42,21 @@ function createWindow() {
   mainWindow = new BrowserWindow(windowConfig)
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
+    mainWindow.webContents.openDevTools()
   })
   mainWindow.setVibrancy('ultra-dark')
   mainWindow.setOpacity(0.99)
-  const winUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : `file://${__dirname}/build/index.html`
+ /*  const winUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : url.format({
+    pathname: path.join(__dirname, './build/index.html'),
+    protocol: 'file:',
+    slashes: true
+  }) */
+  const winUrl = url.format({
+    pathname: path.join(__dirname, './build/index.html'),
+    protocol: 'file:',
+    slashes: true
+  })
+  console.log(winUrl)
   // and load the index.html of the app.
   mainWindow.loadURL(winUrl)
   registerShortcut(mainWindow)
