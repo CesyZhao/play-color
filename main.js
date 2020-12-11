@@ -46,17 +46,11 @@ function createWindow() {
   })
   mainWindow.setVibrancy('ultra-dark')
   mainWindow.setOpacity(0.99)
- /*  const winUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : url.format({
-    pathname: path.join(__dirname, './build/index.html'),
-    protocol: 'file:',
-    slashes: true
-  }) */
-  const winUrl = url.format({
+  const winUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : url.format({
     pathname: path.join(__dirname, './build/index.html'),
     protocol: 'file:',
     slashes: true
   })
-  console.log(winUrl)
   // and load the index.html of the app.
   mainWindow.loadURL(winUrl)
   registerShortcut(mainWindow)
