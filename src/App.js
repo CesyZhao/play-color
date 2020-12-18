@@ -114,8 +114,10 @@ class App extends Component {
               </div>
             }
           </header>
-          <Menu />
-          <RouteContainer />
+          <div className="content-wrapper">
+            <Menu />
+            <RouteContainer />
+          </div>
           <Controller />
           <Login />
           <ToastContainer hideProgressBar/>

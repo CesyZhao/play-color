@@ -14,7 +14,7 @@ import FM from '../../entity/FM'
 }))
 class Leftbar extends Component {
   state = {
-    showMenu: false
+    showMenu: true
   }
 
   componentDidMount() {
@@ -46,22 +46,6 @@ class Leftbar extends Component {
     return (
       <CSSTransition in={this.state.showMenu} timeout={300} unmountOnExit classNames="pc-leftbar">
         <div className="pc-leftbar" onClick={this.toggleMenu}>
-          <svg width="968" height="669" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="orange_red" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#4E8291" stopOpacity="1"/>
-              <stop offset="100%" stopColor="#51416B" stopOpacity="1"/>
-            </linearGradient>
-            <filter id="blur-2px">
-              <feOffset result="offOut" in="SourceAlpha" dx="-5" dy="0" />
-              <feGaussianBlur result="blurOut" in="offOut" stdDeviation="15" />
-              <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-            </filter>
-          </defs>
-          <g>
-            <path id="svg_2" fill="url(#orange_red)" filter="url(#blur-2px)" d="m967.5,-0.04688l-216.5,0.04688c37,221.66667 9,448.33333 -111,668l329,0c-0.5,-222.68229 -1,-445.36458 -1.5,-668.04688z"/>
-          </g>
-          </svg>
           <div className="menuWrapper">
             {
               menu.map((category, index) => {
@@ -69,12 +53,12 @@ class Leftbar extends Component {
                   <Link to={item.link} key={item.name} onClick={() => this.toggleMenu(item.name)}>
                     <div className="pc-leftbar-category-item">
                       <i className={`iconfont ${item.icon}`} />
-                      <span>{item.name}</span>
+                      {/* <span>{item.name}</span> */}
                     </div>
                   </Link> )
                 return (
                   <div className="pc-leftbar-category" key={index}>
-                    {category.name && <div className="pc-leftbar-category-label">{category.name}</div>}
+                    {/* {category.name && <div className="pc-leftbar-category-label">{category.name}</div>} */}
                     {item}
                   </div>
                 )
@@ -84,7 +68,7 @@ class Leftbar extends Component {
               {profile ?
                 <Link to={`/user/${profile.userId}`}>
                   <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar" onClick={this.toggleLogin}/>
-                  <span onClick={this.toggleLogin}>{profile.nickname}</span>
+                  {/* <span onClick={this.toggleLogin}>{profile.nickname}</span> */}
                 </Link>
                 : <React.Fragment>
                     <img src={logo} alt="logo" onClick={this.toggleLogin}/>
