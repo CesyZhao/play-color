@@ -45,7 +45,7 @@ function createWindow() {
     mainWindow.webContents.openDevTools()
   })
   mainWindow.setVibrancy('ultra-dark')
-  mainWindow.setOpacity(0.99)
+  mainWindow.setOpacity(0.9)
   const winUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : url.format({
     pathname: path.join(__dirname, './build/index.html'),
     protocol: 'file:',
