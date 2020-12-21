@@ -155,22 +155,27 @@ class Controller extends Component{
       hasSong &&
       <div className="pc-controller">
         <div className="pc-controller-progress-bar" style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
+        <div className="pc-controller-cover" onClick={() => this.showCurrentSong(song.id)}>
+          {
+            hasSong && <img alt="playing-cover" src={song.album.picUrl.replace('100y100', '965y965')}></img>
+          }
+        </div>
         <div className="pc-controller-contents">
           {
             hasSong && <audio autoPlay crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`}></audio>
           }
           <div className="pc-controller-cover-wrapper">
-            <div className="pc-controller-cover" onClick={() => this.showCurrentSong(song.id)}>
-              {
-                hasSong && <img alt="playing-cover" src={song.album.picUrl}></img>
-              }
-            </div>
             <div className="pc-controller-info">
               {
                 hasSong && <div>{song.name}</div>
               }
               {
-                hasSong && <div> {song.artists.map(artist => artist.name).join('/')} </div>
+                hasSong && <div>
+                      <div> {song.artists.map(artist => artist.name).join('/')} </div>
+                      <span className="pc-controller-time">
+                        {` ${formatDuration(this.state.currentTime * 1000)} / ${formatDuration(song.duration)} `}
+                      </span>
+                    </div>
               }
             </div>
           </div>
@@ -180,9 +185,6 @@ class Controller extends Component{
             <i className="iconfont icon-ios-fastforward" onClick={this.next}></i>
           </div>
           <div className="pc-controller-controls">
-            <span className="pc-controller-time">
-              {` ${ formatDuration(this.state.currentTime * 1000) } / ${ formatDuration(song.duration) } `}
-            </span>
             <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`} onClick={() => this.likeSong(song)}></i>
             <i className={`iconfont icon-ios-${mode}`} onClick={this.changeMode}></i>
             <Link to="/comment">

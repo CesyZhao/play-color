@@ -81,22 +81,9 @@ class App extends Component {
     window.history.go(index)
   }
 
-  toggleMenu = () => {
-    const now = new Date().valueOf()
-    // 防止连续点击菜单
-    if (now - this.state.timestamp > 400) {
-      EventBus.emit('toggleMenu')
-      this.setState({
-        menuDisplayed: !this.state.menuDisplayed,
-        timestamp: now
-      })
-    }
-  }
-
 
   render() {
     const UA = navigator.userAgent.toLowerCase()
-    console.log(this.props.history)
     return (
       <HashRouter>
         <div className="play-color">
@@ -107,9 +94,6 @@ class App extends Component {
                 <div className="pc-tool-bar-tools">
                   <i className="iconfont icon-fanhui" onClick={() => this.handleHistory(-1)} />
                   <i className="iconfont icon-gengduo" onClick={() => this.handleHistory(1)} />
-                </div>
-                <div className="pc-tool-bar-tools" >
-                  <i className={`iconfont ${this.state.menuDisplayed ? 'icon-you' : 'icon-diandiandianshu'}`} onClick={this.toggleMenu}></i>
                 </div>
               </div>
             }

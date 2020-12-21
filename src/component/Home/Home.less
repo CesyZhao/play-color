@@ -1,13 +1,20 @@
 @import '../../theme/common.less';
 .pc-home{
   flex: 1;
-  padding: 10px 20px;
+  padding:0 20px;
   box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  >div{
+    display: flex;
+    &:nth-child(2){
+      .pc-home-category-right{
+       margin-right: 16px;
+      }
+    }
+  }
   &.loading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     span{
       margin-top: 12px;
@@ -17,11 +24,11 @@
     flex-shrink: 0;
   }
   .pc-home-category-left{
-    width: 70%;
+    width: 65%;
     margin-right: 24px;
   }
   .pc-home-category-right{
-    width: calc(30% - 24px);
+    width: 35%;
   }
   .pc-home-category-title{
     text-align: left;
@@ -41,8 +48,23 @@
     font-size: 0;
     margin-bottom: 8px;
     img{
+      max-width: 100%;
       max-height: 100%;
       border-radius: 4px;
+    }
+  }
+  .pc-home-calendar{
+    width: 270px;
+    height: 206px;
+    border-radius: 4px;
+    overflow: hidden;
+    .pc-home-calendar-header{
+      height: 30%;
+      background-color: #202025;
+    }
+    .pc-home-calendar-content{
+      height: 70%;
+      background-color: #3A3B42;
     }
   }
   .pc-home-newest{
@@ -50,8 +72,22 @@
       display: flex;
       align-items: center;
       margin-bottom: 5px;
+      padding: 4px;
+      border-radius: 4px;
       cursor: pointer;
-      .text-ellipsis;
+      background-color: rgba(255, 255, 255, .08);
+      >div:nth-child(2){
+        width: calc(100% - 48px);
+        div{ text-align: left; }
+        div:nth-child(1){  .text-ellipsis; font-size: 14px; margin-bottom: 2px; }
+        div:nth-child(2){
+          display: flex;
+          justify-content: space-between;
+          span{
+            color: #999;
+          }
+        }
+      }
     }
     img{
       max-width: 42px;
@@ -66,7 +102,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 4px;
     a:nth-of-type(n+6){
       .pc-personalized-album{
         margin-bottom: 0;
@@ -77,12 +112,12 @@
       display: flex;
       flex-direction: column;
       // max-width: 24%;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
       img{
-        max-width: 102px;
+        max-width: 128px;
         transition: .3s;
       }
       &:hover{

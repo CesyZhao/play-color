@@ -1,4 +1,4 @@
-@controller-height: 48px;
+@controller-height: 64px;
 .pc-controller{
   width: 100vw;
   height: @controller-height;
@@ -7,7 +7,7 @@
   position: fixed;
   left: 72px;
   bottom: 0;
-  box-shadow: 0 0 4px 0 #51416B;
+  z-index: 2;
   // border-top: .5px solid #444;
   .pc-controller-progress-bar{
     height: 1px;
@@ -17,45 +17,59 @@
     top: -1px;
     transition: .4s ease;
   }
+  .pc-controller-cover{
+    position: absolute;
+    width: 100%;
+    height: @controller-height;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: -1;
+    img{ 
+      height: auto !important;
+      transform: translateY(-50%);
+      filter: blur(20px); }
+  }
   .pc-controller-contents{
     position: relative;
     z-index: 2;
     display: flex;
     justify-content: space-between;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
     .pc-controller-cover-wrapper{
       display: flex;
-      width: 33%;
+      align-items: center;
+      width: 30%;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-    .pc-controller-cover{
-      width: @controller-height;
-      height: @controller-height;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      cursor: pointer;
-      img{width: 85%;}
-      &:hover{
-        img{filter: blur(2px)};
-      }
     }
     .pc-controller-info{
       padding-left: 12px;
       text-align: left;
       width: calc(100% - 60px);
-      div:nth-child(1){
-        line-height: 26px;
+      >div:nth-child(1){
+        font-size: 16px;
+        line-height: 24px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        margin-bottom: 8px;
       }
-      div:nth-child(2){
+      >div:nth-child(2){
         font-size: 11px;
-        overflow: hidden;
+        color: #999;
+        display: flex;
+        div{
+          width: 160px;
+          flex-shrink: 0;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+      .pc-controller-time{
+        margin-left: 24px;
         white-space: nowrap;
-        text-overflow: ellipsis;
       }
     }
     .pc-controller-controls,.pc-controller-ops{
@@ -68,12 +82,9 @@
         cursor: pointer;
         font-size: 20px;
       }
-      .pc-controller-time{
-        margin-right: 24px;
-        white-space: nowrap;
-      }
     }
     .pc-controller-controls{
+      justify-content: flex-start;
       i:nth-child(3){
         font-size: 18px;
       }
@@ -87,6 +98,9 @@
     .pc-controller-ops{
       flex: 1;
       justify-content: center;
+      i:nth-child(1){
+        margin-left: 0;
+      }
     }
   }
 }

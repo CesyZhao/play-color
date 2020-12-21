@@ -15,7 +15,7 @@
 
 .pc-header {
   margin-left: 72px;
-  height: 48px;
+  height: 28px;
   background: @primary-color;
   // background: #fff;
   -webkit-app-region: drag;
@@ -24,7 +24,7 @@
   flex: 1;
 }
 .content-wrapper{
-  height: calc(100vh - 96px);
+  height: calc(100vh - 92px);
   display: flex;
 }
 .pc-tool-bar{
@@ -42,26 +42,11 @@
       cursor: pointer;
       pointer-events: auto;
       i{ 
+        font-size: 12px;
         margin-right: 8px;
          cursor: pointer; 
          -webkit-app-region: no-drag;
          padding: 2px 4px;
-         border: 1px solid rgba(170, 170, 170, .2);
-      }
-      i:nth-child(1){
-        border-top-left-radius: 45%;
-        border-bottom-left-radius: 45%;
-      }
-      i:nth-child(2){
-        border-top-right-radius: 45%;
-        border-bottom-right-radius: 45%;
-      }
-      &:nth-last-child(1){
-        i{font-size: 20px; border: none; position: relative; z-index: 33;}
-        .icon-you{
-          font-size: 20px;
-          z-index: 99;
-        }
       }
     }
   }

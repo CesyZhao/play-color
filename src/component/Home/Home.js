@@ -5,6 +5,7 @@ import LazyImage from '../LazyImage/LazyImage'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils'
 import _ from 'lodash'
+import { formatDuration } from '../../util/audio'
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 import scripts from '../../config/scripts'
@@ -29,9 +30,9 @@ class Home extends Component {
     let bannerRes = await api.home.getBanner()
     let topRes = await api.home.getTopSong()
     this.setState({
-      albumList: _.take(albumRes.data.result, 12),
+      albumList: _.take(albumRes.data.result, 8),
       banners: bannerRes.data.banners,
-      newest: _.take(topRes.data.data, 10)})
+      newest: _.take(topRes.data.data, 5)})
     setTimeout(() => {
       this.setState({loading: false})
       EventBus.emit('content-loaded')
@@ -56,14 +57,42 @@ class Home extends Component {
           </div>
         :
         <div className="pc-home">
-          <div className="pc-home-category-left">
-            <div>
+          <div>
+            <div className="pc-home-category-left">
               <div className="pc-home-banner">
                 <AutoPlaySwipeableViews>
-                {
-                  this.state.banners.map((banner, index) => <img alt="banner" key={banner.encodeId + index} src={banner.imageUrl}></img>)
-                }
+                  {
+                    this.state.banners.map((banner, index) => <img alt="banner" key={banner.encodeId + index} src={banner.imageUrl}></img>)
+                  }
                 </AutoPlaySwipeableViews>
+              </div>
+            </div>
+            <div className="pc-home-calendar">
+              <div className="pc-home-calendar-header"></div>
+              <div className="pc-home-calendar-content"></div>
+            </div>
+          </div>
+          <div>
+            <div className="pc-home-category-right">
+              <div className="pc-home-category-title">最新音乐</div>
+              <div className="pc-home-newest">
+                {
+                  this.state.newest.map(song => {
+                    console.log(song)
+                    return (
+                      <div className="pc-home-newest-song" key={song.id} onClick={() => this.handleSongClick(song)}>
+                        <LazyImage imgUrl={song.album.picUrl} />
+                        <div>
+                          <div>{song.name}</div>
+                          <div>
+                            <span>{song.artists.map(ar => ar.name).join('/')}</span>
+                            <span>{formatDuration(song.duration)}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })
+                }
               </div>
             </div>
             <div>
@@ -76,7 +105,7 @@ class Home extends Component {
                 {
                   this.state.albumList.map(album => {
                     return (
-                      <Link key={album.id} to={{pathname: `/album/${album.id}`}}>
+                      <Link key={album.id} to={{ pathname: `/album/${album.id}` }}>
                         <div className="pc-personalized-album" data-name={album.name}>
                           <LazyImage imgUrl={album.picUrl} />
                         </div>
@@ -85,26 +114,9 @@ class Home extends Component {
                   })
                 }
               </div>
+            </div>
           </div>
         </div>
-        <div className="pc-home-category-right">
-          <div className="pc-home-category-title">最新音乐</div>
-          <div className="pc-home-newest">
-              {
-                this.state.newest.map((song, index) => {
-                  return (
-                    <div className="pc-home-newest-song" key={song.id} onClick={() => this.handleSongClick(song)}>
-                      {/* <img src={song.album.picUrl} alt='songCover'/> */}
-                      <LazyImage imgUrl={song.album.picUrl} />
-                      <span>{index + 1}</span>
-                      <span>{song.name}</span>
-                    </div>
-                  )
-                })
-              }
-          </div>
-        </div>
-      </div>
     )
   }
 }

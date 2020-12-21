@@ -3,7 +3,6 @@ import './Menu.less'
 import logo from '../../asset/daydream.png'
 import menu from './menus'
 import { Link, withRouter } from 'react-router-dom'
-import { CSSTransition } from 'react-transition-group'
 import EventBus from '../../events'
 import {connect} from 'react-redux'
 import FM from '../../entity/FM'
@@ -13,15 +12,6 @@ import FM from '../../entity/FM'
   user
 }))
 class Leftbar extends Component {
-  state = {
-    showMenu: true
-  }
-
-  componentDidMount() {
-    EventBus.on('toggleMenu', () => {
-      this.toggleMenu()
-    })
-  }
 
   toggleLogin = () => {
     const {profile} = this.props.user
@@ -29,9 +19,6 @@ class Leftbar extends Component {
   }
 
   toggleMenu = async (name) => {
-    this.setState({
-      showMenu: !this.state.showMenu
-    })
     EventBus.emit('closeMenu')
     if (name === '私人 FM') {
       await FM.initFM()
@@ -44,41 +31,38 @@ class Leftbar extends Component {
   render() {
     const { profile } = this.props.user
     return (
-      <CSSTransition in={this.state.showMenu} timeout={300} unmountOnExit classNames="pc-leftbar">
-        <div className="pc-leftbar" onClick={this.toggleMenu}>
-          <div className="menuWrapper">
-            {
-              menu.map((category, index) => {
-                const item = category.list.map(item =>
-                  <Link to={item.link} key={item.name} onClick={() => this.toggleMenu(item.name)}>
-                    <div className="pc-leftbar-category-item">
-                      <i className={`iconfont ${item.icon}`} />
-                      {/* <span>{item.name}</span> */}
-                    </div>
-                  </Link> )
-                return (
-                  <div className="pc-leftbar-category" key={index}>
-                    {/* {category.name && <div className="pc-leftbar-category-label">{category.name}</div>} */}
-                    {item}
+      <div className="pc-leftbar" onClick={this.toggleMenu}>
+        <div className="menuWrapper">
+          {
+            menu.map((category, index) => {
+              const item = category.list.map(item =>
+                <Link to={item.link} key={item.name} onClick={() => this.toggleMenu(item.name)}>
+                  <div className="pc-leftbar-category-item">
+                    <i className={`iconfont ${item.icon}`} />
+                    {/* <span>{item.name}</span> */}
                   </div>
-                )
-              })
+                </Link>)
+              return (
+                <div className="pc-leftbar-category" key={index}>
+                  {/* {category.name && <div className="pc-leftbar-category-label">{category.name}</div>} */}
+                  {item}
+                </div>
+              )
+            })
+          }
+          <div className="pc-leftbar-logo">
+            {profile ?
+              <Link to={`/user/${profile.userId}`}>
+                <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar" onClick={this.toggleLogin} />
+                {/* <span onClick={this.toggleLogin}>{profile.nickname}</span> */}
+              </Link>
+              : <React.Fragment>
+                <img src={logo} alt="logo" onClick={this.toggleLogin} />
+              </React.Fragment>
             }
-            <div className="pc-leftbar-logo">
-              {profile ?
-                <Link to={`/user/${profile.userId}`}>
-                  <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar" onClick={this.toggleLogin}/>
-                  {/* <span onClick={this.toggleLogin}>{profile.nickname}</span> */}
-                </Link>
-                : <React.Fragment>
-                    <img src={logo} alt="logo" onClick={this.toggleLogin}/>
-                    <span onClick={this.toggleLogin}>PLAY COLOR</span>
-                  </React.Fragment>
-              }
-            </div>
           </div>
         </div>
-        </CSSTransition>
+      </div>
     )
   }
 }

@@ -33,7 +33,7 @@ class LazyImage extends Component{
 
   render() {
     return (
-      <img alt="lazyImage" onLoad={this.imageLoaded} src={this.state.preImageUrl}/>
+      <img alt="lazyImage" className="lazyImage" onLoad={this.imageLoaded} src={this.state.preImageUrl}/>
     )
   }
 }
