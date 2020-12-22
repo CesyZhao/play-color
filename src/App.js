@@ -3,7 +3,7 @@ import './App.less';
 import './theme/theme-default.less'
 import './asset/icon/iconfont.css'
 import Menu from './component/Menu/Menu.js';
-import Controller from './component/Controller/Controller'
+// import Controller from './component/Controller/Controller'
 import Login from './component/Login/Login'
 import RouteContainer from './component/RouteContainer/RouteContainer'
 import PlayingPanel from './component/PlayingPanel/PlayingPanel'
@@ -102,7 +102,7 @@ class App extends Component {
             <Menu />
             <RouteContainer />
           </div>
-          <Controller />
+          {/* <Controller /> */}
           <Login />
           <ToastContainer hideProgressBar/>
           <PlayingPanel />

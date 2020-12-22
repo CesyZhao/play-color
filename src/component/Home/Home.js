@@ -30,16 +30,16 @@ class Home extends Component {
     const personalizedPromise = api.home.getPersonalized()
     const bannerPromise = api.home.getBanner()
     const topPromise = api.home.getTopSong()
-    const recommandSongsPromise = api.home.getRecommandSongs()
+    // const recommandSongsPromise = api.home.getRecommandSongs()
     let albumRes = await personalizedPromise
     let bannerRes = await bannerPromise
     let topRes = await topPromise
-    let recommandRes = await recommandSongsPromise
+    // let recommandRes = await recommandSongsPromise
     this.setState({
-      albumList: _.take(albumRes.data.result, 8),
+      albumList: _.take(albumRes.data.result, 12),
       banners: bannerRes.data.banners,
-      newest: _.take(topRes.data.data, 5),
-      recommandSongs: _.take(recommandRes.data.data.dailySongs, 12)
+      newest: _.take(topRes.data.data, 6)
+      // recommandSongs: formatList(_.take(recommandRes.data.data.dailySongs, 12))
     }),
     setTimeout(() => {
       this.setState({loading: false})
@@ -78,7 +78,7 @@ class Home extends Component {
             <div className="pc-home-calendar">
               <div className="pc-home-calendar-header"></div>
               <div className="pc-home-calendar-content">
-                <AutoPlaySwipeableViews axis="y">
+                <AutoPlaySwipeableViews containerStyle={{ height: 'calc(206px * 0.7)' }} axis="y">
                   {
                     [0, 1, 2].map((item, index) =>{
                       return (

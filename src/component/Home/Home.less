@@ -24,11 +24,11 @@
     flex-shrink: 0;
   }
   .pc-home-category-left{
-    width: 65%;
+    width: 60%;
     margin-right: 24px;
   }
   .pc-home-category-right{
-    width: 35%;
+    width: 45%;
   }
   .pc-home-category-title{
     text-align: left;
@@ -54,8 +54,8 @@
     }
   }
   .pc-home-calendar{
-    width: 270px;
-    height: 206px;
+    width: 316px;
+    height: 190px;
     border-radius: 4px;
     overflow: hidden;
     .pc-home-calendar-header{
@@ -68,9 +68,12 @@
       .pc-home-calendar-song-wrapper{
         height: calc(206px * 0.7);
         display: flex;
+        flex-direction: column;
       }
       .pc-home-calendar-song{
         flex: 1;
+        display: flex;
+        align-items: center;
         text-align: left;
       }
     }
@@ -79,7 +82,7 @@
     .pc-home-newest-song{
       display: flex;
       align-items: center;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
       padding: 4px;
       border-radius: 4px;
       cursor: pointer;
@@ -120,12 +123,12 @@
       display: flex;
       flex-direction: column;
       // max-width: 24%;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
       img{
-        max-width: 128px;
+        max-width: 108px;
         transition: .3s;
       }
       &:hover{

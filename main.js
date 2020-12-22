@@ -32,10 +32,11 @@ function createWindow() {
     frame: !isWin,
     webPreferences: {webSecurity: false}, // 为了解决 audio 获取不到远程的文件作为音频解析，不推荐，待改善
     titleBarStyle: 'hidden',
-    backgroundColor: isWin ? '#444' : 'none',
+    backgroundColor: isWin ? '#F0444444' : 'none',
     resizable: false,
     maximizable: false,
     fullscreenable: false,
+    transparent: true,
     width: 964,
     height: 608
   }
