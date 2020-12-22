@@ -22,17 +22,25 @@ class Home extends Component {
     albumList: [],
     banners: [],
     newest: [],
+    recommandSongs: [],
     loading: true
   }
 
   async componentWillMount() {
-    let albumRes = await api.home.getPersonalized()
-    let bannerRes = await api.home.getBanner()
-    let topRes = await api.home.getTopSong()
+    const personalizedPromise = api.home.getPersonalized()
+    const bannerPromise = api.home.getBanner()
+    const topPromise = api.home.getTopSong()
+    const recommandSongsPromise = api.home.getRecommandSongs()
+    let albumRes = await personalizedPromise
+    let bannerRes = await bannerPromise
+    let topRes = await topPromise
+    let recommandRes = await recommandSongsPromise
     this.setState({
       albumList: _.take(albumRes.data.result, 8),
       banners: bannerRes.data.banners,
-      newest: _.take(topRes.data.data, 5)})
+      newest: _.take(topRes.data.data, 5),
+      recommandSongs: _.take(recommandRes.data.data.dailySongs, 12)
+    }),
     setTimeout(() => {
       this.setState({loading: false})
       EventBus.emit('content-loaded')
@@ -69,7 +77,25 @@ class Home extends Component {
             </div>
             <div className="pc-home-calendar">
               <div className="pc-home-calendar-header"></div>
-              <div className="pc-home-calendar-content"></div>
+              <div className="pc-home-calendar-content">
+                <AutoPlaySwipeableViews axis="y">
+                  {
+                    [0, 1, 2].map((item, index) =>{
+                      return (
+                        <div key={index} className="pc-home-calendar-song-wrapper">
+                          {
+                            this.state.recommandSongs.slice(index * 4, (index + 1) * 4).map(song => {
+                              return (
+                                <div key={song.id} className="pc-home-calendar-song"> {song.id} </div>
+                              )
+                            })
+                          }
+                        </div>
+                      )
+                    })
+                  }
+                </AutoPlaySwipeableViews>
+              </div>
             </div>
           </div>
           <div>

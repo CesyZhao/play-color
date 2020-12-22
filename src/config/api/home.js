@@ -14,6 +14,8 @@ const getRankingList = param => http.get('/toplist/detail')
 
 const getFM = param => http.get('/personal_fm')
 
+const getRecommandSongs = param => http.get(`/recommend/songs`)
+
 export default {
   getBanner,
   getPersonalized,
@@ -21,5 +23,6 @@ export default {
   search,
   getMomments,
   getRankingList,
-  getFM
+  getFM,
+  getRecommandSongs
 }
