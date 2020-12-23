@@ -3,7 +3,7 @@ import './App.less';
 import './theme/theme-default.less'
 import './asset/icon/iconfont.css'
 import Menu from './component/Menu/Menu.js';
-// import Controller from './component/Controller/Controller'
+import Controller from './component/Controller/Controller'
 import Login from './component/Login/Login'
 import RouteContainer from './component/RouteContainer/RouteContainer'
 import PlayingPanel from './component/PlayingPanel/PlayingPanel'
@@ -11,13 +11,13 @@ import Search from './component/Search/Search'
 import WindowOperator from './component/WindowOperator/WindowOperator'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
-import { HashRouter} from 'react-router-dom'
-import {connect} from 'react-redux'
+import { HashRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { saveUserProfile, saveUserFavorites } from './store/action/user'
 import EventBus from './events'
 import api from './config/api'
 
-@connect(({user}) => ({
+@connect(({ user }) => ({
   user
 }))
 class App extends Component {
@@ -32,7 +32,7 @@ class App extends Component {
     this.refreshLoginStatus()
     this.props.user.profile && this.getUserFavorites()
     document.addEventListener('keydown', e => {
-      const {ctrlKey, metaKey, key, shiftKey} = e
+      const { ctrlKey, metaKey, key, shiftKey } = e
       const isControlOrCommand = ctrlKey || metaKey
       if (key === 'P' && isControlOrCommand && shiftKey) {
         EventBus.emit('toggleSearch', true)
@@ -63,9 +63,9 @@ class App extends Component {
   getUserFavorites = async () => {
     const { userId } = this.props.user.profile
     try {
-      const { data } = await api.user.getUserPlaylist({uid: userId})
+      const { data } = await api.user.getUserPlaylist({ uid: userId })
       const list = data.playlist[0]
-      const { data: playlist } = await api.song.getPlayList({id: list.id})
+      const { data: playlist } = await api.song.getPlayList({ id: list.id })
       console.log(playlist)
       const favorites = new Map()
       for (let song of playlist.playlist.tracks) {
@@ -102,9 +102,9 @@ class App extends Component {
             <Menu />
             <RouteContainer />
           </div>
-          {/* <Controller /> */}
+          <Controller />
           <Login />
-          <ToastContainer hideProgressBar/>
+          <ToastContainer hideProgressBar />
           <PlayingPanel />
           <Search />
           {

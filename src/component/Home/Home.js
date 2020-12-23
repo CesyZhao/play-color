@@ -22,7 +22,7 @@ class Home extends Component {
     albumList: [],
     banners: [],
     newest: [],
-    recommandSongs: [],
+    recommandVideos: [],
     loading: true
   }
 
@@ -30,16 +30,17 @@ class Home extends Component {
     const personalizedPromise = api.home.getPersonalized()
     const bannerPromise = api.home.getBanner()
     const topPromise = api.home.getTopSong()
-    // const recommandSongsPromise = api.home.getRecommandSongs()
+    const recommandVideosPromise = api.home.getRecommandVideos()
     let albumRes = await personalizedPromise
     let bannerRes = await bannerPromise
     let topRes = await topPromise
-    // let recommandRes = await recommandSongsPromise
+    let recommandRes = await recommandVideosPromise
+    console.log(_.take(recommandRes.data.datas, 5))
     this.setState({
-      albumList: _.take(albumRes.data.result, 12),
+      albumList: _.take(albumRes.data.result, 8),
       banners: bannerRes.data.banners,
-      newest: _.take(topRes.data.data, 6)
-      // recommandSongs: formatList(_.take(recommandRes.data.data.dailySongs, 12))
+      newest: _.take(topRes.data.data, 5),
+      recommandVideos: _.take(recommandRes.data.datas.map(e => e.data), 5)
     }),
     setTimeout(() => {
       this.setState({loading: false})
@@ -68,31 +69,9 @@ class Home extends Component {
           <div>
             <div className="pc-home-category-left">
               <div className="pc-home-banner">
-                <AutoPlaySwipeableViews>
+                <AutoPlaySwipeableViews resistance className="pc-home-banner-swiper" slideStyle={{paddingRight: '24px'}}>
                   {
                     this.state.banners.map((banner, index) => <img alt="banner" key={banner.encodeId + index} src={banner.imageUrl}></img>)
-                  }
-                </AutoPlaySwipeableViews>
-              </div>
-            </div>
-            <div className="pc-home-calendar">
-              <div className="pc-home-calendar-header"></div>
-              <div className="pc-home-calendar-content">
-                <AutoPlaySwipeableViews containerStyle={{ height: 'calc(206px * 0.7)' }} axis="y">
-                  {
-                    [0, 1, 2].map((item, index) =>{
-                      return (
-                        <div key={index} className="pc-home-calendar-song-wrapper">
-                          {
-                            this.state.recommandSongs.slice(index * 4, (index + 1) * 4).map(song => {
-                              return (
-                                <div key={song.id} className="pc-home-calendar-song"> {song.id} </div>
-                              )
-                            })
-                          }
-                        </div>
-                      )
-                    })
                   }
                 </AutoPlaySwipeableViews>
               </div>

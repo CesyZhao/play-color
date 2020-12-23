@@ -24,11 +24,10 @@
     flex-shrink: 0;
   }
   .pc-home-category-left{
-    width: 60%;
-    margin-right: 24px;
+    width: 100%;
   }
   .pc-home-category-right{
-    width: 45%;
+    width: 35%;
   }
   .pc-home-category-title{
     text-align: left;
@@ -47,34 +46,34 @@
     overflow: hidden;
     font-size: 0;
     margin-bottom: 8px;
+    .pc-home-banner-swiper{
+      padding-right: 35%;
+    }
     img{
       max-width: 100%;
       max-height: 100%;
       border-radius: 4px;
+      margin-right: 24px;
     }
   }
   .pc-home-calendar{
-    width: 316px;
-    height: 190px;
+    width: 270px;
+    height: 206px;
     border-radius: 4px;
     overflow: hidden;
-    .pc-home-calendar-header{
+    .pc-home-calendar-content{
+      height: 206px;
+      background-color: #3A3B42;
+    }
+     .pc-home-calendar-header{
       height: 30%;
       background-color: #202025;
     }
-    .pc-home-calendar-content{
+    .pc-home-calendar-video-wrapper{
       height: 70%;
-      background-color: #3A3B42;
-      .pc-home-calendar-song-wrapper{
-        height: calc(206px * 0.7);
-        display: flex;
-        flex-direction: column;
-      }
-      .pc-home-calendar-song{
-        flex: 1;
-        display: flex;
-        align-items: center;
-        text-align: left;
+      display: flex;
+      img{
+        max-width: 100%;
       }
     }
   }
@@ -82,7 +81,7 @@
     .pc-home-newest-song{
       display: flex;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 5px;
       padding: 4px;
       border-radius: 4px;
       cursor: pointer;
@@ -123,12 +122,12 @@
       display: flex;
       flex-direction: column;
       // max-width: 24%;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
       img{
-        max-width: 108px;
+        max-width: 128px;
         transition: .3s;
       }
       &:hover{
