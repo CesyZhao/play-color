@@ -22,7 +22,7 @@ class Home extends Component {
     albumList: [],
     banners: [],
     newest: [],
-    recommandVideos: [],
+    calendarEvents: [],
     loading: true
   }
 
@@ -30,17 +30,20 @@ class Home extends Component {
     const personalizedPromise = api.home.getPersonalized()
     const bannerPromise = api.home.getBanner()
     const topPromise = api.home.getTopSong()
-    const recommandVideosPromise = api.home.getRecommandVideos()
+    const now = new Date().valueOf()
+    const offset = 24 * 60 * 1000
+    const startTime = now - offset
+    const endTime = now + offset
+    const calendarPromise = api.home.getCalendar({ startTime, endTime })
     let albumRes = await personalizedPromise
     let bannerRes = await bannerPromise
     let topRes = await topPromise
-    let recommandRes = await recommandVideosPromise
-    console.log(_.take(recommandRes.data.datas, 5))
+    let calendarRes = await calendarPromise
     this.setState({
       albumList: _.take(albumRes.data.result, 8),
       banners: bannerRes.data.banners,
       newest: _.take(topRes.data.data, 5),
-      recommandVideos: _.take(recommandRes.data.datas.map(e => e.data), 5)
+      calendarEvents: calendarRes.data.data.calendarEvents
     }),
     setTimeout(() => {
       this.setState({loading: false})
@@ -52,6 +55,8 @@ class Home extends Component {
     this.props.dispatch(updatePlayingSong(song))
     this.props.dispatch(updatePlayingAlbum({ tracks: this.state.newest, id: 'findMusic', name: '发现音乐' }))
   }
+
+  today = new Date()
 
   render() {
     return (
@@ -69,11 +74,29 @@ class Home extends Component {
           <div>
             <div className="pc-home-category-left">
               <div className="pc-home-banner">
-                <AutoPlaySwipeableViews resistance className="pc-home-banner-swiper" slideStyle={{paddingRight: '24px'}}>
+                <AutoPlaySwipeableViews resistance className="pc-home-banner-swiper">
                   {
                     this.state.banners.map((banner, index) => <img alt="banner" key={banner.encodeId + index} src={banner.imageUrl}></img>)
                   }
                 </AutoPlaySwipeableViews>
+              </div>
+            </div>
+            <div className="pc-home-calendar">
+              <div className="pc-home-calendar-header">
+                <span className="pc-home-calendar-date"> {this.today.getDate()} </span>
+                /
+                <span> {this.today.getMonth() + 1} </span>
+              </div>
+              <div className="pc-home-calendar-content">
+                {
+                  this.state.calendarEvents.length > 0 ?
+                    <AutoPlaySwipeableViews resistance className="pc-home-banner-swiper" axis="y">
+                      {
+                        this.state.calendarEvents.map(event => <img alt="banner" key={event.id} src={event.imgUrl}></img>)
+                      }
+                    </AutoPlaySwipeableViews> :
+                    <div> 暂无事件 </div>
+                }
               </div>
             </div>
           </div>

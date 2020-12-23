@@ -16,6 +16,8 @@ const getFM = param => http.get('/personal_fm')
 
 const getRecommandVideos = param => http.get('/video/group?id=1000')
 
+const getCalendar = param => http.get(`/calendar?startTime=${param.startTime}&endTime=${param.endTime}`)
+
 export default {
   getBanner,
   getPersonalized,
@@ -24,5 +26,6 @@ export default {
   getMomments,
   getRankingList,
   getFM,
-  getRecommandVideos
+  getRecommandVideos,
+  getCalendar
 }
