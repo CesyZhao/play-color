@@ -30,10 +30,9 @@ class Home extends Component {
     const personalizedPromise = api.home.getPersonalized()
     const bannerPromise = api.home.getBanner()
     const topPromise = api.home.getTopSong()
-    const now = new Date().valueOf()
-    const offset = 24 * 60 * 1000
-    const startTime = now - offset
-    const endTime = now + offset
+    console.log(new Date().setHours(0, 0, 0, 0))
+    const startTime = new Date().setHours(0, 0, 0, 0)
+    const endTime = new Date().setHours(23, 59, 59, 0)
     const calendarPromise = api.home.getCalendar({ startTime, endTime })
     let albumRes = await personalizedPromise
     let bannerRes = await bannerPromise
@@ -85,14 +84,21 @@ class Home extends Component {
               <div className="pc-home-calendar-header">
                 <span className="pc-home-calendar-date"> {this.today.getDate()} </span>
                 /
-                <span> {this.today.getMonth() + 1} </span>
+                <span className="pc-home-calendar-month"> {this.today.getMonth() + 1} </span>
               </div>
               <div className="pc-home-calendar-content">
                 {
                   this.state.calendarEvents.length > 0 ?
-                    <AutoPlaySwipeableViews resistance className="pc-home-banner-swiper" axis="y">
+                    <AutoPlaySwipeableViews resistance className="pc-home-calendar-swiper" axis="y" slideStyle={{ height: '100%' }} containerStyle={{ height: '100%' }}>
                       {
-                        this.state.calendarEvents.map(event => <img alt="banner" key={event.id} src={event.imgUrl}></img>)
+                        this.state.calendarEvents.map(event => {
+                          return (
+                            <div className="pc-home-calendar-event" key={event.id} >
+                              <img alt="banner" src={event.imgUrl}></img>
+                              <div> {event.title} </div>
+                            </div>
+                          )
+                        })
                       }
                     </AutoPlaySwipeableViews> :
                     <div> 暂无事件 </div>

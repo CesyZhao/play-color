@@ -59,23 +59,44 @@
     height: 206px;
     border-radius: 4px;
     overflow: hidden;
-    .pc-home-calendar-content{
-      height: 206px;
-      background-color: #3A3B42;
-    }
      .pc-home-calendar-header{
-      height: 60%;
+      height: 55%;
       background-color: #202025;
       line-height: 96px;
       .pc-home-calendar-date{
-        font-size: 48px;
+        font-size: 64px;
+      }
+      .pc-home-calendar-month{
+        font-size: 24px;
       }
     }
-    .pc-home-calendar-video-wrapper{
-      height: 40%;
+    .pc-home-calendar-content{
+      height: 45%;
       display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #3A3B42;
+      .pc-home-calendar-swiper{
+        height: 100%;
+        width: 100%;
+      }
+      .pc-home-calendar-event{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding:0 8px;
+        >div{
+          align-self: start;
+          line-height: 24px;
+          padding-top: 8px;
+          padding-left: 12px;
+          word-break: keep-all;
+          text-align: left;
+        }
+      }
       img{
-        max-width: 100%;
+        width: 80px;
+        height: 80px;
       }
     }
   }
