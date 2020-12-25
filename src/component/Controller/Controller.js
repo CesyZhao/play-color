@@ -162,7 +162,7 @@ class Controller extends Component{
         </div>
         <div className="pc-controller-contents">
           {
-            hasSong && <audio autoPlay crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`}></audio>
+            hasSong && <audio crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`}></audio>
           }
           <div className="pc-controller-cover-wrapper">
             <div className="pc-controller-info">

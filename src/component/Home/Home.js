@@ -15,7 +15,10 @@ import EventBus from '../../events'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
-@connect()
+@connect(({ controller, user }) => ({
+  controller,
+  user
+}))
 class Home extends Component {
 
   state = {
@@ -26,23 +29,58 @@ class Home extends Component {
     loading: true
   }
 
-  async componentWillMount() {
+  static async getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.user && prevState.user && nextProps.user.userId !== prevState.user.userId) {
+      console.log('--------')
+      const startTime = new Date().setHours(0, 0, 0, 0)
+      const endTime = new Date().setHours(23, 59, 59, 0)
+      const calendarPromise = api.home.getCalendar({ startTime, endTime })
+      const personalizedPromise = api.home.getPersonalized()
+      let albumRes = await personalizedPromise
+      const albumList = _.take(albumRes.data.result, 8)
+      let calendarEvents
+      try {
+        const calendarRes = await calendarPromise
+        calendarEvents = calendarRes.data.data.calendarEvents
+      } catch (e) {
+        calendarEvents = []
+      }
+      return {
+        albumList,
+        calendarEvents
+      }
+    }
+    return null
+  }
+
+  async componentDidMount() {
     const personalizedPromise = api.home.getPersonalized()
     const bannerPromise = api.home.getBanner()
     const topPromise = api.home.getTopSong()
-    console.log(new Date().setHours(0, 0, 0, 0))
     const startTime = new Date().setHours(0, 0, 0, 0)
     const endTime = new Date().setHours(23, 59, 59, 0)
     const calendarPromise = api.home.getCalendar({ startTime, endTime })
     let albumRes = await personalizedPromise
     let bannerRes = await bannerPromise
     let topRes = await topPromise
-    let calendarRes = await calendarPromise
+    let calendarEvents
+    try {
+      const calendarRes = await calendarPromise
+      calendarEvents = calendarRes.data.data.calendarEvents
+    } catch (e) {
+      calendarEvents = []
+    }
+    const { controller } = this.props
+    const { song } = controller
+    const albumList = _.take(albumRes.data.result, 8)
+    const banners = bannerRes.data.banners
+    const newest = _.take(topRes.data.data, 5)
+    _.isEmpty(song) && this.handleSongClick(newest[0])
     this.setState({
-      albumList: _.take(albumRes.data.result, 8),
-      banners: bannerRes.data.banners,
-      newest: _.take(topRes.data.data, 5),
-      calendarEvents: calendarRes.data.data.calendarEvents
+      albumList,
+      banners,
+      newest,
+      calendarEvents
     }),
     setTimeout(() => {
       this.setState({loading: false})

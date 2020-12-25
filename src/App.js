@@ -27,7 +27,6 @@ class App extends Component {
     showToolbar: false,
     timestamp: new Date().valueOf()
   }
-
   componentDidMount() {
     this.refreshLoginStatus()
     this.props.user.profile && this.getUserFavorites()
