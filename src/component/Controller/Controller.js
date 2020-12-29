@@ -155,6 +155,7 @@ class Controller extends Component{
       hasSong &&
       <div className="pc-controller">
         <div className="pc-controller-progress-bar" style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
+        <div className="pc-controller-volume"></div>
         <div className="pc-controller-cover" onClick={() => this.showCurrentSong(song.id)}>
           {
             hasSong && <img alt="playing-cover" src={song.album.picUrl.replace('100y100', '965y965')}></img>
@@ -162,7 +163,7 @@ class Controller extends Component{
         </div>
         <div className="pc-controller-contents">
           {
-            hasSong && <audio crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`}></audio>
+            hasSong && <audio autoPlay crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`}></audio>
           }
           <div className="pc-controller-cover-wrapper">
             <div className="pc-controller-info">
@@ -190,6 +191,7 @@ class Controller extends Component{
             <Link to="/comment">
               <i className="iconfont icon-aui-icon-comment"></i>
             </Link>
+            <i className="iconfont icon-yinliang"></i>
             {/* <span className="pc-controller-comments">
               3万 热评
             </span> */}

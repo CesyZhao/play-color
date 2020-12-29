@@ -150,7 +150,6 @@ class Home extends Component {
               <div className="pc-home-newest">
                 {
                   this.state.newest.map(song => {
-                    console.log(song)
                     return (
                       <div className="pc-home-newest-song" key={song.id} onClick={() => this.handleSongClick(song)}>
                         <LazyImage imgUrl={song.album.picUrl} />

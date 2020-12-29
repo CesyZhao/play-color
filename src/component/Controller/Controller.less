@@ -1,6 +1,6 @@
 @controller-height: 64px;
 .pc-controller{
-  width: 100vw;
+  width: calc(100vw - 72px);
   height: @controller-height;
   box-sizing: border-box;
   // background: #fff;
@@ -16,6 +16,15 @@
     position: absolute;
     top: -1px;
     transition: .4s ease;
+  }
+  .pc-controller-volume{
+    position: absolute;
+    top: -80px;
+    right: 42px;
+    width: 8px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, .5);
+    z-index: 99;
   }
   .pc-controller-cover{
     position: absolute;
@@ -60,7 +69,7 @@
         color: #999;
         display: flex;
         div{
-          width: 160px;
+          width: 120px;
           flex-shrink: 0;
           overflow: hidden;
           white-space: nowrap;
@@ -68,13 +77,12 @@
         }
       }
       .pc-controller-time{
-        margin-left: 24px;
+        margin-left: 8px;
         white-space: nowrap;
       }
     }
     .pc-controller-controls,.pc-controller-ops{
       display: flex;
-      flex: 1;
       align-items: center;
       justify-content: center;
       i{
@@ -84,7 +92,9 @@
       }
     }
     .pc-controller-controls{
-      justify-content: flex-start;
+      width: 30%;
+      padding-right: 36px;
+      justify-content: flex-end;
       i:nth-child(3){
         font-size: 18px;
       }
