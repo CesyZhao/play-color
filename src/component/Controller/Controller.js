@@ -22,12 +22,20 @@ class Controller extends Component{
 
   state = {
     playing: false,
-    currentTime: 0
+    currentTime: 0,
+    volume: 0.5,
+    showVolume: false
   }
 
   componentDidMount() {
+    this.bindEvents()
+    const { audio } = this.refs
+    audio.volume = this.state.volume
+  }
+
+  bindEvents = () => {
     const electron = window.require('electron')
-    const {ipcRenderer} = electron
+    const { ipcRenderer } = electron
     const events = ['next', 'prev', 'togglePlaying']
     for (const event of events) {
       ipcRenderer.on(event, () => {
@@ -58,6 +66,22 @@ class Controller extends Component{
     }
     audio.play()
     this.setState({playing: true})
+  }
+  toggleVolume = () => {
+    this.setState({ showVolume: !this.state.showVolume })
+  }
+
+  handleVolumeChange = (e) => {
+    const { pageY, target } = e
+    const rect = target.getBoundingClientRect()
+    const { bottom } = rect
+    const offset = bottom - pageY
+    const volume = offset / target.clientHeight
+    const { audio } = this.refs
+    audio.volume = volume
+    this.setState({
+      volume
+    })
   }
 
   changeMode = async (targetMode) => {
@@ -155,7 +179,9 @@ class Controller extends Component{
       hasSong &&
       <div className="pc-controller">
         <div className="pc-controller-progress-bar" style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
-        <div className="pc-controller-volume"></div>
+        <div onClick={this.handleVolumeChange} className={`pc-controller-volume ${this.state.showVolume ? 'visible' : ''}`}>
+          <div className="pc-controller-volume-inner" style={{ height: `${this.state.volume * 100}%` }}></div>
+        </div>
         <div className="pc-controller-cover" onClick={() => this.showCurrentSong(song.id)}>
           {
             hasSong && <img alt="playing-cover" src={song.album.picUrl.replace('100y100', '965y965')}></img>
@@ -191,7 +217,7 @@ class Controller extends Component{
             <Link to="/comment">
               <i className="iconfont icon-aui-icon-comment"></i>
             </Link>
-            <i className="iconfont icon-yinliang"></i>
+            <i className="iconfont icon-yinliang" onClick={this.toggleVolume}></i>
             {/* <span className="pc-controller-comments">
               3万 热评
             </span> */}

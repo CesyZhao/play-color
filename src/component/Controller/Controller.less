@@ -21,10 +21,21 @@
     position: absolute;
     top: -80px;
     right: 42px;
-    width: 8px;
+    width: 12px;
     height: 100px;
-    background-color: rgba(255, 255, 255, .5);
+    background-color: rgba(58, 59, 66, 1);
+    border-radius: 4px;
     z-index: 99;
+    justify-content: center;
+    display: none;
+    &.visible{ display: flex; }
+    .pc-controller-volume-inner{
+      width: 4px;
+      height: 70%;
+      align-self: flex-end;
+      background-color: #fff;
+      border-radius: 4px;
+    }
   }
   .pc-controller-cover{
     position: absolute;
