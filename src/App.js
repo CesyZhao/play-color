@@ -78,6 +78,7 @@ class App extends Component {
 
   handleHistory = (index) => {
     window.history.go(index)
+    console.log(this.props.history)
   }
 
 

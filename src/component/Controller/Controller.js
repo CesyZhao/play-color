@@ -182,7 +182,7 @@ class Controller extends Component{
         <div onClick={this.handleVolumeChange} className={`pc-controller-volume ${this.state.showVolume ? 'visible' : ''}`}>
           <div className="pc-controller-volume-inner" style={{ height: `${this.state.volume * 100}%` }}></div>
         </div>
-        <div className="pc-controller-cover" onClick={() => this.showCurrentSong(song.id)}>
+        <div className="pc-controller-cover">
           {
             hasSong && <img alt="playing-cover" src={song.album.picUrl.replace('100y100', '965y965')}></img>
           }
@@ -218,6 +218,7 @@ class Controller extends Component{
               <i className="iconfont icon-aui-icon-comment"></i>
             </Link>
             <i className="iconfont icon-yinliang" onClick={this.toggleVolume}></i>
+            <i className="iconfont icon-expand-o" onClick={() => this.showCurrentSong(song.id)}></i>
             {/* <span className="pc-controller-comments">
               3万 热评
             </span> */}
