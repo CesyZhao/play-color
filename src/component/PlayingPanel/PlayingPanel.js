@@ -72,55 +72,71 @@ class PlayingPanel extends Component{
   }
 
   draw = () => {
-    requestAnimationFrame(this.draw)
     this.analyser.getByteFrequencyData(this.output)//获取频域数据
     const { cxt, wrap, gradient, output } = this
     const { width, height } = wrap
     cxt.clearRect(0, 0, width, height)
-
-    //左填充
+    const angle = 2
+    const radius = 200
+    const center = { x: 300, y: 300 }
+    //画线条
     cxt.beginPath()
     cxt.moveTo(0, height - 200)
-    var x = 0
-    for (let i = 1; i < 42; i++) {
-      console.log(output[i])
-      let lineHeight = output[i] / 256 * height / 3
-      if (i < 5) {
-        cxt.lineTo(x, height - output[i] / 256 * height / 2 - 200)
-      } else if (i > 40) {
-        cxt.lineTo(x - 13, height - 200)
-      } else {
-        cxt.lineTo(x, height - lineHeight - 200)
-      }
-      x += 17.5
+    for (var i = 0; i < 180; i++) {
+      const value = output[i] / 10
+      // let Rv1 = (radius - value)
+      let Rv2 = (radius + value)
+      // cxt.moveTo((Math.sin((i * angle) / 180 * Math.PI) * Rv1 + center.y), -Math.cos((i * angle) / 180 * Math.PI) * Rv1 + center.x)
+      cxt.lineTo((Math.sin((i * angle) / 180 * Math.PI) * Rv2 + center.y), -Math.cos((i * angle) / 180 * Math.PI) * Rv2 + center.x)
     }
     cxt.fillStyle = gradient
     cxt.fill()
     cxt.closePath()
+    requestAnimationFrame(this.draw)
+
+    // //左填充
+    // cxt.beginPath()
+    // cxt.moveTo(0, height - 200)
+    // var x = 0
+    // for (let i = 1; i < 42; i++) {
+    //   console.log(output[i])
+    //   let lineHeight = output[i] / 256 * height / 3
+    //   if (i < 5) {
+    //     cxt.lineTo(x, height - output[i] / 256 * height / 2 - 200)
+    //   } else if (i > 40) {
+    //     cxt.lineTo(x - 13, height - 200)
+    //   } else {
+    //     cxt.lineTo(x, height - lineHeight - 200)
+    //   }
+    //   x += 17.5
+    // }
+    // cxt.fillStyle = gradient
+    // cxt.fill()
+    // cxt.closePath()
 
 
 
 
-    //左线条
-    cxt.beginPath()
-    cxt.moveTo(0, height - 200)
-    var x = 0
-    for (let i = 1; i < 42; i++) {
-      let lineHeight = output[i] / 256 * height / 3
-      if (i < 5) {
-        cxt.lineTo(x, height - output[i] / 256 * height / 2 - 210 - Math.floor(Math.random() * 30))
-      } else if (i > 40) {
-        cxt.lineTo(x - 13, height - 220)
-      } else {
-        cxt.lineTo(x, height - lineHeight - 210 - Math.floor(Math.random() * 30))
-      }
-      x += 17.5
-    }
-    cxt.strokeStyle = gradient
-    cxt.stroke()
-    cxt.closePath()
+    // //左线条
+    // cxt.beginPath()
+    // cxt.moveTo(0, height - 200)
+    // var x = 0
+    // for (let i = 1; i < 42; i++) {
+    //   let lineHeight = output[i] / 256 * height / 3
+    //   if (i < 5) {
+    //     cxt.lineTo(x, height - output[i] / 256 * height / 2 - 210 - Math.floor(Math.random() * 30))
+    //   } else if (i > 40) {
+    //     cxt.lineTo(x - 13, height - 220)
+    //   } else {
+    //     cxt.lineTo(x, height - lineHeight - 210 - Math.floor(Math.random() * 30))
+    //   }
+    //   x += 17.5
+    // }
+    // cxt.strokeStyle = gradient
+    // cxt.stroke()
+    // cxt.closePath()
 
-    cxt.clearRect(0, height - 300, 690, 101)
+    // cxt.clearRect(0, height - 300, 690, 101)
 
     //右填充
     // cxt.beginPath()
