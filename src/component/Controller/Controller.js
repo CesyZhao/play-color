@@ -29,7 +29,7 @@ class Controller extends Component{
 
   componentDidMount() {
     this.bindEvents()
-    const { audio } = this.refs
+    const { audio = {} } = this.refs
     audio.volume = this.state.volume
   }
 
