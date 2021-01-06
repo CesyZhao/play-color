@@ -99,7 +99,6 @@ class PlayingPanel extends Component{
     cxt.moveTo(0, height - 200)
     var x = 0
     for (let i = 1; i < 42; i++) {
-      console.log(output[i])
       let lineHeight = output[i] / 256 * height / 3
       if (i < 5) {
         cxt.lineTo(x, height - output[i] / 256 * height / 2 - 200)
@@ -189,7 +188,7 @@ class PlayingPanel extends Component{
     const { width, height }= wrap
     const scaleX = (screenWidth/width).toPrecision(5),
 		scaleY = (screenHeight/height).toPrecision(5)
-		wrap.style = 'transform-origin:0% 0%; transform:scale('+scaleX+','+scaleY+') translateY(-18%);'
+		wrap.style = 'transform-origin:0% 0%; transform:scale('+scaleX+','+scaleY+');'
     let gradient = cxt.createLinearGradient(0, 100, 480, 100)
 		gradient.addColorStop('0', '#f500d8')
     gradient.addColorStop('1.0', '#ceaf11')
@@ -212,6 +211,10 @@ class PlayingPanel extends Component{
 
   handleNext = () => {
     eventBus.emit('next')
+  }
+
+  handlePrev = () => {
+    eventBus.emit('prev')
   }
 
   getFromUrl = (song) => {
@@ -238,17 +241,18 @@ class PlayingPanel extends Component{
             <div className="iconfont icon-fanhui icon-dismiss" onClick={this.dismiss}></div>
             <div className="pc-visualizor-wrapper">
               <canvas id="wrap" width={CANVAS_WIDTH * 2} height={CANVAS_HEIGHT * 2} />
-              <div className="img-wrapper">
+              {/* <div className="img-wrapper">
                 <div className="img" >
                   <img src={song.album.picUrl.replace('100y100', '200y200')} alt="ablum"/>
                 </div>
-              </div>
+              </div> */}
               <div className="pc-playing-panel-toolbar">
                 {
                   // this.state.mode === '歌词模式' &&
                   <Lyric songId={song.id}></Lyric>
                 }
                 <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`} onClick={() => this.likeSong(song)}></i>
+                <i className="iconfont icon-ios-rewind" onClick={this.handlePrev}></i>
                 <i className="iconfont icon-ios-fastforward" onClick={this.handleNext}></i>
                 <Link to="/comment" onClick={this.dismiss}><i className="iconfont icon-aui-icon-comment"></i></Link>
               </div>
@@ -258,7 +262,7 @@ class PlayingPanel extends Component{
             </div>
           </div>
           <div className="pc-playing-panel-blur-cover">
-            <img src={song.album.picUrl} alt="ablum"></img>
+            <img src={song.album.picUrl.replace('100y100', '964y608')} alt="ablum"></img>
           </div>
         </div>
       </CSSTransition>
