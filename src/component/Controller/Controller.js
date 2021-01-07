@@ -212,10 +212,10 @@ class Controller extends Component{
             <i className="iconfont icon-ios-fastforward" onClick={this.next}></i>
           </div>
           <div className="pc-controller-controls">
-            <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`} onClick={() => this.likeSong(song)}></i>
+            <i className={`iconfont ${favorites.get(song.id) ? 'icon-heart1' : 'icon-heart'}`} onClick={() => this.likeSong(song)}></i>
             <i className={`iconfont icon-ios-${mode}`} onClick={this.changeMode}></i>
             <Link to="/comment">
-              <i className="iconfont icon-aui-icon-comment"></i>
+              <i className="iconfont icon-comment"></i>
             </Link>
             <i className="iconfont icon-yinliang" onClick={this.toggleVolume}></i>
             <i className="iconfont icon-expand-o" onClick={() => this.showCurrentSong(song.id)}></i>
