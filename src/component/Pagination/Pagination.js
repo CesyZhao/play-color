@@ -66,6 +66,7 @@ class Pagination extends Component {
 
 
     return (
+      totalPage > 1 &&
       <div className="pc-pagination">
         {
           showTotal && <span className="pc-pagination-total"> 共 {total} 条</span>
