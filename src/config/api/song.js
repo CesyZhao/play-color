@@ -14,6 +14,8 @@ const getLyric = param => http.get(`/lyric?id=${param.id}`)
 
 const getSongDetail = param => http.get(`/song/detail?ids=${param.ids}`)
 
+const getSongUrl = param => http.get(`/song/url?id=${param.id}`)
+
 const getPlayListCategories = param => http.get('/playlist/hot')
 
 const getPlayLists = param => http.get(`/top/playlist/highquality?limit=30${param.before ? '&before=' + param.before : '' }${param.category ? '&cat=' + param.category : '' }`)
@@ -28,5 +30,6 @@ export default {
   getLyric,
   getPlayListCategories,
   getPlayLists,
-  getSongDetail
+  getSongDetail,
+  getSongUrl
 }

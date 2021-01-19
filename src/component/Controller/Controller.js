@@ -24,13 +24,33 @@ class Controller extends Component{
     playing: false,
     currentTime: 0,
     volume: 0.5,
-    showVolume: false
+    showVolume: false,
+    playingUrl: ''
   }
 
   componentDidMount() {
     this.bindEvents()
     const { audio = {} } = this.refs
     audio.volume = this.state.volume
+  }
+
+  UNSAFE_componentWillReceiveProps(props) {
+    this.updatePlayingSongUrl(props.controller.song)
+  }
+
+  updatePlayingSongUrl = async (song) => {
+    try {
+      const { data } = await api.song.getSongUrl({ id: song.id })
+      const { data: realData } = data
+      const [urlObj] = realData
+      this.setState({
+        playingUrl: urlObj.url
+      })
+    } catch (error) {
+      this.setState({
+        playingUrl: `http://music.163.com/song/media/outer/url?id=${song.id}.mp3`
+      })
+    }
   }
 
   bindEvents = () => {
@@ -176,7 +196,7 @@ class Controller extends Component{
     _.isEmpty(favorites) && (favorites = new Map())
     const hasSong = !_.isEmpty(song)
     return (
-      hasSong &&
+      hasSong && this.state.playingUrl &&
       <div className="pc-controller">
         <div className="pc-controller-progress-bar" style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
         <div onClick={this.handleVolumeChange} className={`pc-controller-volume ${this.state.showVolume ? 'visible' : ''}`}>
@@ -189,7 +209,7 @@ class Controller extends Component{
         </div>
         <div className="pc-controller-contents">
           {
-            hasSong && <audio autoPlay crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={`http://music.163.com/song/media/outer/url?id=${song.id}.mp3`}></audio>
+            hasSong && <audio autoPlay crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={this.state.playingUrl}></audio>
           }
           <div className="pc-controller-cover-wrapper">
             <div className="pc-controller-info">
