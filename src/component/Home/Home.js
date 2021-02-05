@@ -31,7 +31,6 @@ class Home extends Component {
 
   static async getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.user && prevState.user && nextProps.user.userId !== prevState.user.userId) {
-      console.log('--------')
       const startTime = new Date().setHours(0, 0, 0, 0)
       const endTime = new Date().setHours(23, 59, 59, 0)
       const calendarPromise = api.home.getCalendar({ startTime, endTime })
@@ -70,12 +69,14 @@ class Home extends Component {
     } catch (e) {
       calendarEvents = []
     }
-    const { controller } = this.props
+    const { controller, user } = this.props
     const { song } = controller
     const albumList = _.take(albumRes.data.result, 8)
     const banners = bannerRes.data.banners
     const newest = _.take(topRes.data.data, 5)
-    _.isEmpty(song) && this.handleSongClick(newest[0])
+    if (_.isEmpty(song) || _.isEmpty(user.profile)) {
+      this.handleSongClick(newest[0])
+    }
     this.setState({
       albumList,
       banners,

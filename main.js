@@ -22,9 +22,9 @@ function registerShortcut(win) {
 }
 
 function createWindow() {
-  // process.env.NODE_ENV === 'development' && BrowserWindow.addDevToolsExtension(
-  //   path.join(os.homedir(), '/Documents/ChrisZhao/software/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0')
-  // )
+  process.env.NODE_ENV === 'development' && BrowserWindow.addDevToolsExtension(
+    path.join(os.homedir(), '/software/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0')
+  )
   // Create the browser window.
   const isWin = os.platform().includes('win')
   const windowConfig = {

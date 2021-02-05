@@ -121,9 +121,7 @@ class Login extends Component {
       let { profile } = res.data
       const { dispatch } = this.props
       dispatch(saveUserProfile({
-        profile,
-        userAccount: this.state.username,
-        userPassword: this.state.password
+        profile
       }))
       EventBus.emit('getUserFavorites')
     } catch (error) {

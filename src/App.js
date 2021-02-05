@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 import { saveUserProfile, saveUserFavorites } from './store/action/user'
 import EventBus from './events'
 import api from './config/api'
+import _ from 'lodash'
 
 @connect(({ user }) => ({
   user
@@ -29,7 +30,8 @@ class App extends Component {
   }
   componentDidMount() {
     this.refreshLoginStatus()
-    this.props.user.profile && this.getUserFavorites()
+    console.log(this.props.user.profile)
+    !_.isEmpty(this.props.user.profile) && this.getUserFavorites()
     document.addEventListener('keydown', e => {
       const { ctrlKey, metaKey, key, shiftKey } = e
       const isControlOrCommand = ctrlKey || metaKey
@@ -51,11 +53,12 @@ class App extends Component {
   }
 
   refreshLoginStatus = async () => {
+    console.log('---------------------')
     try {
       const { data } = await api.user.getLoginStatus()
-      data.profile ? api.user.refreshLoginStatus() : this.props.dispatch(saveUserProfile({}))
+      data.profile ? api.user.refreshLoginStatus() : this.props.dispatch(saveUserProfile({ profile: {} }))
     } catch (error) {
-      this.props.dispatch(saveUserProfile({}))
+      this.props.dispatch(saveUserProfile({profile: {}}))
     }
   }
 

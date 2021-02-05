@@ -27,20 +27,5 @@ export default [
         link: '/'
       }
     ]
-  },
-  {
-    name: '我的音乐',
-    list: [
-      {
-        name: '收藏',
-        icon: 'icon-shoucang',
-        link: '/'
-      },
-      {
-        name: '播放记录',
-        icon: 'icon-lishijilu',
-        link: '/'
-      }
-    ]
   }
 ]

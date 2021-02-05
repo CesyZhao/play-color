@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import './Menu.less'
-import logo from '../../asset/daydream.png'
 import menu from './menus'
 import { Link, withRouter } from 'react-router-dom'
 import EventBus from '../../events'
 import {connect} from 'react-redux'
 import FM from '../../entity/FM'
+import _ from 'lodash'
 
 @withRouter
 @connect(({user}) => ({
@@ -15,7 +15,7 @@ class Leftbar extends Component {
 
   toggleLogin = () => {
     const {profile} = this.props.user
-    !profile && EventBus.emit('toggleLogin')
+    _.isEmpty(profile) && EventBus.emit('toggleLogin')
   }
 
   toggleMenu = async (name) => {
@@ -33,6 +33,7 @@ class Leftbar extends Component {
     return (
       <div className="pc-leftbar" onClick={this.toggleMenu}>
         <div className="menuWrapper">
+          <div></div>
           {
             menu.map((category, index) => {
               const item = category.list.map(item =>
@@ -50,15 +51,13 @@ class Leftbar extends Component {
               )
             })
           }
-          <div className="pc-leftbar-logo">
-            {profile ?
+          <div className="pc-leftbar-logo" onClick={this.toggleLogin}>
+            {!_.isEmpty(profile) ?
               <Link to={`/user/${profile.userId}`}>
-                <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar" onClick={this.toggleLogin} />
+                <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar" />
                 {/* <span onClick={this.toggleLogin}>{profile.nickname}</span> */}
               </Link>
-              : <React.Fragment>
-                <img src={logo} alt="logo" onClick={this.toggleLogin} />
-              </React.Fragment>
+              : <i className="iconfont icon-user11"></i>
             }
           </div>
         </div>
