@@ -51,14 +51,22 @@ class Leftbar extends Component {
               )
             })
           }
-          <div className="pc-leftbar-logo" onClick={this.toggleLogin}>
-            {!_.isEmpty(profile) ?
-              <Link to={`/user/${profile.userId}`}>
-                <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar" />
-                {/* <span onClick={this.toggleLogin}>{profile.nickname}</span> */}
-              </Link>
-              : <i className="iconfont icon-user11"></i>
-            }
+          <div>
+            <div className="pc-tool-bar">
+              <div className="pc-tool-bar-tools">
+                <i className="iconfont icon-fanhui" onClick={() => this.handleHistory(-1)} />
+                <i className="iconfont icon-gengduo" onClick={() => this.handleHistory(1)} />
+              </div>
+            </div>
+            <div className="pc-leftbar-logo" onClick={this.toggleLogin}>
+              {!_.isEmpty(profile) ?
+                <Link to={`/user/${profile.userId}`}>
+                  <img src={profile.avatarUrl} alt="用户头像" className="pc-user-avatar" />
+                  {/* <span onClick={this.toggleLogin}>{profile.nickname}</span> */}
+                </Link>
+                : <i className="iconfont icon-user11"></i>
+              }
+            </div>
           </div>
         </div>
       </div>

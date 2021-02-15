@@ -91,7 +91,7 @@ class App extends Component {
       <HashRouter>
         <div className="play-color">
           <header className="pc-header" >
-            {
+            {/* {
               this.state.showToolbar &&
               <div className="pc-tool-bar">
                 <div className="pc-tool-bar-tools">
@@ -99,7 +99,7 @@ class App extends Component {
                   <i className="iconfont icon-gengduo" onClick={() => this.handleHistory(1)} />
                 </div>
               </div>
-            }
+            } */}
           </header>
           <div className="content-wrapper">
             <Menu />
