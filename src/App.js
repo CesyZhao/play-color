@@ -11,7 +11,7 @@ import Search from './component/Search/Search'
 import WindowOperator from './component/WindowOperator/WindowOperator'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { saveUserProfile, saveUserFavorites } from './store/action/user'
 import EventBus from './events'
@@ -53,7 +53,6 @@ class App extends Component {
   }
 
   refreshLoginStatus = async () => {
-    console.log('---------------------')
     try {
       const { data } = await api.user.getLoginStatus()
       data.profile ? api.user.refreshLoginStatus() : this.props.dispatch(saveUserProfile({ profile: {} }))
@@ -79,16 +78,10 @@ class App extends Component {
     }
   }
 
-  handleHistory = (index) => {
-    window.history.go(index)
-    console.log(this.props.history)
-  }
-
-
   render() {
     const UA = navigator.userAgent.toLowerCase()
     return (
-      <HashRouter>
+      <BrowserRouter>
         <div className="play-color">
           <header className="pc-header" >
             {/* {
@@ -115,7 +108,7 @@ class App extends Component {
             <WindowOperator />
           }
         </div>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }

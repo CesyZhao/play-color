@@ -1,0 +1,23 @@
+.pc-navigator{
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 8px;
+  .pc-navigator-tools{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    flex: 1;
+    i{ 
+      font-size: 12px;
+      cursor: pointer; 
+      padding: 2px 4px;
+      &.disabled{
+        opacity: .4;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

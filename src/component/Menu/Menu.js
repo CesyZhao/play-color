@@ -39,7 +39,7 @@ class Leftbar extends Component {
               const item = category.list.map(item =>
                 <Link to={item.link} key={item.name} onClick={() => this.toggleMenu(item.name)}>
                   <div className="pc-leftbar-category-item">
-                    <i className={`iconfont ${item.icon}`} />
+                    <i className={`iconfont ${item.icon}`} title={item.name}/>
                     {/* <span>{item.name}</span> */}
                   </div>
                 </Link>)
@@ -52,12 +52,7 @@ class Leftbar extends Component {
             })
           }
           <div>
-            <div className="pc-tool-bar">
-              <div className="pc-tool-bar-tools">
-                <i className="iconfont icon-fanhui" onClick={() => this.handleHistory(-1)} />
-                <i className="iconfont icon-gengduo" onClick={() => this.handleHistory(1)} />
-              </div>
-            </div>
+            {/* <Navigator></Navigator> */}
             <div className="pc-leftbar-logo" onClick={this.toggleLogin}>
               {!_.isEmpty(profile) ?
                 <Link to={`/user/${profile.userId}`}>
