@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom'
 import scripts from '../../config/scripts'
 import { updatePlayingSong, updatePlayingAlbum } from '../../store/action/controller'
 import api from '../../config/api'
-import EventBus from '../../events'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
@@ -85,7 +84,6 @@ class Home extends Component {
     }),
     setTimeout(() => {
       this.setState({loading: false})
-      EventBus.emit('content-loaded')
     }, 2000)
   }
 

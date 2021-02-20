@@ -45,11 +45,6 @@ class App extends Component {
         menuDisplayed: false
       })
     })
-    EventBus.on('content-loaded', () => {
-      this.setState({
-        showToolbar: true
-      })
-    })
   }
 
   refreshLoginStatus = async () => {
