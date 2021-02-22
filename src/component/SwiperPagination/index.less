@@ -1,0 +1,30 @@
+.swiper-pagination{
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: row;
+  opacity: .5;
+  &:hover{
+    opacity: 1;
+  }
+}
+
+.swiper-pagination-button{
+  height: 10px;
+  width: 10px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  .swiper-pagination-dot{
+    background-color: rgba(10, 10, 10);
+    height: 8px;
+    width: 8px;
+    border-radius: 4px;
+    margin: 2px;
+    &.active{
+      background: linear-gradient(to right, #7BA3FF, #57E1E7);
+    }
+  }
+}

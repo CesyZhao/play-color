@@ -3,6 +3,7 @@ import './Home.less'
 // eslint-disable-next-line no-unused-vars
 import LazyImage from '../LazyImage/LazyImage'
 import SwipeableViews from 'react-swipeable-views'
+import Pagination from '../SwiperPagination/Pagination'
 import { autoPlay } from 'react-swipeable-views-utils'
 import _ from 'lodash'
 import { formatDuration } from '../../util/audio'
@@ -25,7 +26,8 @@ class Home extends Component {
     banners: [],
     newest: [],
     calendarEvents: [],
-    loading: true
+    loading: true,
+    index: 0
   }
 
   static async getDerivedStateFromProps(nextProps, prevState) {
@@ -92,9 +94,16 @@ class Home extends Component {
     this.props.dispatch(updatePlayingAlbum({ tracks: this.state.newest, id: 'findMusic', name: '发现音乐' }))
   }
 
+  handleChangeIndex = index => {
+    this.setState({
+      index
+    })
+  }
+
   today = new Date()
 
   render() {
+    const { index } = this.state
     return (
       this.state.loading
         ? <div className="pc-home loading">
@@ -110,11 +119,12 @@ class Home extends Component {
           <div>
             <div className="pc-home-category-left">
               <div className="pc-home-banner">
-                <AutoPlaySwipeableViews resistance className="pc-home-banner-swiper">
+                <AutoPlaySwipeableViews resistance className="pc-home-banner-swiper" interval={10000} index={index} onChangeIndex={this.handleChangeIndex}>
                   {
                     this.state.banners.map((banner, index) => <img alt="banner" key={banner.encodeId + index} src={banner.imageUrl}></img>)
                   }
                 </AutoPlaySwipeableViews>
+                <Pagination dots={this.state.banners.length} index={index} onChangeIndex={this.handleChangeIndex} />
               </div>
             </div>
             <div className="pc-home-calendar">
@@ -126,7 +136,7 @@ class Home extends Component {
               <div className="pc-home-calendar-content">
                 {
                   this.state.calendarEvents.length > 0 ?
-                    <AutoPlaySwipeableViews resistance className="pc-home-calendar-swiper" axis="y" slideStyle={{ height: '100%' }} containerStyle={{ height: '100%' }}>
+                    <AutoPlaySwipeableViews resistance className="pc-home-calendar-swiper" axis="y" slideStyle={{ height: '100%' }} containerStyle={{ height: '100%' }} interval={10000}>
                       {
                         this.state.calendarEvents.map(event => {
                           return (
