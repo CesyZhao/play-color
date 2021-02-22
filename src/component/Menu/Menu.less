@@ -65,7 +65,15 @@
       text-align: left;
       cursor: pointer;
       font-size: 20px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      i{
+        font-size: 18px;
+        &:hover{
+          background: @main-theme;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
     }
   }
   .pc-leftbar-category-label{

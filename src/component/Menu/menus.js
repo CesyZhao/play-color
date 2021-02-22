@@ -3,7 +3,7 @@ export default [
     list: [
       {
         name: '发现音乐',
-        icon: 'icon-tubiaozhizuomoban',
+        icon: 'icon-yinle1',
         link: '/'
       },
       {

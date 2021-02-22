@@ -97,10 +97,10 @@ class Album extends Component {
               <div className="pc-album-text"> 播放量: {album.playCount / 10000 ? (album.playCount / 10000).toFixed(2) : album.playCount / 10000} 万</div>
               <div className="pc-album-text"> {album.tracks.length} 首</div>
             </div>
-            <div className="pc-album-counts">
-              <div className="pc-album-play-all"> <i className="iconfont icon-iosplay"></i> 播放全部 </div>
-              <div className="pc-album-track"> <i className="iconfont icon-bofangqi-bofang"></i> {album.subscribed && '已'}收藏 ({album.subscribedCount > 10000 ? (album.subscribedCount / 10000).toFixed(2) + '万' : album.subscribedCount}) </div>
-            </div>
+          </div>
+          <div className="pc-album-counts">
+            <div className="pc-album-play-all"> <i className="iconfont icon-iosplay"></i> </div>
+              <div className="pc-album-track"> <i className={`iconfont ${album.subscribed ? 'icon-shoucang' : 'icon-shoucang1'}`}></i> </div>
           </div>
         </div>
         <Playlist album={album} className="pc-album-list" fields={fields}></Playlist>
