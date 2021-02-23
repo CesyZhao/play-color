@@ -11,13 +11,15 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 import scripts from '../../config/scripts'
 import { updatePlayingSong, updatePlayingAlbum } from '../../store/action/controller'
+import { updateHomeContent } from '../../store/action/home'
 import api from '../../config/api'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
-@connect(({ controller, user }) => ({
+@connect(({ controller, user, home }) => ({
   controller,
-  user
+  user,
+  home
 }))
 class Home extends Component {
 
@@ -53,7 +55,27 @@ class Home extends Component {
     return null
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    const { content } = this.props.home
+    this.setState({
+      loading: !content
+    })
+    if (content) {
+      const { albumList, banners, newest } = content
+      this.setState({
+        albumList,
+        banners,
+        newest
+      })
+    }
+    this.getNewHomeContent()
+    // 图片等内容的渲染
+    setTimeout(() => {
+      this.setState({loading: false})
+    }, 2000)
+  }
+
+  getNewHomeContent = async () => {
     const personalizedPromise = api.home.getPersonalized()
     const bannerPromise = api.home.getBanner()
     const topPromise = api.home.getTopSong()
@@ -84,9 +106,7 @@ class Home extends Component {
       newest,
       calendarEvents
     }),
-    setTimeout(() => {
-      this.setState({loading: false})
-    }, 2000)
+    this.props.dispatch(updateHomeContent({ content: { albumList, banners, newest } }))
   }
 
   handleSongClick = (song) => {

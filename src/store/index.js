@@ -2,12 +2,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import thunk from 'redux-thunk'
 import storage from 'redux-persist/lib/storage'
-import userReducer from './reducer/UserReducer'
-import controllerReducer from './reducer/ControllerReducer'
+import userReducer from './reducer/user'
+import controllerReducer from './reducer/controller'
+import homeReducer from './reducer/home'
 
 const reducers = {
   user: userReducer,
-  controller: controllerReducer
+  controller: controllerReducer,
+  home: homeReducer
 }
 const persistConfig = {
   key: 'root',
