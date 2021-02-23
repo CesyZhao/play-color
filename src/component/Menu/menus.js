@@ -24,7 +24,7 @@ export default [
       {
         name: '搜索',
         icon: 'icon-sousuo1',
-        link: '/'
+        link: '/search'
       }
     ]
   }

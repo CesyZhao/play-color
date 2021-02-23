@@ -13,7 +13,8 @@ import eventBus from '../../events'
 class PlayList extends Component {
   static propTypes = {
     album: PropTypes.object.isRequired,
-    fields: PropTypes.array.isRequired
+    fields: PropTypes.array.isRequired,
+    fixedHeight: PropTypes.bool
   }
 
   getContent = (song, name, alias) => {
@@ -45,9 +46,10 @@ class PlayList extends Component {
 
   render() {
     let { favorites } = this.props.user
+    const { fixedHeight = true } = this.props
     _.isEmpty(favorites) && (favorites = new Map())
     return (
-      <div className="pc-playlist-wrapper">
+      <div className={`pc-playlist-wrapper ${fixedHeight ? 'fixedHeight' : ''}`}>
         <div className="pc-playlist-song pc-playlist-header">
             <div style={{width: '36px', textAlign: 'center'}}> # </div>
             {

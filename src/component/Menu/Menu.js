@@ -18,12 +18,13 @@ class Leftbar extends Component {
     _.isEmpty(profile) && EventBus.emit('toggleLogin')
   }
 
-  toggleMenu = async (name) => {
+  toggleMenu = async (name, e) => {
     EventBus.emit('closeMenu')
     if (name === '私人 FM') {
       await FM.initFM()
       EventBus.emit('togglePlayingPanel')
     } else if (name === '搜索') {
+      e.preventDefault()
       EventBus.emit('toggleSearch', true)
     }
   }
@@ -37,8 +38,8 @@ class Leftbar extends Component {
           {
             menu.map((category, index) => {
               const item = category.list.map(item =>
-                <Link to={item.link} key={item.name} onClick={() => this.toggleMenu(item.name)}>
-                  <div className="pc-leftbar-category-item">
+                <Link to={item.link} key={item.name} onClick={(e) => this.toggleMenu(item.name, e)}>
+                  <div className={`pc-leftbar-category-item ${item.link === window.location.pathname ? 'active' : ''}`}>
                     <i className={`iconfont ${item.icon}`} title={item.name}/>
                     {/* <span>{item.name}</span> */}
                   </div>
