@@ -196,7 +196,6 @@ class Controller extends Component{
     _.isEmpty(favorites) && (favorites = new Map())
     const hasSong = !_.isEmpty(song)
     return (
-      hasSong && this.state.playingUrl &&
       <div className="pc-controller">
         <div className="pc-controller-progress-bar" style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
         <div onClick={this.handleVolumeChange} className={`pc-controller-volume ${this.state.showVolume ? 'visible' : ''}`}>
@@ -209,40 +208,39 @@ class Controller extends Component{
         </div>
         <div className="pc-controller-contents">
           {
-            hasSong && <audio autoPlay crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={this.state.playingUrl}></audio>
+            hasSong && this.state.playingUrl &&
+            <React.Fragment>
+              <audio autoPlay crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={this.state.playingUrl}></audio>
+              <div className="pc-controller-cover-wrapper">
+                <div className="pc-controller-info">
+                  <div>{song.name}</div>
+                  <div>
+                    <div> {song.artists.map(artist => artist.name).join('/')} </div>
+                    <span className="pc-controller-time">
+                      {` ${formatDuration(this.state.currentTime * 1000)} / ${formatDuration(song.duration)} `}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </React.Fragment>
           }
-          <div className="pc-controller-cover-wrapper">
-            <div className="pc-controller-info">
-              {
-                hasSong && <div>{song.name}</div>
-              }
-              {
-                hasSong && <div>
-                      <div> {song.artists.map(artist => artist.name).join('/')} </div>
-                      <span className="pc-controller-time">
-                        {` ${formatDuration(this.state.currentTime * 1000)} / ${formatDuration(song.duration)} `}
-                      </span>
-                    </div>
-              }
-            </div>
-          </div>
           <div className="pc-controller-ops">
             <i className="iconfont icon-ios-rewind" onClick={this.prev}></i>
             <i className={`iconfont ${this.state.playing ? 'icon-ios-pause' : 'icon-iosplay'}`} onClick={this.togglePlaying}></i>
             <i className="iconfont icon-ios-fastforward" onClick={this.next}></i>
           </div>
-          <div className="pc-controller-controls">
-            <i className={`iconfont ${favorites.get(song.id) ? 'icon-heart1' : 'icon-heart'}`} onClick={() => this.likeSong(song)}></i>
-            <i className={`iconfont icon-ios-${mode}`} onClick={this.changeMode}></i>
-            <Link to="/comment">
-              <i className="iconfont icon-comment"></i>
-            </Link>
-            <i className="iconfont icon-yinliang" onClick={this.toggleVolume}></i>
-            <i className="iconfont icon-expand-o" onClick={() => this.showCurrentSong(song.id)}></i>
-            {/* <span className="pc-controller-comments">
-              3万 热评
-            </span> */}
-          </div>
+          {
+            hasSong && this.state.playingUrl &&
+            <div className="pc-controller-controls">
+              <i className={`iconfont ${favorites.get(song.id) ? 'icon-heart1' : 'icon-heart'}`} onClick={() => this.likeSong(song)}></i>
+              <i className={`iconfont icon-ios-${mode}`} onClick={this.changeMode}></i>
+              <Link to="/comment">
+                <i className="iconfont icon-comment"></i>
+              </Link>
+              <i className="iconfont icon-yinliang" onClick={this.toggleVolume}></i>
+              <i className="iconfont icon-expand-o" onClick={() => this.showCurrentSong(song.id)}></i>
+            </div>
+          }
         </div>
       </div>
     )
