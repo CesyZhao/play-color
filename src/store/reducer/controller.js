@@ -47,7 +47,6 @@ function nextSong(state) {
   let index = tracks.findIndex(e => e.id === song.id)
   nextIndex = ++index < tracks.length ? index : 0
   nextSong = tracks[nextIndex]
-  console.log(nextSong)
   if (playingAlbum.id === 'personalFM') {
     if (index === tracks.length) {
       const newAlbumInfo = FM.getNewAlbumInfo()
@@ -62,9 +61,9 @@ function nextSong(state) {
 }
 
 function prevSong(state) {
-  const { song, playingAlbum, mode } = state
+  const { song, playingAlbum, mode, heartbeatAlbum } = state
   let prevSong, prevIndex
-  let tracks = mode === 'shuffle' ? playingAlbum.shuffledTracks : playingAlbum.tracks
+  let tracks = mode === 'heartbeat' ? heartbeatAlbum.tracks : (mode === 'shuffle' ? playingAlbum.shuffledTracks : playingAlbum.tracks)
   let index = tracks.findIndex(e => e.id === song.id)
   // 由于存在用来辨别歌单的对象 {name:***} 所以歌单长度减二
   prevIndex = --index >= 0 ? index : tracks.length - 1
