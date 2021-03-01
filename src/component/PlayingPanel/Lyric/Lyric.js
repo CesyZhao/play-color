@@ -74,7 +74,7 @@ class Lyric extends Component {
     }, () => {
       if (nextIndex > this.state.num) {
         let lineEl = document.querySelector(`[data-lyric-line='${nextIndex - 1}']`)
-        lineEl.scrollIntoView({behavior: 'smooth'})
+        lineEl && lineEl.scrollIntoView({behavior: 'smooth'})
       } else {
         document.querySelector('[data-lyric-line=\'0\']').scrollIntoView({behavior: 'smooth'})
       }
