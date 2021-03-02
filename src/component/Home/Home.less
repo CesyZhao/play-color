@@ -1,4 +1,5 @@
 @import '../../theme/common.less';
+@import '../../theme/vars.less';
 .pc-home{
   flex: 1;
   padding:0 20px;
@@ -7,7 +8,7 @@
     display: flex;
     &:nth-child(2){
       .pc-home-category-right{
-       margin-right: 16px;
+       margin-right: 10px;
       }
     }
   }
@@ -32,7 +33,7 @@
   }
   .pc-home-category-title{
     text-align: left;
-    line-height: 28px;
+    line-height: 32px;
     cursor: pointer;
     a{
       text-decoration: none;
@@ -111,6 +112,9 @@
       border-radius: 4px;
       cursor: pointer;
       background-color: rgba(255, 255, 255, .08);
+      &:hover{
+        background: @main-theme-shadow;
+      }
       >div:nth-child(2){
         width: calc(100% - 48px);
         div{ text-align: left; }
@@ -146,9 +150,9 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      width: 128px;
-      height: 128px;
-      margin-bottom: 12px;
+      width: 130px;
+      height: 130px;
+      margin-bottom: 10px;
       border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
@@ -168,7 +172,7 @@
           bottom: 0;
           left: 0;
           right: 0;
-          background: rgba(0, 0, 0, .5);
+          background: @main-theme-shadow;
           display: flex;
           align-items: center;
         }
