@@ -116,7 +116,7 @@ class Moments extends Component {
                     {
                       this.renderContent(JSON.parse(moment.json))
                     }
-                    <div>
+                    <div className={`pics-${moment.pics.length}`}>
                       {
                         moment.pics.map(pic => {
                           return <img src={pic.pcSquareUrl} key={pic.id} className="moment-image"></img>
@@ -139,7 +139,7 @@ class Moments extends Component {
               )
             })
           }
-          <li className="pc-moments-loadmore" ref="loadmore">记载中...</li>
+          <li className="pc-moments-loadmore" ref="loadmore">加载中...</li>
         </ul>
       </div>
     )

@@ -40,7 +40,50 @@
         width: 150px;
         height: auto;
         border-radius: 4px;
-        margin-right: 8px;
+        align-self: flex-start;
+        margin-bottom: 10px;
+      }
+      [class^=pics-]{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 450px;
+      }
+      .pics-1{
+        .moment-image{
+          flex: 1;
+        }
+      }
+      .pics-2, .pics-4{
+        .moment-image{
+          width: 49%;
+        }
+      }
+      .pics-8{
+        .moment-image{
+          width: 24%;
+        }
+      }
+      .pics-3, .pics-6, .pics-9{
+        .moment-image{
+          width: 145px;
+        }
+      }
+      .pics5{
+        .moment-image:nth-child(-n+2){
+          width: 49%;
+        }
+        .moment-image:nth-child(n+2){
+          width: 32%;
+        }
+      }
+      .pics7{
+        .moment-image:nth-child(-n+3){
+          width: 33%;
+        }
+        .moment-image:nth-child(n+3){
+          width: 25%;
+        }
       }
       .pc-moments-item-content{
         flex: 1;
