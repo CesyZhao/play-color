@@ -3,10 +3,19 @@
   flex: 1;
   overflow: auto;
   padding: 8px 12px;
+  display: flex;
   .pc-moments-list{
     list-style: none;
     margin: 0;
     padding: 0;
+    &.empty{
+      flex: 1;
+      display: flex;
+      align-items: center;
+      .pc-moments-loadmore{
+        flex: 1;
+      }
+    }
     .pc-moments-item{
       display: flex;
       padding-bottom: 12px;

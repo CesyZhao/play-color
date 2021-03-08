@@ -97,7 +97,7 @@ class Moments extends Component {
   render() {
     return (
       <div className="pc-moments">
-        <ul className="pc-moments-list">
+        <ul className={`pc-moments-list ${!this.state.moments.length && 'empty'}`}>
           {
             this.state.moments.map(moment =>{
               const { commentThread } = moment.info
