@@ -7,7 +7,7 @@ import eventBus from '../../events'
 import { formatDuration } from '../../util/audio'
 import { updatePlayingMode, nextSong, prevSong, updatePlayingAlbum, updateHeartbeatAlbum } from '../../store/action/controller'
 import { likeSong } from '../../store/action/user'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import api from '../../config/api'
 import { formatList } from '../../util/audio'
 /**
@@ -234,9 +234,9 @@ class Controller extends Component{
             <div className="pc-controller-controls">
               <i className={`iconfont ${favorites.get(song.id) ? 'icon-heart1' : 'icon-heart'}`} onClick={() => this.likeSong(song)}></i>
               <i className={`iconfont icon-ios-${mode}`} onClick={this.changeMode}></i>
-              <Link to="/comment">
+              {/* <Link to="/comment">
                 <i className="iconfont icon-comment"></i>
-              </Link>
+              </Link> */}
               <i className="iconfont icon-yinliang" onClick={this.toggleVolume}></i>
               <i className="iconfont icon-expand-o" onClick={() => this.showCurrentSong(song.id)}></i>
             </div>

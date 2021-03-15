@@ -16,11 +16,11 @@ export default [
         icon: 'icon-paihangbang',
         link: '/rankingList'
       },
-      {
-        name: '朋友',
-        icon: 'icon-friend_light',
-        link: '/moments'
-      },
+      // {
+      //   name: '朋友',
+      //   icon: 'icon-friend_light',
+      //   link: '/moments'
+      // },
       {
         name: '搜索',
         icon: 'icon-sousuo1',

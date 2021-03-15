@@ -254,7 +254,7 @@ class PlayingPanel extends Component{
                 <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`} onClick={() => this.likeSong(song)}></i>
                 <i className="iconfont icon-ios-rewind" onClick={this.handlePrev}></i>
                 <i className="iconfont icon-ios-fastforward" onClick={this.handleNext}></i>
-                <Link to="/comment" onClick={this.dismiss}><i className="iconfont icon-aui-icon-comment"></i></Link>
+                {/* <Link to="/comment" onClick={this.dismiss}><i className="iconfont icon-aui-icon-comment"></i></Link> */}
               </div>
               <div className="pc-playing-panel-info">
                 <Link to={this.getFromUrl(song)} onClick={this.dismiss}> 来源: {song.from} </Link>
