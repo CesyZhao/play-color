@@ -1,4 +1,4 @@
-import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG, UPDATE_HEARTBEAT_ALBUM} from '../action/actions'
+import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG, UPDATE_HEARTBEAT_ALBUM, UPDATE_PLAYING_STATUS} from '../action/actions'
 import _ from 'lodash'
 import FM from '../../entity/FM'
 import toaster from '../../util/toast'
@@ -7,6 +7,7 @@ const initState = {
   song: {},
   playingAlbum: {},
   heartbeatAlbum: {},
+  playing: false,
   history: [],
   currentPlaingHistory: [],
   mode: 'listCirculation'
@@ -38,6 +39,11 @@ function updatePlayingMode(state, action) {
     playingAlbum.shuffledTracks = _.shuffle(playingAlbum.tracks)
   }
   return Object.assign({}, state, action)
+}
+
+function updatePlayingStatus(state) {
+  const playing = !state.playing
+  return Object.assign({}, state, { playing })
 }
 
 function nextSong(state) {
@@ -96,6 +102,8 @@ export default function ControllerReducer(state = initState, action) {
       return updateHeartbeatAlbum(state, action)
     case UPDATE_PLAYING_MODE:
       return updatePlayingMode(state, action)
+    case UPDATE_PLAYING_STATUS:
+      return updatePlayingStatus(state)
     case NEXT_SONG:
       return nextSong(state)
     case PREV_SONG:

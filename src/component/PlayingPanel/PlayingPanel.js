@@ -7,10 +7,10 @@ import { connect } from 'react-redux'
 import Lyric from './Lyric/Lyric'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
+import Player from '../Controller/Player'
 
 const CANVAS_WIDTH = 690
 const CANVAS_HEIGHT = 340
-const BYTE_ARRAY_LENGTH = 4096
 @connect(({controller, user}) => ({
   controller,
   user
@@ -46,33 +46,11 @@ class PlayingPanel extends Component{
     cancelAnimationFrame(this.state.animation)
   }
 
-  source = null
-  analyser = null
-  animation = null
-  cxt = null
-  wrap = null
-  output = null
-  initAudio = () => {
-    if (!this.source) {
-      //获取API
-      let AudioContext = window.AudioContext || window.webkitAudioContext
-      let context = new AudioContext()
-      //加载媒体
-      // let audio = new Audio('http://music.163.com/song/media/outer/url?id=1367452194.mp3')
-      let audio = document.getElementById('audio')
-      //创建节点
-      this.source = context.createMediaElementSource(audio)
-      this.analyser = context.createAnalyser()
-      //连接：source → analyser → destination
-      this.source.connect(this.analyser)
-      this.analyser.connect(context.destination)
-      this.analyser.fftSize = BYTE_ARRAY_LENGTH
-      this.output = new Uint8Array(BYTE_ARRAY_LENGTH)
-    }
-  }
-
   draw = () => {
-    this.analyser.getByteFrequencyData(this.output)//获取频域数据
+    // this.analyser.getByteFrequencyData(this.output)//获取频域数据
+    this.output = Player.getAudioData()
+    // console.log(this.output)
+    // console.log(this.output)
     const { cxt, wrap, gradient, output, gradientRight } = this
     const { width, height } = wrap
     cxt.clearRect(0, 0, width, height)
@@ -197,7 +175,7 @@ class PlayingPanel extends Component{
     gradientRight.addColorStop('0', '#0ee7f7')
     gradientRight.addColorStop('1.0', '#2ce672')
     this.gradientRight = gradientRight
-    this.initAudio()
+    // this.initAudio()
     this.draw()
   }
 
@@ -211,10 +189,12 @@ class PlayingPanel extends Component{
 
   handleNext = () => {
     eventBus.emit('next')
+    Player.createAnalyser()
   }
 
   handlePrev = () => {
     eventBus.emit('prev')
+    Player.createAnalyser()
   }
 
   getFromUrl = (song) => {

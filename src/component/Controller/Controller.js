@@ -5,11 +5,12 @@ import _ from 'lodash'
 import toaster from '../../util/toast'
 import eventBus from '../../events'
 import { formatDuration } from '../../util/audio'
-import { updatePlayingMode, nextSong, prevSong, updatePlayingAlbum, updateHeartbeatAlbum } from '../../store/action/controller'
+import { updatePlayingMode, nextSong, prevSong, updatePlayingAlbum, updateHeartbeatAlbum, updatePlayingStatus } from '../../store/action/controller'
 import { likeSong } from '../../store/action/user'
 // import { Link } from 'react-router-dom'
 import api from '../../config/api'
 import { formatList } from '../../util/audio'
+import Player from './Player'
 /**
  * 下方控制器，包括当前播放信息、音量等信息
  * */
@@ -25,32 +26,44 @@ class Controller extends Component{
     currentTime: 0,
     volume: 0.5,
     showVolume: false,
-    playingUrl: ''
+    player: null
   }
 
   componentDidMount() {
     this.bindEvents()
     const { audio = {} } = this.refs
     audio.volume = this.state.volume
+    this.updatePlayingSongUrl(this.props.controller.song)
   }
 
-  UNSAFE_componentWillReceiveProps(props) {
-    this.updatePlayingSongUrl(props.controller.song)
+  UNSAFE_componentWillReceiveProps(nextProp) {
+    nextProp.controller &&
+    nextProp.controller.song.id !== this.props.controller.song.id &&
+    this.updatePlayingSongUrl(nextProp.controller.song)
   }
 
   updatePlayingSongUrl = async (song) => {
+    this.props.controller.playing && this.props.dispatch(updatePlayingStatus())
+    let url
     try {
       const { data } = await api.song.getSongUrl({ id: song.id })
       const { data: realData } = data
       const [urlObj] = realData
-      this.setState({
-        playingUrl: urlObj.url
-      })
+      url = urlObj.url
     } catch (error) {
-      this.setState({
-        playingUrl: `http://music.163.com/song/media/outer/url?id=${song.id}.mp3`
-      })
+      url = `http://music.163.com/song/media/outer/url?id=${song.id}.mp3`
     }
+    Player.playSong(url)
+    this.updateCurrentTime()
+  }
+
+  updateCurrentTime = () => {
+    setInterval(() => {
+      const currentTime = Player.getCurrentTime()
+      this.setState({
+        currentTime
+      })
+    }, 1000)
   }
 
   bindEvents = () => {
@@ -69,24 +82,6 @@ class Controller extends Component{
     eventBus.on('changeMode', this.changeMode)
   }
 
-  handleMusicReady = () => {
-    this.setState({playing: true})
-  }
-
-  handlePlayEnded = () => {
-    this.next()
-  }
-
-  togglePlaying = () => {
-    const audio = this.refs.audio
-    if (!audio.paused) {
-      audio.pause()
-      this.setState({playing: false})
-      return
-    }
-    audio.play()
-    this.setState({playing: true})
-  }
   toggleVolume = () => {
     this.setState({ showVolume: !this.state.showVolume })
   }
@@ -191,7 +186,7 @@ class Controller extends Component{
   }
 
   render() {
-    const { song, mode } = this.props.controller
+    const { song, mode, playing } = this.props.controller
     let { favorites } = this.props.user
     _.isEmpty(favorites) && (favorites = new Map())
     const hasSong = !_.isEmpty(song)
@@ -208,9 +203,9 @@ class Controller extends Component{
         </div>
         <div className="pc-controller-contents">
           {
-            hasSong && this.state.playingUrl &&
+            hasSong &&
             <React.Fragment>
-              <audio autoPlay crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={this.state.playingUrl}></audio>
+              {/* <audio autoPlay crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={this.state.playingUrl}></audio> */}
               <div className="pc-controller-cover-wrapper">
                 <div className="pc-controller-info">
                   <div>{song.name}</div>
@@ -226,11 +221,11 @@ class Controller extends Component{
           }
           <div className="pc-controller-ops">
             <i className="iconfont icon-ios-rewind" onClick={this.prev}></i>
-            <i className={`iconfont ${this.state.playing ? 'icon-ios-pause' : 'icon-iosplay'}`} onClick={this.togglePlaying}></i>
+            <i className={`iconfont ${playing ? 'icon-ios-pause' : 'icon-iosplay'}`} onClick={playing ? Player.pause : Player.play}></i>
             <i className="iconfont icon-ios-fastforward" onClick={this.next}></i>
           </div>
           {
-            hasSong && this.state.playingUrl &&
+            hasSong &&
             <div className="pc-controller-controls">
               <i className={`iconfont ${favorites.get(song.id) ? 'icon-heart1' : 'icon-heart'}`} onClick={() => this.likeSong(song)}></i>
               <i className={`iconfont icon-ios-${mode}`} onClick={this.changeMode}></i>

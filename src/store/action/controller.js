@@ -1,4 +1,4 @@
-import { UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, NEXT_SONG, PREV_SONG, UPDATE_PLAYING_MODE, UPDATE_HEARTBEAT_ALBUM } from './actions'
+import { UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, NEXT_SONG, PREV_SONG, UPDATE_PLAYING_MODE, UPDATE_HEARTBEAT_ALBUM, UPDATE_PLAYING_STATUS } from './actions'
 
 export const updatePlayingSong = (song) => {
   return {
@@ -25,6 +25,12 @@ export const updatePlayingMode = (mode) => {
   return {
     type: UPDATE_PLAYING_MODE,
     mode
+  }
+}
+
+export const updatePlayingStatus = () => {
+  return {
+    type: UPDATE_PLAYING_STATUS
   }
 }
 
