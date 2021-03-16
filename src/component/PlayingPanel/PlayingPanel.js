@@ -197,6 +197,10 @@ class PlayingPanel extends Component{
     Player.createAnalyser()
   }
 
+  togglePlaying = () => {
+    eventBus.emit('togglePlaying')
+  }
+
   getFromUrl = (song) => {
     const map = {
       findMusic: '/'
@@ -210,7 +214,7 @@ class PlayingPanel extends Component{
   }
 
   render() {
-    const { song } = this.props.controller
+    const { song, playing } = this.props.controller
     let { favorites } = this.props.user
     _.isEmpty(favorites) && (favorites = new Map())
     return (
@@ -233,6 +237,7 @@ class PlayingPanel extends Component{
                 }
                 <i className={`iconfont ${favorites.get(song.id) ? 'icon-iosheart' : 'icon-iosheartoutline'}`} onClick={() => this.likeSong(song)}></i>
                 <i className="iconfont icon-ios-rewind" onClick={this.handlePrev}></i>
+                <i className={`iconfont ${playing ? 'icon-ios-pause' : 'icon-iosplay'}`} onClick={this.togglePlaying}></i>
                 <i className="iconfont icon-ios-fastforward" onClick={this.handleNext}></i>
                 {/* <Link to="/comment" onClick={this.dismiss}><i className="iconfont icon-aui-icon-comment"></i></Link> */}
               </div>

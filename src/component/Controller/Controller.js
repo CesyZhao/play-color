@@ -128,21 +128,16 @@ class Controller extends Component{
     this.props.dispatch(updatePlayingMode(nextMode))
   }
 
-  handlePlaying = (e) => {
-    const audio = e.target
-    setInterval(() => {
-      this.setState({
-        currentTime: audio.currentTime
-      })
-    }, 1000)
-  }
-
   handleError = () => {
     this.setState({playing: false})
     toaster.error('Bad audio!', () => {
       if (this.state.playing) return
       this.next()
     })
+  }
+
+  togglePlaying = () => {
+    this.props.controller.playing ? Player.pause() : Player.play()
   }
 
   next = () => {

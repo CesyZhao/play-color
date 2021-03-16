@@ -4,7 +4,7 @@ import toaster from '../../../util/toast'
 import { formatLyric } from '../../../util/audio'
 import './Lyric.less'
 import api from '../../../config/api'
-
+import Player from '../../Controller/Player'
 
 let timer
 
@@ -56,8 +56,7 @@ class Lyric extends Component {
         times: Object.keys(lyrics)
       })
       timer = setInterval(() => {
-        const audio = document.getElementById('audio')
-        audio && this.findNextIndex(Math.round(audio.currentTime * 1000))
+        this.findNextIndex(Math.round(Player.getCurrentTime() * 1000))
       }, 1000)
     } catch (error) {
       console.log(error)
