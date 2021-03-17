@@ -24,7 +24,6 @@ class Controller extends Component{
   state = {
     playing: false,
     currentTime: 0,
-    volume: 0.5,
     showVolume: false,
     player: null
   }
@@ -53,7 +52,7 @@ class Controller extends Component{
     } catch (error) {
       url = `http://music.163.com/song/media/outer/url?id=${song.id}.mp3`
     }
-    Player.playSong(url)
+    Player.playSong({ url, volume: this.props.controller.volume})
     this.updateCurrentTime()
   }
 
@@ -92,11 +91,7 @@ class Controller extends Component{
     const { bottom } = rect
     const offset = bottom - pageY
     const volume = offset / target.clientHeight
-    const { audio } = this.refs
-    audio.volume = volume
-    this.setState({
-      volume
-    })
+    Player.setVolume(+volume.toFixed(1))
   }
 
   changeMode = async (targetMode) => {
@@ -181,7 +176,7 @@ class Controller extends Component{
   }
 
   render() {
-    const { song, mode, playing } = this.props.controller
+    const { song, mode, playing, volume } = this.props.controller
     let { favorites } = this.props.user
     _.isEmpty(favorites) && (favorites = new Map())
     const hasSong = !_.isEmpty(song)
@@ -189,7 +184,7 @@ class Controller extends Component{
       <div className="pc-controller">
         <div className="pc-controller-progress-bar" style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
         <div onClick={this.handleVolumeChange} className={`pc-controller-volume ${this.state.showVolume ? 'visible' : ''}`}>
-          <div className="pc-controller-volume-inner" style={{ height: `${this.state.volume * 100}%` }}></div>
+          <div className="pc-controller-volume-inner" style={{ height: `${volume * 100}%` }}></div>
         </div>
         <div className="pc-controller-cover">
           {

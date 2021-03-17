@@ -1,4 +1,4 @@
-import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG, UPDATE_HEARTBEAT_ALBUM, UPDATE_PLAYING_STATUS} from '../action/actions'
+import {UPDATE_PLAYING_SONG, UPDATE_PLAYING_ALBUM, UPDATE_PLAYING_MODE, NEXT_SONG, PREV_SONG, UPDATE_HEARTBEAT_ALBUM, UPDATE_PLAYING_STATUS, UPDATE_VOLUME} from '../action/actions'
 import _ from 'lodash'
 import FM from '../../entity/FM'
 import toaster from '../../util/toast'
@@ -10,7 +10,8 @@ const initState = {
   playing: false,
   history: [],
   currentPlaingHistory: [],
-  mode: 'listCirculation'
+  mode: 'listCirculation',
+  volume: 0.5
 }
 
 function pushNotification(song) {
@@ -44,6 +45,10 @@ function updatePlayingMode(state, action) {
 function updatePlayingStatus(state) {
   const playing = !state.playing
   return Object.assign({}, state, { playing })
+}
+
+function updateVolume(state, action) {
+  return Object.assign({}, state, action)
 }
 
 function nextSong(state) {
@@ -104,6 +109,8 @@ export default function ControllerReducer(state = initState, action) {
       return updatePlayingMode(state, action)
     case UPDATE_PLAYING_STATUS:
       return updatePlayingStatus(state)
+    case UPDATE_VOLUME:
+      return updateVolume(state, action)
     case NEXT_SONG:
       return nextSong(state)
     case PREV_SONG:

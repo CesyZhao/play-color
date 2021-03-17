@@ -88,7 +88,7 @@ class Artist extends Component {
 
   render() {
     const { info } = this.state.artist
-    const { hotSongs, currentSongPage, currentAlbumPage, currentMvPage, hotAlbums, mvs } = this.state
+    const { hotSongs = [], currentSongPage, currentAlbumPage, currentMvPage, hotAlbums = [], mvs = [] } = this.state
     const songPageSize = 10
     const albumPageSize = 5
     const mvPageSize = 4

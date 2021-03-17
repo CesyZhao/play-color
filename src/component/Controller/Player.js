@@ -1,16 +1,17 @@
 import { Howl, Howler } from 'howler'
 import store from '../../store'
 import toaster from '../../util/toast'
-import {nextSong, prevSong, updatePlayingStatus} from '../../store/action/controller'
+import {nextSong, prevSong, updatePlayingStatus, updateVolume} from '../../store/action/controller'
 const BYTE_ARRAY_LENGTH = 4096
 export default class Player {
   static instance = null
   static analyser = null
   static dataArray = null
-  static playSong(url) {
+  static playSong({url, volume = 0.5}) {
     Howler.unload()
     Player.instance = new Howl({
       src: [url],
+      volume,
       format: ['mp3'],
       onplayerror: Player.handlePlayError,
       onend: Player.next,
@@ -57,5 +58,9 @@ export default class Player {
   static getAudioData() {
     Player.analyser.getByteFrequencyData(Player.dataArray)
     return Player.dataArray
+  }
+  static setVolume(volume) {
+    store.dispatch(updateVolume(volume))
+    Player.instance.volume(volume)
   }
 }
