@@ -86,11 +86,11 @@ class Controller extends Component{
   }
 
   handleVolumeChange = (e) => {
-    const { pageY, target } = e
-    const rect = target.getBoundingClientRect()
-    const { bottom } = rect
-    const offset = bottom - pageY
-    const volume = offset / target.clientHeight
+    const { pageX, currentTarget } = e
+    const rect = currentTarget.getBoundingClientRect()
+    const { left } = rect
+    const offset = pageX - left
+    const volume = offset / currentTarget.clientWidth
     Player.setVolume(+volume.toFixed(1))
   }
 
@@ -113,9 +113,7 @@ class Controller extends Component{
         const { data } = await api.song.getHeartbeatList({ id: song.id, pid: playingAlbum.id, sid: nextSong.id })
         const list = formatList(data.data.map(song => song.songInfo))
         this.props.dispatch(updateHeartbeatAlbum({ tracks: list, id: 0, name: '心动模式' }))
-        console.log(data)
       } catch (error) {
-        console.log(error)
         nextMode = 'listCirculation'
         toaster.error('无法切换至心动模式')
       }
@@ -183,9 +181,6 @@ class Controller extends Component{
     return (
       <div className="pc-controller">
         <div className="pc-controller-progress-bar" style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
-        <div onClick={this.handleVolumeChange} className={`pc-controller-volume ${this.state.showVolume ? 'visible' : ''}`}>
-          <div className="pc-controller-volume-inner" style={{ height: `${volume * 100}%` }}></div>
-        </div>
         <div className="pc-controller-cover">
           {
             hasSong && <img alt="playing-cover" src={song.album.picUrl.replace('100y100', '965y965')}></img>
@@ -217,12 +212,11 @@ class Controller extends Component{
           {
             hasSong &&
             <div className="pc-controller-controls">
+              <div onClick={this.handleVolumeChange} className="pc-controller-volume">
+                <div className="pc-controller-volume-inner" style={{ width: `${volume * 100}%` }}></div>
+              </div>
               <i className={`iconfont ${favorites.get(song.id) ? 'icon-heart1' : 'icon-heart'}`} onClick={() => this.likeSong(song)}></i>
               <i className={`iconfont icon-ios-${mode}`} onClick={this.changeMode}></i>
-              {/* <Link to="/comment">
-                <i className="iconfont icon-comment"></i>
-              </Link> */}
-              <i className="iconfont icon-yinliang" onClick={this.toggleVolume}></i>
               <i className="iconfont icon-expand-o" onClick={() => this.showCurrentSong(song.id)}></i>
             </div>
           }

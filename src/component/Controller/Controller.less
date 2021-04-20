@@ -18,20 +18,15 @@
     transition: .4s ease;
   }
   .pc-controller-volume{
-    position: absolute;
-    top: -80px;
-    right: 80px;
-    width: 12px;
-    height: 100px;
+    width: 100px;
+    height: 4px;
     background-color: rgba(58, 59, 66, 1);
     border-radius: 4px;
     z-index: 99;
     justify-content: center;
-    display: none;
-    &.visible{ display: flex; }
+    cursor: pointer;
     .pc-controller-volume-inner{
-      width: 4px;
-      height: 70%;
+      height: 100%;
       align-self: flex-end;
       background-color: #fff;
       border-radius: 4px;

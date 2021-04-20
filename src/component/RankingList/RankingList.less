@@ -4,16 +4,21 @@
   flex-wrap: wrap;
   overflow-y: auto;
   padding: 0 20px;
-  justify-content: space-between;
   &::-webkit-scrollbar{
     width: 0;
     height: 0;
     display: none;
   }
+  a:nth-child(4n){
+    .pc-ranking-list-item{
+      margin-right: 0;
+    }
+  }
   .pc-ranking-list-item{
     width: 200px;
     margin-bottom: 20px;
     position: relative;
+    margin-right: 16px;
     cursor: pointer;
     img{
       width: 100%;
