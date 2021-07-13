@@ -1,14 +1,14 @@
 @controller-height: 64px;
 .pc-controller{
-  width: calc(100vw - 72px);
   height: @controller-height;
   box-sizing: border-box;
   // background: #fff;
   position: fixed;
-  left: 72px;
+  left: 0;
+  right: 0;
   bottom: 0;
   z-index: 2;
-  // border-top: .5px solid #444;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, .4);
   .pc-controller-progress-bar{
     height: 1px;
     background: linear-gradient(to right, #7BA3FF, #57E1E7);
@@ -50,13 +50,17 @@
     display: flex;
     justify-content: space-between;
     height: 100%;
-    background-color: rgba(0, 0, 0, .8);
+    background-color: rgba(255, 255, 255, .8);
     .pc-controller-cover-wrapper{
       display: flex;
       align-items: center;
       width: 30%;
       overflow: hidden;
       text-overflow: ellipsis;
+      img{
+        width: 48px;
+        margin-left: 12px;
+      }
     }
     .pc-controller-info{
       padding-left: 12px;
@@ -72,7 +76,6 @@
       }
       >div:nth-child(2){
         font-size: 11px;
-        color: #999;
         display: flex;
         div{
           width: 120px;
@@ -101,9 +104,6 @@
       width: 30%;
       padding-right: 24px;
       justify-content: flex-end;
-      i{
-        color: #ddd;
-      }
       i:nth-child(3){
         font-size: 18px;
       }

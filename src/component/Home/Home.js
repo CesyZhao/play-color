@@ -1,20 +1,20 @@
 import React, {Component} from 'react'
 import './Home.less'
 // eslint-disable-next-line no-unused-vars
-import LazyImage from '../LazyImage/LazyImage'
-import SwipeableViews from 'react-swipeable-views'
-import Pagination from '../SwiperPagination/Pagination'
-import { autoPlay } from 'react-swipeable-views-utils'
+// import LazyImage from '../LazyImage/LazyImage'
+// import SwipeableViews from 'react-swipeable-views'
+// import Pagination from '../SwiperPagination/Pagination'
+// import { autoPlay } from 'react-swipeable-views-utils'
 import _ from 'lodash'
-import { formatDuration } from '../../util/audio'
+// import { formatDuration } from '../../util/audio'
 import {connect} from 'react-redux'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import scripts from '../../config/scripts'
 import { updatePlayingSong, updatePlayingAlbum } from '../../store/action/controller'
 import { updateHomeContent } from '../../store/action/home'
 import api from '../../config/api'
 
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
+// const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
 @connect(({ controller, user, home }) => ({
   controller,
@@ -123,7 +123,7 @@ class Home extends Component {
   today = new Date()
 
   render() {
-    const { index } = this.state
+    // const { index } = this.state
     return (
       this.state.loading
         ? <div className="pc-home loading">
@@ -134,89 +134,89 @@ class Home extends Component {
               {scripts[Math.floor(Math.random() * scripts.length)]}
             </span>
           </div>
-        :
-        <div className="pc-home">
-          <div>
-            <div className="pc-home-category-left">
-              <div className="pc-home-banner">
-                <AutoPlaySwipeableViews resistance className="pc-home-banner-swiper" interval={10000} index={index} onChangeIndex={this.handleChangeIndex}>
-                  {
-                    this.state.banners.map((banner, index) => <img alt="banner" key={banner.encodeId + index} src={banner.imageUrl}></img>)
-                  }
-                </AutoPlaySwipeableViews>
-                <Pagination dots={this.state.banners.length} index={index} onChangeIndex={this.handleChangeIndex} />
-              </div>
-            </div>
-            <div className="pc-home-calendar">
-              <div className="pc-home-calendar-header">
-                <span className="pc-home-calendar-date"> {this.today.getDate()} </span>
-                /
-                <span className="pc-home-calendar-month"> {this.today.getMonth() + 1} </span>
-              </div>
-              <div className="pc-home-calendar-content">
-                {
-                  this.state.calendarEvents.length > 0 ?
-                    <AutoPlaySwipeableViews resistance className="pc-home-calendar-swiper" axis="y" slideStyle={{ height: '100%' }} containerStyle={{ height: '100%' }} interval={10000}>
-                      {
-                        this.state.calendarEvents.map(event => {
-                          return (
-                            <div className="pc-home-calendar-event" key={event.id} >
-                              <img alt="banner" src={event.imgUrl}></img>
-                              <div> {event.title} </div>
-                            </div>
-                          )
-                        })
-                      }
-                    </AutoPlaySwipeableViews> :
-                    <div> 暂无事件 </div>
-                }
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="pc-home-category-right">
-              <div className="pc-home-category-title">最新音乐</div>
-              <div className="pc-home-newest">
-                {
-                  this.state.newest.map(song => {
-                    return (
-                      <div className="pc-home-newest-song" key={song.id} onClick={() => this.handleSongClick(song)}>
-                        <LazyImage imgUrl={song.album.picUrl} />
-                        <div>
-                          <div>{song.name}</div>
-                          <div>
-                            <span>{song.artists.map(ar => ar.name).join('/')}</span>
-                            <span>{formatDuration(song.duration)}</span>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  })
-                }
-              </div>
-            </div>
-            <div>
-              <div className="pc-home-category-title">
-                <Link to="/albums">
-                  推荐歌单 <i className="iconfont icon-gengduo"></i>
-                </Link>
-              </div>
-              <div className="pc-home-recommand">
-                {
-                  this.state.albumList.map(album => {
-                    return (
-                      <Link key={album.id} to={{ pathname: `/album/${album.id}` }}>
-                        <div className="pc-personalized-album" data-name={album.name}>
-                          <LazyImage imgUrl={album.picUrl} />
-                        </div>
-                      </Link>
-                    )
-                  })
-                }
-              </div>
-            </div>
-          </div>
-        </div>
+        : <div></div>
+        // <div className="pc-home">
+        //   <div>
+        //     <div className="pc-home-category-left">
+        //       <div className="pc-home-banner">
+        //         <AutoPlaySwipeableViews resistance className="pc-home-banner-swiper" interval={10000} index={index} onChangeIndex={this.handleChangeIndex}>
+        //           {
+        //             this.state.banners.map((banner, index) => <img alt="banner" key={banner.encodeId + index} src={banner.imageUrl}></img>)
+        //           }
+        //         </AutoPlaySwipeableViews>
+        //         <Pagination dots={this.state.banners.length} index={index} onChangeIndex={this.handleChangeIndex} />
+        //       </div>
+        //     </div>
+        //     <div className="pc-home-calendar">
+        //       <div className="pc-home-calendar-header">
+        //         <span className="pc-home-calendar-date"> {this.today.getDate()} </span>
+        //         /
+        //         <span className="pc-home-calendar-month"> {this.today.getMonth() + 1} </span>
+        //       </div>
+        //       <div className="pc-home-calendar-content">
+        //         {
+        //           this.state.calendarEvents.length > 0 ?
+        //             <AutoPlaySwipeableViews resistance className="pc-home-calendar-swiper" axis="y" slideStyle={{ height: '100%' }} containerStyle={{ height: '100%' }} interval={10000}>
+        //               {
+        //                 this.state.calendarEvents.map(event => {
+        //                   return (
+        //                     <div className="pc-home-calendar-event" key={event.id} >
+        //                       <img alt="banner" src={event.imgUrl}></img>
+        //                       <div> {event.title} </div>
+        //                     </div>
+        //                   )
+        //                 })
+        //               }
+        //             </AutoPlaySwipeableViews> :
+        //             <div> 暂无事件 </div>
+        //         }
+        //       </div>
+        //     </div>
+        //   </div>
+        //   <div>
+        //     <div className="pc-home-category-right">
+        //       <div className="pc-home-category-title">最新音乐</div>
+        //       <div className="pc-home-newest">
+        //         {
+        //           this.state.newest.map(song => {
+        //             return (
+        //               <div className="pc-home-newest-song" key={song.id} onClick={() => this.handleSongClick(song)}>
+        //                 <LazyImage imgUrl={song.album.picUrl} />
+        //                 <div>
+        //                   <div>{song.name}</div>
+        //                   <div>
+        //                     <span>{song.artists.map(ar => ar.name).join('/')}</span>
+        //                     <span>{formatDuration(song.duration)}</span>
+        //                   </div>
+        //                 </div>
+        //               </div>
+        //             )
+        //           })
+        //         }
+        //       </div>
+        //     </div>
+        //     <div>
+        //       <div className="pc-home-category-title">
+        //         <Link to="/albums">
+        //           推荐歌单 <i className="iconfont icon-gengduo"></i>
+        //         </Link>
+        //       </div>
+        //       <div className="pc-home-recommand">
+        //         {
+        //           this.state.albumList.map(album => {
+        //             return (
+        //               <Link key={album.id} to={{ pathname: `/album/${album.id}` }}>
+        //                 <div className="pc-personalized-album" data-name={album.name}>
+        //                   <LazyImage imgUrl={album.picUrl} />
+        //                 </div>
+        //               </Link>
+        //             )
+        //           })
+        //         }
+        //       </div>
+        //     </div>
+        //   </div>
+        // </div>
     )
   }
 }

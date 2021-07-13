@@ -40,8 +40,7 @@ class Leftbar extends Component {
               const item = category.list.map(item =>
                 <Link to={item.link} key={item.name} onClick={(e) => this.toggleMenu(item.name, e)}>
                   <div className={`pc-leftbar-category-item ${item.link === window.location.pathname ? 'active' : ''}`}>
-                    <i className={`iconfont ${item.icon}`} title={item.name}/>
-                    {/* <span>{item.name}</span> */}
+                    <span>{item.name}</span>
                   </div>
                 </Link>)
               return (

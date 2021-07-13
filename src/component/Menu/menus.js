@@ -2,27 +2,22 @@ export default [
   {
     list: [
       {
-        name: '发现音乐',
+        name: 'ALBUMS',
         icon: 'icon-yinle1',
         link: '/'
       },
       {
-        name: '私人 FM',
+        name: 'PERSONAL FM',
         icon: 'icon-xianxing_diantai',
         link: '#'
       },
       {
-        name: '排行榜',
+        name: 'RANKING',
         icon: 'icon-paihangbang',
         link: '/rankingList'
       },
-      // {
-      //   name: '朋友',
-      //   icon: 'icon-friend_light',
-      //   link: '/moments'
-      // },
       {
-        name: '搜索',
+        name: '',
         icon: 'icon-sousuo1',
         link: '/search'
       }

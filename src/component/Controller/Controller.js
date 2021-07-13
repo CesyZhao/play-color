@@ -192,6 +192,7 @@ class Controller extends Component{
             <React.Fragment>
               {/* <audio autoPlay crossOrigin="anonymous" id="audio" onEnded={this.handlePlayEnded} onError={this.handleError} onPlay={this.handleMusicReady} onPlaying={this.handlePlaying} ref="audio" src={this.state.playingUrl}></audio> */}
               <div className="pc-controller-cover-wrapper">
+                <img alt="playing-cover" src={song.album.picUrl}></img>
                 <div className="pc-controller-info">
                   <div>{song.name}</div>
                   <div>
