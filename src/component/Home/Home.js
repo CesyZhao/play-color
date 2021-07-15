@@ -1,16 +1,15 @@
 import React, {Component} from 'react'
 import './Home.less'
 // eslint-disable-next-line no-unused-vars
-// import LazyImage from '../LazyImage/LazyImage'
+import LazyImage from '../LazyImage/LazyImage'
 // import SwipeableViews from 'react-swipeable-views'
 // import Pagination from '../SwiperPagination/Pagination'
 // import { autoPlay } from 'react-swipeable-views-utils'
 import _ from 'lodash'
 // import { formatDuration } from '../../util/audio'
 import {connect} from 'react-redux'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import scripts from '../../config/scripts'
-import { updatePlayingSong, updatePlayingAlbum } from '../../store/action/controller'
 import { updateHomeContent } from '../../store/action/home'
 import api from '../../config/api'
 
@@ -25,31 +24,18 @@ class Home extends Component {
 
   state = {
     albumList: [],
-    banners: [],
-    newest: [],
-    calendarEvents: [],
+    displayAlbums: [],
     loading: true,
-    index: 0
+    index: 3
   }
 
   static async getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.user && prevState.user && nextProps.user.userId !== prevState.user.userId) {
-      const startTime = new Date().setHours(0, 0, 0, 0)
-      const endTime = new Date().setHours(23, 59, 59, 0)
-      const calendarPromise = api.home.getCalendar({ startTime, endTime })
       const personalizedPromise = api.home.getPersonalized()
       let albumRes = await personalizedPromise
       const albumList = _.take(albumRes.data.result, 8)
-      let calendarEvents
-      try {
-        const calendarRes = await calendarPromise
-        calendarEvents = calendarRes.data.data.calendarEvents
-      } catch (e) {
-        calendarEvents = []
-      }
       return {
-        albumList,
-        calendarEvents
+        albumList
       }
     }
     return null
@@ -61,11 +47,9 @@ class Home extends Component {
       loading: !content
     })
     if (content) {
-      const { albumList, banners, newest } = content
+      const { albumList } = content
       this.setState({
-        albumList,
-        banners,
-        newest
+        albumList
       })
     }
     this.getNewHomeContent()
@@ -77,53 +61,50 @@ class Home extends Component {
 
   getNewHomeContent = async () => {
     const personalizedPromise = api.home.getPersonalized()
-    const bannerPromise = api.home.getBanner()
-    const topPromise = api.home.getTopSong()
-    const startTime = new Date().setHours(0, 0, 0, 0)
-    const endTime = new Date().setHours(23, 59, 59, 0)
-    const calendarPromise = api.home.getCalendar({ startTime, endTime })
     let albumRes = await personalizedPromise
-    let bannerRes = await bannerPromise
-    let topRes = await topPromise
-    let calendarEvents
-    try {
-      const calendarRes = await calendarPromise
-      calendarEvents = calendarRes.data.data.calendarEvents
-    } catch (e) {
-      calendarEvents = []
-    }
-    const { controller, user } = this.props
-    const { song } = controller
-    const albumList = _.take(albumRes.data.result, 8)
-    const banners = bannerRes.data.banners
-    const newest = _.take(topRes.data.data, 5)
-    if (_.isEmpty(song) || _.isEmpty(user.profile)) {
-      this.handleSongClick(newest[0])
-    }
+    const albumList = _.take(albumRes.data.result, 10)
+    const displayAlbums = [albumList[0], ..._.takeRight(albumList, 2)]
     this.setState({
       albumList,
-      banners,
-      newest,
-      calendarEvents
+      displayAlbums,
+      index: 0
     }),
-    this.props.dispatch(updateHomeContent({ content: { albumList, banners, newest } }))
+    this.props.dispatch(updateHomeContent({ content: { albumList } }))
   }
 
-  handleSongClick = (song) => {
-    this.props.dispatch(updatePlayingSong(song))
-    this.props.dispatch(updatePlayingAlbum({ tracks: this.state.newest, id: 'findMusic', name: '发现音乐' }))
-  }
-
-  handleChangeIndex = index => {
+  handleIndeChange = direction => {
+    const { index, albumList } = this.state
+    let nextIndex = index + direction
+    if (nextIndex < 0) {
+      nextIndex = albumList.length - 1
+    } else if (nextIndex === albumList.length) {
+      nextIndex = 0
+    }
     this.setState({
-      index
+      index: nextIndex
     })
   }
 
   today = new Date()
 
+  getClass = (i) => {
+    const { index, albumList } = this.state
+    if (i === index) {
+      return 'current'
+    }
+    if ((index === 0 && albumList.length - i === 1) || index - i === 1) {
+      return 'prev'
+    }
+    if ((index === 0 && albumList.length - i === 2) || (index === 1 && albumList.length - i === 1) || index - i === 2) {
+      return 'prev-2'
+    }
+    if (index + 1 === i || (index === albumList.length - 1 && i === 0)) {
+      return 'next'
+    }
+  }
+
   render() {
-    // const { index } = this.state
+    const { albumList, index } = this.state
     return (
       this.state.loading
         ? <div className="pc-home loading">
@@ -134,7 +115,33 @@ class Home extends Component {
               {scripts[Math.floor(Math.random() * scripts.length)]}
             </span>
           </div>
-        : <div></div>
+        : <div className="pc-home-recommand-wrapper">
+            <div className="switch-button prev" onClick={() => this.handleIndeChange(-1)}> <i className="iconfont icon-fanhui"></i> </div>
+            <div className="pc-home-recommand">
+            {
+              albumList.map((album, i) => {
+                return (
+                  <div key={album.id} className={`pc-personalized-album ${this.getClass(i)}`}>
+                    <Link to={{ pathname: `/album/${album.id}` }}>
+                      <LazyImage imgUrl={album.picUrl} />
+                    </Link>
+                  </div>
+                )
+              })
+            }
+            </div>
+          <div className="current-album-info">
+            <div className="name">{albumList[index].name}</div>
+            <div className="info">
+               <span> <span className="number">{albumList[index].playCount}</span> PLAY COUNTS</span>
+              <span> <span className="number">{albumList[index].trackCount}</span>  TRACKS</span> </div>
+            <div className="buttons">
+              <span className="button">PLAY NOW</span>
+              <span className="button">ALBUM</span>
+            </div>
+          </div>
+          <div className="switch-button next" onClick={() => this.handleIndeChange(1)}> <i className="iconfont icon-gengduo"></i>  </div>
+        </div>
         // <div className="pc-home">
         //   <div>
         //     <div className="pc-home-category-left">
