@@ -11,6 +11,7 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 import scripts from '../../config/scripts'
 import { updateHomeContent } from '../../store/action/home'
+import { formatCount } from '../../util/index'
 import api from '../../config/api'
 
 // const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
@@ -122,9 +123,7 @@ class Home extends Component {
               albumList.map((album, i) => {
                 return (
                   <div key={album.id} className={`pc-personalized-album ${this.getClass(i)}`}>
-                    <Link to={{ pathname: `/album/${album.id}` }}>
-                      <LazyImage imgUrl={album.picUrl} />
-                    </Link>
+                    <LazyImage imgUrl={album.picUrl} />
                   </div>
                 )
               })
@@ -133,11 +132,15 @@ class Home extends Component {
           <div className="current-album-info">
             <div className="name">{albumList[index].name}</div>
             <div className="info">
-               <span> <span className="number">{albumList[index].playCount}</span> PLAY COUNTS</span>
+              <span> <span className="number">{formatCount(albumList[index].playCount)}</span> PLAY COUNTS</span>
               <span> <span className="number">{albumList[index].trackCount}</span>  TRACKS</span> </div>
             <div className="buttons">
               <span className="button">PLAY NOW</span>
-              <span className="button">ALBUM</span>
+              <Link to={{ pathname: `/album/${albumList[index].id}` }}>
+                <span className="button album">
+                  ALBUM
+                </span>
+              </Link>
             </div>
           </div>
           <div className="switch-button next" onClick={() => this.handleIndeChange(1)}> <i className="iconfont icon-gengduo"></i>  </div>

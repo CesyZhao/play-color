@@ -21,122 +21,6 @@
       margin-top: 12px;
     }
   }
-  .pc-home-category-left,.pc-home-category-right{
-    flex-shrink: 0;
-  }
-  .pc-home-category-left{
-    width: 65%;
-    margin-right: 28px;
-  }
-  .pc-home-category-right{
-    width: 35%;
-  }
-  .pc-home-category-title{
-    text-align: left;
-    line-height: 32px;
-    cursor: pointer;
-    a{
-      text-decoration: none;
-      color: inherit;
-    }
-    i{
-      font-size: 12px;
-    }
-  }
-  .pc-home-banner{
-    width: 554px;
-    border-radius: 4px;
-    overflow: hidden;
-    font-size: 0;
-    margin-bottom: 8px;
-    position: relative;
-    img{
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 4px;
-      margin-right: 24px;
-    }
-  }
-  .pc-home-calendar{
-    width: 270px;
-    height: 206px;
-    border-radius: 4px;
-    overflow: hidden;
-     .pc-home-calendar-header{
-      height: 55%;
-      background-color: #202025;
-      line-height: 96px;
-      .pc-home-calendar-date{
-        font-size: 64px;
-      }
-      .pc-home-calendar-month{
-        font-size: 24px;
-      }
-    }
-    .pc-home-calendar-content{
-      height: 45%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #3A3B42;
-      .pc-home-calendar-swiper{
-        height: 100%;
-        width: 100%;
-      }
-      .pc-home-calendar-event{
-        height: 100%;
-        display: flex;
-        align-items: center;
-        padding:0 8px;
-        >div{
-          align-self: start;
-          line-height: 24px;
-          padding-top: 8px;
-          padding-left: 12px;
-          word-break: keep-all;
-          text-align: left;
-        }
-      }
-      img{
-        width: 80px;
-        height: 80px;
-      }
-    }
-  }
-  .pc-home-newest{
-    .pc-home-newest-song{
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-      padding: 4px;
-      border-radius: 4px;
-      cursor: pointer;
-      background-color: rgba(255, 255, 255, .08);
-      &:hover{
-        background: @main-theme-shadow;
-      }
-      >div:nth-child(2){
-        width: calc(100% - 48px);
-        div{ text-align: left; }
-        div:nth-child(1){  .text-ellipsis; font-size: 14px; margin-bottom: 2px; }
-        div:nth-child(2){
-          display: flex;
-          justify-content: space-between;
-          span{
-            color: #999;
-          }
-        }
-      }
-    }
-    img{
-      max-width: 42px;
-      transition: .3s;
-      margin-right: 8px;
-    }
-    span:nth-child(2){
-      margin-right: 8px;
-    }
-  }
 }
 svg.loading {
   width: 3.75em;
@@ -189,7 +73,6 @@ circle {
     .pc-personalized-album{
       position: absolute;
       right: 0;
-      display: flex;
       flex-direction: column;
       width: 240px;
       height: 240px;
@@ -198,6 +81,10 @@ circle {
       overflow: hidden;
       cursor: pointer;
       transition: all ease-in-out .2s;
+      display: none;
+      &.current, &.prev, &.prev-2, &.next{
+        display: flex;
+      }
       &.current{
         z-index: 333;
       }
@@ -278,14 +165,14 @@ circle {
     }
     .info {
       margin-bottom: 48px;
-      color: #aaa;
+      color: @color-light-2;
       top: 45%;
       &>span{
         margin-right: 12px;
       }
       .number{
         font-size: 16px;
-        color: #999;
+        color: @color-light;
       }
     }
     .buttons{
@@ -298,7 +185,7 @@ circle {
       color: #fff;
       margin-right: 24px;
       cursor: pointer;
-      &:nth-child(2){
+      &.album{
         background: transparent;
         border: 1px solid #ddd;
         color: #777;

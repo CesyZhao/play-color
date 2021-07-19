@@ -56,43 +56,27 @@ class User extends Component {
             <span>
               <span className="pc-user-level">Lv.{user.level} </span>
               <span className="pc-user-level"><i className={`iconfont ${ user.profile.gender === 1 ? 'icon-nan male' : 'icon-nv female' }`}></i> </span>
+              <span className="pc-user-signature"> {user.profile.signature} </span>
             </span>
-            <div className="pc-user-social-info">
-              <div>
-                <div>动态</div>
-                <div>{user.profile.eventCount}</div>
-              </div>
-              <div>
-                <div>关注</div>
-                <div>{user.profile.follows}</div>
-              </div>
-              <div>
-                <div>粉丝</div>
-                <div>{user.profile.followeds}</div>
-              </div>
-            </div>
-            <div className="pc-user-signature">
-              {user.profile.signature}
-            </div>
           </div>
         </div>
         <div className="pc-user-playlists">
           <div className="pc-user-createdList">
             <div className="pc-user-list-header">
-              <span> 歌单 {createdList.length} </span>
+              <span> PLAYLISTS {createdList.length} </span>
               <Pagination pageSize={createdListPageSize} jumpable={false} total={createdList.length} onPageChange={(page) => this.setState({currentCreatedListPage: page - 1})}></Pagination>
             </div>
             <div className="pc-user-list">
               {
                 createdList.slice(currentCreatedListPage * createdListPageSize, (currentCreatedListPage + 1) * createdListPageSize ).map(item => {
                   return (
-                    <Link to={`/album/${item.id}`} key={item.id}>
-                       <div className="pc-user-list-item">
+                    <div className="pc-user-list-item" key={item.id}>
+                      <Link to={`/album/${item.id}`} >
                         <img src={item.coverImgUrl} alt="歌单封面"></img>
                         <div> {item.name} </div>
                         <div> {item.trackCount} </div>
-                      </div>
-                    </Link>
+                      </Link>
+                    </div>
                   )
                 })
               }
@@ -100,20 +84,20 @@ class User extends Component {
           </div>
           <div className="pc-user-subList">
             <div className="pc-user-list-header">
-              <span> 收藏 {subList.length} </span>
+              <span> COLLECTIONS {subList.length} </span>
               <Pagination pageSize={subListPageSize} jumpable={false} total={subList.length} onPageChange={(page) => this.setState({currentSubListPage: page - 1})}></Pagination>
             </div>
             <div className="pc-user-list">
               {
                 subList.slice(currentSubListPage * subListPageSize, (currentSubListPage + 1) * subListPageSize ).map(item => {
                   return (
-                    <Link to={`/album/${item.id}`} key={item.id}>
-                      <div className="pc-user-list-item">
+                    <div className="pc-user-list-item" key={item.id}>
+                      <Link to={`/album/${item.id}`} >
                         <img src={item.coverImgUrl} alt="歌单封面"></img>
                         <div> {item.name} </div>
                         <div> {item.trackCount} </div>
-                      </div>
-                    </Link>
+                      </Link>
+                    </div>
                   )
                 })
               }

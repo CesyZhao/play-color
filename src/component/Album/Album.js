@@ -12,31 +12,31 @@ import _ from 'lodash'
 const fields = [
   {
     name: 'name',
-    title: '歌名',
+    title: 'Title',
     flex: 2
   },
   {
     name: 'artists',
     alias: 'artists',
-    title: '歌手',
+    title: 'Artist',
     flex: 2
   },
   {
     name: 'album',
     alias: 'album',
-    title: '专辑',
+    title: 'Album',
     flex: 2
   },
   {
     name: 'duration',
     alias: 'duration',
-    title: '时长',
+    title: 'Duration',
     flex: 1
   },
   {
     name: 'operation',
     alias: 'operation',
-    title: '操作',
+    title: 'Operation',
     flex: 1
   }
 ]
@@ -97,8 +97,8 @@ class Album extends Component {
                   album.tags.length > 0 &&
                   <div> {album.tags.join('/')} </div>
                }
-              <div> 播放量: {album.playCount / 10000 ? (album.playCount / 10000).toFixed(2) : album.playCount / 10000} 万</div>
-              <div> {album.tracks.length} 首</div>
+                <div> {album.playCount} PLAY COUNTS</div>
+              <div> {album.tracks.length} TRACKS</div>
             </div>
           </div>
           <div className="pc-album-counts">
