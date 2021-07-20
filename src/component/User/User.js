@@ -1,27 +1,26 @@
 import React, { Component } from 'react'
 import './User.less'
 import _ from 'lodash'
-import Pagination from '../Pagination/Pagination'
 import { Link } from 'react-router-dom'
 import api from '../../config/api'
 import {connect} from 'react-redux'
 import { doLogout } from '../../store/action/user'
-
-const createdListPageSize = 20
-const subListPageSize = 20
+import { saveUserProfile } from '../../store/action/user'
 
 @connect()
 class User extends Component {
   state = {
     user: {},
     createdList: [],
-    subList: [],
-    currentCreatedListPage: 0,
-    currentSubListPage: 0
+    subList: []
   }
   async componentWillMount() {
     const { id } = this.props.match.params
     const { data } = await api.user.getUserDetail({ uid: id })
+    const { dispatch } = this.props
+    dispatch(saveUserProfile({
+      profile: data.profile
+    }))
     const { data: playlist } = await api.user.getUserPlaylist({ uid: id })
     const createdList = []
     const subList = []
@@ -38,8 +37,7 @@ class User extends Component {
     this.props.dispatch(doLogout())
   }
   render() {
-    const { user, createdList, subList, currentCreatedListPage, currentSubListPage } = this.state
-    console.log(user)
+    const { user, createdList, subList } = this.state
     return (
       !_.isEmpty(user)
       ?
@@ -64,11 +62,10 @@ class User extends Component {
           <div className="pc-user-createdList">
             <div className="pc-user-list-header">
               <span> PLAYLISTS {createdList.length} </span>
-              <Pagination pageSize={createdListPageSize} jumpable={false} total={createdList.length} onPageChange={(page) => this.setState({currentCreatedListPage: page - 1})}></Pagination>
             </div>
             <div className="pc-user-list">
               {
-                createdList.slice(currentCreatedListPage * createdListPageSize, (currentCreatedListPage + 1) * createdListPageSize ).map(item => {
+                createdList.map(item => {
                   return (
                     <div className="pc-user-list-item" key={item.id}>
                       <Link to={`/album/${item.id}`} >
@@ -85,11 +82,10 @@ class User extends Component {
           <div className="pc-user-subList">
             <div className="pc-user-list-header">
               <span> COLLECTIONS {subList.length} </span>
-              <Pagination pageSize={subListPageSize} jumpable={false} total={subList.length} onPageChange={(page) => this.setState({currentSubListPage: page - 1})}></Pagination>
             </div>
             <div className="pc-user-list">
               {
-                subList.slice(currentSubListPage * subListPageSize, (currentSubListPage + 1) * subListPageSize ).map(item => {
+                subList.map(item => {
                   return (
                     <div className="pc-user-list-item" key={item.id}>
                       <Link to={`/album/${item.id}`} >
