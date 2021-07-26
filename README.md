@@ -2,6 +2,7 @@
 > 第三方网易云播放器 
 > Powered by React & Electron
 
+![gif](/readme/gif.gif)
 ## TODO
 
 - [x] 登录

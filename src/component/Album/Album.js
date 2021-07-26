@@ -8,6 +8,7 @@ import api from '../../config/api'
 import eventBus from '../../events'
 import { connect } from 'react-redux'
 import _ from 'lodash'
+import { formatCount } from '../../util/index'
 
 const fields = [
   {
@@ -97,7 +98,7 @@ class Album extends Component {
                   album.tags.length > 0 &&
                   <div> {album.tags.join('/')} </div>
                }
-                <div> {album.playCount} PLAY COUNTS</div>
+                <div> {formatCount(album.playCount)} PLAY COUNTS</div>
               <div> {album.tracks.length} TRACKS</div>
             </div>
           </div>
