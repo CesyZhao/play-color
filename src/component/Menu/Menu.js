@@ -20,10 +20,10 @@ class Leftbar extends Component {
 
   toggleMenu = async (name, e) => {
     EventBus.emit('closeMenu')
-    if (name === '私人 FM') {
+    if (name === 'PERSONAL FM') {
       await FM.initFM()
       EventBus.emit('togglePlayingPanel')
-    } else if (name === '搜索') {
+    } else if (name === 'SEARCH') {
       e.preventDefault()
       EventBus.emit('toggleSearch', true)
     }
@@ -33,6 +33,7 @@ class Leftbar extends Component {
     const { profile } = this.props.user
     return (
       <div className="pc-leftbar" onClick={this.toggleMenu}>
+        <div className="dragger"></div>
         <div className="menuWrapper">
           <div></div>
           {

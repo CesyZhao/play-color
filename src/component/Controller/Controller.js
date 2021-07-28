@@ -23,7 +23,7 @@ class Controller extends Component{
 
   state = {
     playing: false,
-    currentTime: 0,
+    type: 0,
     showVolume: false,
     player: null
   }
@@ -53,16 +53,9 @@ class Controller extends Component{
       url = `http://music.163.com/song/media/outer/url?id=${song.id}.mp3`
     }
     Player.playSong({ url, volume: this.props.controller.volume})
-    this.updateCurrentTime()
-  }
-
-  updateCurrentTime = () => {
-    setInterval(() => {
-      const currentTime = Player.getCurrentTime()
-      this.setState({
-        currentTime
-      })
-    }, 1000)
+    this.setState({
+      type: 1
+    })
   }
 
   bindEvents = () => {
@@ -133,12 +126,11 @@ class Controller extends Component{
     this.props.controller.playing ? Player.pause() : Player.play()
   }
 
-  next = () => {
-    this.props.dispatch(nextSong())
-  }
-
-  prev = () => {
-    this.props.dispatch(prevSong())
+  changeSong = (next) => {
+    this.setState({
+      type: 0
+    })
+    this.props.dispatch(next ? nextSong() : prevSong())
   }
 
   likeSong = async (song) => {
@@ -175,12 +167,15 @@ class Controller extends Component{
 
   render() {
     const { song, mode, playing, volume } = this.props.controller
+    const { type } = this.state
     let { favorites } = this.props.user
     _.isEmpty(favorites) && (favorites = new Map())
     const hasSong = !_.isEmpty(song)
     return (
       <div className="pc-controller">
-        <div className="pc-controller-progress-bar" style={{width: `${(this.state.currentTime * 1000 / song.duration) * 100}%`}}></div>
+        <div className="pc-controller-progress-bar">
+          <div className={`pc-controller-progress ${playing ? 'play' : 'pause'}`} style={{ animationDuration: `${song.duration}ms`, animationName: `${type ? 'play' : 'replay'}` }}></div>
+        </div>
         <div className="pc-controller-cover">
           {
             hasSong && <img alt="playing-cover" src={song.album.picUrl.replace('100y100', '965y965')}></img>
@@ -206,9 +201,9 @@ class Controller extends Component{
             </React.Fragment>
           }
           <div className="pc-controller-ops">
-            <i className="iconfont icon-ios-rewind" onClick={this.prev}></i>
+            <i className="iconfont icon-ios-rewind" onClick={this.changeSong}></i>
             <i className={`iconfont ${playing ? 'icon-ios-pause' : 'icon-iosplay'}`} onClick={playing ? Player.pause : Player.play}></i>
-            <i className="iconfont icon-ios-fastforward" onClick={this.next}></i>
+            <i className="iconfont icon-ios-fastforward" onClick={() => this.changeSong(true)}></i>
           </div>
           {
             hasSong &&
